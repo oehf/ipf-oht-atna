@@ -1,0 +1,70 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.openehealth.ipf.oht.atna</groupId>
+    <artifactId>ipf-oht-atna-osgi</artifactId>
+    <version>3.0-SNAPSHOT</version>
+    <name>OpenHealthTools(OHT) ATNA OSGi Bundle</name>
+    <packaging>bundle</packaging>
+
+    <parent>
+        <groupId>org.openehealth.ipf.oht.atna</groupId>
+        <artifactId>ipf-oht-atna</artifactId>
+        <version>3.0-SNAPSHOT</version>
+    </parent>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.openehealth.ipf.oht.atna</groupId>
+            <artifactId>ipf-oht-atna-context</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openehealth.ipf.oht.atna</groupId>
+            <artifactId>ipf-oht-atna-auditor</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openehealth.ipf.oht.atna</groupId>
+            <artifactId>ipf-oht-atna-nodeauth</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openehealth.ipf.oht.atna</groupId>
+            <artifactId>ipf-oht-util</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+  
+    <build>
+        <plugins>
+            <plugin>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>maven-bundle-plugin</artifactId>
+            <version>2.3.7</version>
+            <extensions>true</extensions>
+                <configuration>
+                    <archive>
+                        <addMavenDescriptor>false</addMavenDescriptor>
+                    </archive>
+                    <instructions>
+                        <Bundle-Name>${project.name}</Bundle-Name>
+                        <Project-Name>${project.name}</Project-Name>
+                        <Bundle-SymbolicName>org.openehealth.ipf.oht.atna-osgi</Bundle-SymbolicName>
+                        <Bundle-Version>${project.version}</Bundle-Version>
+                        <Bundle-RequiredExecutionEnvironment>J2SE-1.7</Bundle-RequiredExecutionEnvironment>
+                        <Export-Package>org.openhealthtools.ihe.atna.*</Export-Package>
+                        <Embed-Dependency>*;inline=true</Embed-Dependency>
+                        <_removeheaders>Built-By,Bnd-LastModified,Embed-Dependency,Include-Resource</_removeheaders>
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
+
