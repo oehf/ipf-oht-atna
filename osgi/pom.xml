@@ -55,10 +55,11 @@
                     <instructions>
                         <Bundle-Name>${project.name}</Bundle-Name>
                         <Project-Name>${project.name}</Project-Name>
-                        <Bundle-SymbolicName>org.openehealth.ipf.oht.atna-osgi</Bundle-SymbolicName>
+                        <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
                         <Bundle-Version>${project.version}</Bundle-Version>
                         <Bundle-RequiredExecutionEnvironment>J2SE-1.7</Bundle-RequiredExecutionEnvironment>
                         <Export-Package>org.openhealthtools.ihe.atna.*</Export-Package>
+                        <Import-Package>org.slf4j.*;version="[1.6,2)",*</Import-Package>
                         <Embed-Dependency>*;inline=true</Embed-Dependency>
                         <_removeheaders>Built-By,Bnd-LastModified,Embed-Dependency,Include-Resource</_removeheaders>
                     </instructions>
