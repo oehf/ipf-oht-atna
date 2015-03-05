@@ -12,15 +12,21 @@
         <bundle-plugin-version>2.0.1</bundle-plugin-version>
         <compiler-plugin-version>3.2</compiler-plugin-version>
         <download-plugin-version>1.2.0</download-plugin-version>
+        <javadocs-plugin-version>2.9.1</javadocs-plugin-version>
+        <nexus-staging-plugin-version>1.6.3</nexus-staging-plugin-version>
         <sources-plugin-version>2.2.1</sources-plugin-version>
 
         <commons-collections-version>3.2.1</commons-collections-version>
         <commons-io-version>2.4</commons-io-version>
         <commons-lang3-version>3.3.2</commons-lang3-version>
         <commons-httpclient-version>3.1</commons-httpclient-version>
-        <slf4j-version>1.7.7</slf4j-version>
-        <junit-version>4.11</junit-version>
+        <slf4j-version>1.7.10</slf4j-version>
+        <junit-version>4.12</junit-version>
     </properties>
+
+    <url>https://github.com/oehf/ipf-oht-atna</url>
+
+    <description>IPF OHT ATNA is a project containing patched packages of the forked OHT ATNA framework.</description>
 
     <organization>
         <name>Open eHealth Foundation</name>
@@ -77,17 +83,14 @@
     </licenses>
 
     <distributionManagement>
-        <repository>
-            <id>openehealth.releases</id>
-            <name>Open eHealth Releases Repository</name>
-            <url>file:/data/repositories/maven2/releases</url>
-        </repository>
         <snapshotRepository>
-            <id>openehealth.snapshots</id>
-            <name>Open eHealth Snapshots Repository</name>
-            <url>file:/data/repositories/maven2/snapshots</url>
-            <uniqueVersion>false</uniqueVersion>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
         <site>
             <id>openehealth.site</id>
             <url>file:/data/sites/ipf-oht-atna/reports/ipf-oht-atna-${project.version}</url>
@@ -158,9 +161,8 @@
                     <executions>
                         <execution>
                             <id>attach-sources</id>
-                            <phase>verify</phase>
                             <goals>
-                                <goal>jar</goal>
+                                <goal>jar-no-fork</goal>
                             </goals>
                         </execution>
                     </executions>
@@ -182,6 +184,17 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>${nexus-staging-plugin-version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
             </plugin>
         </plugins>
         <resources>
@@ -240,6 +253,43 @@
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>${javadocs-plugin-version}</version>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>${gpg-plugin-version}</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>
 
