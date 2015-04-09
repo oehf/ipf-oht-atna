@@ -45,7 +45,7 @@ public abstract class IHETransactionParticipantObjectIDTypeCodes extends CodedVa
 	{
 		public SubmissionSet()
 		{
-			super("urn:uuid:a54d6aa5-d40d-43f9-88c5-b4633d873bdd", "SubmissionSet ClassificationNode", "IHE XDS Metadata");
+			super("urn:uuid:a54d6aa5-d40d-43f9-88c5-b4633d873bdd", "submission set classificationNode", "IHE XDS Metadata");
 		}	
 	}	
 	
