@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Universal, centrally-managed, thread-safe context handler for intra- and inter-plugin
  * configuration between the IHE profile actors, actor transports, and end users. 
- * The Security Context managesthe configuration elements for features that require end-user
+ * The Security Context manages the configuration elements for features that require end-user
  * configuration but are not subject to the IHE actors being accessed (such as XDS and PIX).   
  * This includes the configuration and sending of ATNA audit messages, the configuration of TLS Node
  * Authentication mechanism, the handling of XUA assertions, etc.

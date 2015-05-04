@@ -10,9 +10,12 @@
  *******************************************************************************/
 package org.openhealthtools.ihe.atna.auditor.utils;
 
+import org.apache.commons.lang3.time.FastDateFormat;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class TimestampUtils {
 
@@ -21,11 +24,11 @@ public class TimestampUtils {
 	
 	private static final String RFC3881_TIMESTAMP_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
 	
-	private static final SimpleDateFormat RFC3881_DATE_FORMATTER = new SimpleDateFormat(RFC3881_TIMESTAMP_FORMAT);
+	private static final FastDateFormat RFC3881_DATE_FORMATTER = FastDateFormat.getInstance(RFC3881_TIMESTAMP_FORMAT);
 	
 	private static final String BSDSYSLOG_TIMESTAMP_FORMAT = "MMM dd HH:mm:ss";
 	
-	private static final SimpleDateFormat BSDSYSLOG_DATE_FORMATTER = new SimpleDateFormat(BSDSYSLOG_TIMESTAMP_FORMAT, Locale.US);
+	private static final FastDateFormat BSDSYSLOG_DATE_FORMATTER = FastDateFormat.getInstance(BSDSYSLOG_TIMESTAMP_FORMAT, Locale.US);
 	
 	public static String getRFC3881Timestamp()
 	{

@@ -58,7 +58,7 @@ public abstract class IHETransactionEventTypeCodes extends CodedValueType
 	{
 		public PatientIdentityFeedV3()
 		{
-			super("ITI-44","Patient Identity Feed");
+			super("ITI-44","Patient Identity Feed HL7 V3");
 		}	
 	}	
 	
@@ -84,7 +84,7 @@ public abstract class IHETransactionEventTypeCodes extends CodedValueType
 	{
 		public PIXQueryV3()
 		{
-			super("ITI-45","PIX Query");
+			super("ITI-45","PIXV3 Query");
 		}	
 	}
 	
@@ -110,7 +110,7 @@ public abstract class IHETransactionEventTypeCodes extends CodedValueType
 	{
 		public PIXUpdateNotificationV3()
 		{
-			super("ITI-46","PIX Update Notification");
+			super("ITI-46","PIXV3 Update Notification");
 		}	
 	}	
 	
@@ -136,7 +136,7 @@ public abstract class IHETransactionEventTypeCodes extends CodedValueType
 	{
 		public PatientDemographicsQueryV3()
 		{
-			super("ITI-47","Patient Demographics Query");
+			super("ITI-47","Patient Demographics Query HL7 V3");
 		}	
 	}
 	
@@ -218,7 +218,20 @@ public abstract class IHETransactionEventTypeCodes extends CodedValueType
 			super("ITI-18","Registry Stored Query");
 		}	
 	}
-	
+
+	/**
+	 * "IHE Transactions","ITI-51","Multi-Patient Query"
+	 *
+	 * @since OHT IHE 1.1.0
+	 */
+	public static final class MultiPatientStoredQuery extends IHETransactionEventTypeCodes
+	{
+		public MultiPatientStoredQuery()
+		{
+			super("ITI-51","Multi-Patient Query");
+		}
+	}
+
 	/**
 	 * "IHE Transactions","ITI-32","Distribute Document Set on Media"
 	 *  

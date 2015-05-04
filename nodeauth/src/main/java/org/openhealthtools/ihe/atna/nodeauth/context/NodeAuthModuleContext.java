@@ -158,7 +158,7 @@ public class NodeAuthModuleContext extends AbstractModuleContext
 	    
     /**
      * Sets if TLS connections are currently allowed
-     * @param enable Allow TLS connections (true) or not (false)
+     * @param enableTLS Allow TLS connections (true) or not (false)
      */
 	public void setTLSEnabled(boolean enableTLS) 
 	{
@@ -176,7 +176,7 @@ public class NodeAuthModuleContext extends AbstractModuleContext
 	
     /**
      * Sets if non-TLS connections are permitted
-     * @param enable Allow non-TLS connections (true) or not (false)
+     * @param enableNonTLS Allow non-TLS connections (true) or not (false)
      */	
 	public void setNonTLSConnectionsPermitted(boolean enableNonTLS) 
 	{
