@@ -220,19 +220,6 @@ public abstract class IHETransactionEventTypeCodes extends CodedValueType
 	}
 
 	/**
-	 * "IHE Transactions","ITI-51","Multi-Patient Query"
-	 *
-	 * @since OHT IHE 1.1.0
-	 */
-	public static final class MultiPatientStoredQuery extends IHETransactionEventTypeCodes
-	{
-		public MultiPatientStoredQuery()
-		{
-			super("ITI-51","Multi-Patient Query");
-		}
-	}
-
-	/**
 	 * "IHE Transactions","ITI-32","Distribute Document Set on Media"
 	 *  
 	 * @since OHT IHE 0.4.0

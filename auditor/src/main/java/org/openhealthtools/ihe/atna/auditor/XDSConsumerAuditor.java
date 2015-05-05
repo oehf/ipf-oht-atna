@@ -106,26 +106,15 @@ public class XDSConsumerAuditor extends XDSAuditor
 		 */
 		String replyToUri = "http://www.w3.org/2005/08/addressing/anonymous";
 		//String replyToUri = getSystemUserId();
-
-		if (patientId != null && patientId.length() > 0) {
-			auditQueryEvent(true,
-					new IHETransactionEventTypeCodes.RegistryStoredQuery(), eventOutcome,
-					getAuditSourceId(), getAuditEnterpriseSiteId(),
-					replyToUri, getSystemAltUserId(), getSystemUserName(), getSystemNetworkId(),
-					consumerUserName, consumerUserName, false,
-					registryEndpointUri, null,
-					storedQueryUUID, adhocQueryRequestPayload, homeCommunityId,
-					patientId, purposesOfUse);
-		} else {
-			auditQueryEvent(true,
-					new IHETransactionEventTypeCodes.MultiPatientStoredQuery(), eventOutcome,
-					getAuditSourceId(), getAuditEnterpriseSiteId(),
-					replyToUri, getSystemAltUserId(), getSystemUserName(), getSystemNetworkId(),
-					consumerUserName, consumerUserName, false,
-					registryEndpointUri, null,
-					storedQueryUUID, adhocQueryRequestPayload, homeCommunityId,
-					patientId, purposesOfUse);
-		}
+		
+		auditQueryEvent(true, 
+				new IHETransactionEventTypeCodes.RegistryStoredQuery(), eventOutcome, 
+				getAuditSourceId(), getAuditEnterpriseSiteId(),
+				replyToUri, getSystemAltUserId(), getSystemUserName(), getSystemNetworkId(),
+				consumerUserName, consumerUserName, false,
+				registryEndpointUri, null,
+				storedQueryUUID, adhocQueryRequestPayload, homeCommunityId, 
+				patientId, purposesOfUse);
 	}
 
 
