@@ -27,13 +27,12 @@ public abstract class DICOMActiveParticipantRoleIdCodes extends CodedValueType
 		setCode(value);
 		setOriginalText(meaning);
 	}
-
 	/**
 	 * "DCM","110150", "Application"
 	 *
 	 * @since Eclipse OHF IHE 0.1.0
 	 */
-	public static class Application extends DICOMActiveParticipantRoleIdCodes
+	public static class  Application extends DICOMActiveParticipantRoleIdCodes
 	{
 		/**
 		 * "DCM","110150", "Application"
@@ -43,13 +42,12 @@ public abstract class DICOMActiveParticipantRoleIdCodes extends CodedValueType
 			super("110150", "Application");
 		}
 	}
-
 	/**
 	 * "DCM","110151", "Application Launcher"
 	 *
 	 * @since Eclipse OHF IHE 0.1.0
 	 */
-	public static class ApplicationLauncher extends DICOMActiveParticipantRoleIdCodes
+	public static class  ApplicationLauncher extends DICOMActiveParticipantRoleIdCodes
 	{
 		/**
 		 * "DCM","110151", "Application Launcher"
@@ -59,46 +57,43 @@ public abstract class DICOMActiveParticipantRoleIdCodes extends CodedValueType
 			super("110151", "Application Launcher");
 		}
 	}
-
+	
 	/**
 	 * "DCM","110152", "Destination Role ID"
 	 *
 	 * @since Eclipse OHF IHE 0.1.0
 	 */
-	public static class Destination extends DICOMActiveParticipantRoleIdCodes
+	public static class  Destination extends DICOMActiveParticipantRoleIdCodes
 	{
 		/**
 		 * "DCM","110152", "Destination Role ID"
 		 */
 		public Destination()
 		{
-			super("110152", "Destination");
+			super("110152", "Destination Role ID");
 		}
 	}
-
 	/**
 	 * "DCM","110153", "Source Role ID"
 	 *
 	 * @since Eclipse OHF IHE 0.1.0
 	 */
-	public static class Source extends DICOMActiveParticipantRoleIdCodes
+	public static class  Source extends DICOMActiveParticipantRoleIdCodes
 	{
 		/**
 		 * "DCM","110153", "Source Role ID"
 		 */
 		public Source()
 		{
-			super("110153", "Source");
+			super("110153", "Source Role ID");
 		}
 	}
-
 	/**
 	 *
 	 * "DCM","110154", "Destination Media"
-	 * 
 	 * @since Eclipse OHF IHE 0.1.0
 	 */
-	public static class DestinationMedia extends DICOMActiveParticipantRoleIdCodes
+	public static class  DestinationMedia extends DICOMActiveParticipantRoleIdCodes
 	{
 		/**
 		 * "DCM","110154", "Destination Media"
@@ -108,13 +103,12 @@ public abstract class DICOMActiveParticipantRoleIdCodes extends CodedValueType
 			super("110154", "Destination Media");
 		}
 	}
-
 	/**
 	 * "DCM","110155", "Source Media"
 	 *
 	 * @since Eclipse OHF IHE 0.1.0
 	 */
-	public static class SourceMedia extends DICOMActiveParticipantRoleIdCodes
+	public static class  SourceMedia extends DICOMActiveParticipantRoleIdCodes
 	{
 		/**
 		 * "DCM",
