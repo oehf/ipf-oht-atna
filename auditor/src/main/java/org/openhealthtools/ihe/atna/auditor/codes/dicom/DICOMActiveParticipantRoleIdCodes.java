@@ -70,7 +70,7 @@ public abstract class DICOMActiveParticipantRoleIdCodes extends CodedValueType
 		 */
 		public Destination()
 		{
-			super("110152", "Destination Role ID");
+			super("110152", "Destination");
 		}
 	}
 	/**
@@ -85,7 +85,7 @@ public abstract class DICOMActiveParticipantRoleIdCodes extends CodedValueType
 		 */
 		public Source()
 		{
-			super("110153", "Source Role ID");
+			super("110153", "Source");
 		}
 	}
 	/**
