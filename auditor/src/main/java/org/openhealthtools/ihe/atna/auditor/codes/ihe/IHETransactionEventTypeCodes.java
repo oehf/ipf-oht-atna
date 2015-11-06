@@ -335,6 +335,15 @@ public abstract class IHETransactionEventTypeCodes extends CodedValueType
 			super("ITI-55","Cross Gateway Patient Discovery");
 		}	
 	}
+
+    public static final class PIXMQuery extends IHETransactionEventTypeCodes
+    {
+        public PIXMQuery()
+        {
+            super("ITI-83","Mobile Patient Identifier Cross-reference Query");
+        }
+    }
+
 }
 
 
