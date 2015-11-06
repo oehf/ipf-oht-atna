@@ -336,6 +336,10 @@ public abstract class IHETransactionEventTypeCodes extends CodedValueType
 		}	
 	}
 
+	/**
+	 * "IHE Transactions","ITI-83","Mobile Patient Identifier Cross-reference Query"
+	 *
+	 */
     public static final class PIXMQuery extends IHETransactionEventTypeCodes
     {
         public PIXMQuery()

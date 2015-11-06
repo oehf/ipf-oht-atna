@@ -68,8 +68,9 @@ public class QueryEvent extends GenericIHEAuditEventMessage
 			if (transaction.getCode().equalsIgnoreCase("ITI-45") || transaction.getCode().equalsIgnoreCase("ITI-46")) {
 				// v3 message
 				tvp.add(getTypeValuePair("II", objectDetail));
-			}
-			else {
+			} else if (transaction.getCode().equalsIgnoreCase("ITI-83")) {
+                // FHIR message
+			} else {
 				// v2 message
 				tvp.add(getTypeValuePair("MSH-10", objectDetail));
 			}
