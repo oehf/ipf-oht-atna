@@ -11,5 +11,5 @@ after_success:
 - "./travis_after_success.sh"
 env:
   global:
-  - secure: pyDpb35W6hP4Tuq3044Nosn4XuIvhuU3AT+Q+u1agm22netNYycU5xA10NsMZ0uPf2vi3AKf+Zco7TJ96UiSIKxvnZULfIYxMfJqSBcwCd+apGYGMRdGzZBfYg8Fcob+8njY73xjjVRBbEdrD5aWBmmWnGwpp2FzSnlgixw8blc=
-  - secure: IEdlKWvA+TO5Yfll8pBXwcYB9n4PK/286wVQXhRfPfjydjhbXnnQX7YPQJLRiqtRDc7+hmBkacYu6eHRafx4g+gYZGfnCxE40WrNC1aOvOx4h26TdhBBNGyBvHazs+zBmlJ8gj9b9sq9olD+t1a9MRO1Exwy3bEUGWLFQFIWriA=
+  - secure: bqUaDw6y8b/m8DksliLq4JdMmgjJKWU7QfHpFVSfKdYNMpmUBib1xpfWDDvM7dDksTTI2RRIEKcuaIGN1+te0DcxOjndvV+lWGDpOOcaE3GjHFnvHfWAcDM7hQ5OdZl4a/M1TlPQiQftf/8RADilQbgipu/aOR2kle1+J3houSA=
+  - secure: hd7CXITLDxztzy8dRwXYsDRFKr2o8vQi6idcKuVrpa7faYLFlUqN7IqmWiOu6JF/iTsKfggGTqbHNjwCtwxPKZETKsqwBopAM4pV9XfWfHPGTddoIRSq1e4BVc9XyNLJb2WCwS2U9sxigmPiSieVmuvcCTwJ6plEHeVPyfRNst0=
