@@ -1,0 +1,18 @@
+language: java
+jdk:
+- oraclejdk8
+addons:
+  apt:
+    packages:
+    - wget
+branches:
+  only:
+    - ipf-oht-atna-3.0
+script:
+- mvn clean install -q
+after_success:
+- "./travis_after_success.sh"
+env:
+  global:
+  - secure: bqUaDw6y8b/m8DksliLq4JdMmgjJKWU7QfHpFVSfKdYNMpmUBib1xpfWDDvM7dDksTTI2RRIEKcuaIGN1+te0DcxOjndvV+lWGDpOOcaE3GjHFnvHfWAcDM7hQ5OdZl4a/M1TlPQiQftf/8RADilQbgipu/aOR2kle1+J3houSA=
+  - secure: hd7CXITLDxztzy8dRwXYsDRFKr2o8vQi6idcKuVrpa7faYLFlUqN7IqmWiOu6JF/iTsKfggGTqbHNjwCtwxPKZETKsqwBopAM4pV9XfWfHPGTddoIRSq1e4BVc9XyNLJb2WCwS2U9sxigmPiSieVmuvcCTwJ6plEHeVPyfRNst0=
