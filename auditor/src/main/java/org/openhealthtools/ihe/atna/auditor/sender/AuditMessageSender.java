@@ -35,7 +35,7 @@ public interface AuditMessageSender
 	 * @param msg The message to send
 	 * @throws Exception
 	 */
-	public void sendAuditEvent(AuditEventMessage[] msg) throws Exception;
+	void sendAuditEvent(AuditEventMessage[] msg) throws Exception;
 	
 	/**
 	 * Sends an audit message to the specified destination address and port
@@ -46,5 +46,5 @@ public interface AuditMessageSender
 	 * @param port Destination port
 	 * @throws Exception
 	 */
-	public void sendAuditEvent(AuditEventMessage[] msg, InetAddress destination, int port) throws Exception;
+	void sendAuditEvent(AuditEventMessage[] msg, InetAddress destination, int port) throws Exception;
 }

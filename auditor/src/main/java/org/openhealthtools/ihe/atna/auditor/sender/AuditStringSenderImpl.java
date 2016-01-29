@@ -14,7 +14,7 @@ import org.openhealthtools.ihe.atna.auditor.events.AuditEventMessage;
  */
 public class AuditStringSenderImpl implements AuditMessageSender {
 
-	private List<String> messages = new ArrayList<String>();
+	private List<String> messages = new ArrayList<>();
 	
 	public void sendAuditEvent(AuditEventMessage[] msg) throws Exception {
 		add(msg);

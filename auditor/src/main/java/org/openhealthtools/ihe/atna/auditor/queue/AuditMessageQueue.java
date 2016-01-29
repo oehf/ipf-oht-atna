@@ -4,9 +4,9 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- *
+ * <p/>
  * Contributors:
- *     IBM Corporation - initial API and implementation
+ * IBM Corporation - initial API and implementation
  *******************************************************************************/
 package org.openhealthtools.ihe.atna.auditor.queue;
 
@@ -23,37 +23,36 @@ import org.openhealthtools.ihe.atna.auditor.events.AuditEventMessage;
  * even if the method does nothing (for example, it does not make sense 
  * for a fully synchronous audit queue to take any action when "flush" 
  * is called).
- * 
+ *
  * @author <a href="mailto:mattadav@us.ibm.com">Matthew Davis</a>
  *
  */
-public interface AuditMessageQueue 
-{
-	/**
-	 * Queues an audit message for sending.  The destination address and port 
-	 * held in the message determines the point of delivery.
-	 * 
-	 * @param msg The message to send
-	 */
-	public void sendAuditEvent(AuditEventMessage msg);
-	
-	/**
-	 * Queues an audit message for sending to a designated destination and port
-	 * 
-	 * @param msg The message to send
-	 * @param destination Address of the destination for delivery
-	 * @param port Port for delivery
-	 */
-	public void sendAuditEvent(AuditEventMessage msg, InetAddress destination, int port);
-	
-	/**
-	 * Forces all unsent messages in the queue to be sent
-	 */
-	public void flush();
-	
-	/**
-	 * Flushes the queue and shutdown any associated runtime daemons that 
-	 * may be handling queue inflow/outflow
-	 */
-	public void shutdown();
+public interface AuditMessageQueue {
+    /**
+     * Queues an audit message for sending.  The destination address and port
+     * held in the message determines the point of delivery.
+     *
+     * @param msg The message to send
+     */
+    void sendAuditEvent(AuditEventMessage msg);
+
+    /**
+     * Queues an audit message for sending to a designated destination and port
+     *
+     * @param msg The message to send
+     * @param destination Address of the destination for delivery
+     * @param port Port for delivery
+     */
+    void sendAuditEvent(AuditEventMessage msg, InetAddress destination, int port);
+
+    /**
+     * Forces all unsent messages in the queue to be sent
+     */
+    void flush();
+
+    /**
+     * Flushes the queue and shutdown any associated runtime daemons that
+     * may be handling queue inflow/outflow
+     */
+    void shutdown();
 }
