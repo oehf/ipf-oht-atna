@@ -17,9 +17,8 @@ deploy:
   secret_access_key:
     secure: iAPFqtfyJAW7nAZ/jAXFH2kran0lKKULlF7fZnfnNPA8uC4QGXerEH340pdfbG4EfiRrY2MFDoEd96JNfUMB+RHuV2Zo5ueFQMFqB2FPMizM8Z2gIWds/bNbelnpiq0VMP80t4+APvu40If+80yUVitOVh+vxmKnJcy1vkYR9Cg=
   bucket: builds.openehealth.org
-  local-dir: s3-upload
+  local-dir: $TRAVIS_BUILD_DIR/s3-upload
   upload-dir: ipf-oht-atna
-  acl: authenticated_read
   on:
     repo: oehf/ipf-oht-atna
 env:
