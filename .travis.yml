@@ -6,7 +6,7 @@ addons:
     packages:
     - wget
 script:
-- mvn clean install -q
+- mvn install
 after_success:
 - wget -q --no-check-certificate -O - https://raw.githubusercontent.com/oehf/ipf-labs/master/maven/travis_after_success.sh | sh
 before_deploy:
