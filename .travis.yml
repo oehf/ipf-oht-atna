@@ -8,9 +8,9 @@ addons:
 script:
 - mvn clean install -q
 after_success:
-- wget --no-check-certificate -O - https://raw.githubusercontent.com/oehf/ipf-labs/master/maven/travis_after_success.sh | sh
+- wget -q --no-check-certificate -O - https://raw.githubusercontent.com/oehf/ipf-labs/master/maven/travis_after_success.sh | sh
 before_deploy:
-- wget --no-check-certificate -O - https://raw.githubusercontent.com/oehf/ipf-labs/master/maven/travis_before_deploy.sh | sh
+- wget -q --no-check-certificate -O - https://raw.githubusercontent.com/oehf/ipf-labs/master/maven/travis_before_deploy.sh | sh
 deploy:
   provider: s3
   access_key_id: AKIAIG3NJZOJH6AXNTLQ
