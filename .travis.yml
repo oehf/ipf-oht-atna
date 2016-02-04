@@ -5,10 +5,10 @@ addons:
   apt:
     packages:
     - wget
+before_script:
+- wget -q https://raw.githubusercontent.com/oehf/ipf-labs/master/maven/settings.xml --no-check-certificate
 script:
-- mvn install
-after_success:
-- wget -q --no-check-certificate -O - https://raw.githubusercontent.com/oehf/ipf-labs/master/maven/travis_after_success.sh | sh
+- mvn deploy -q --settings settings.xml
 before_deploy:
 - wget -q --no-check-certificate -O - https://raw.githubusercontent.com/oehf/ipf-labs/master/maven/travis_before_deploy.sh | sh
 deploy:
