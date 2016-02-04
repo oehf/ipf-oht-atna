@@ -9,14 +9,12 @@ before_script:
 - wget -q https://raw.githubusercontent.com/oehf/ipf-labs/master/maven/settings.xml --no-check-certificate
 script:
 - mvn deploy -q --settings settings.xml
+after_failure:
+# Set environment variable in case tests have failed
+- test $TRAVIS_TEST_RESULT != 0 && export TESTS_FAILED=true
 before_deploy:
-- test $TRAVIS_TEST_RESULT = 0 \
-    && gulp build \
-    && cd dist \
-    && npm install --prod \
-    && cd $TRAVIS_BUILD_DIR \
-    && tar -zcvf amber-storm-$TRAVIS_BRANCH.tar.gz dist \
-    && export PRODBUILDCOMPLETE=truewget -q --no-check-certificate -O - https://raw.githubusercontent.com/oehf/ipf-labs/master/maven/travis_before_deploy.sh | sh
+# Zip everything
+- wget -q --no-check-certificate -O - https://raw.githubusercontent.com/oehf/ipf-labs/master/maven/travis_before_deploy.sh | sh
 deploy:
   provider: s3
   skip_cleanup: true
@@ -27,6 +25,7 @@ deploy:
   local-dir: $TRAVIS_BUILD_DIR/s3-upload
   upload-dir: ipf-oht-atna
   on:
+    condition: $TESTS_FAILED = true
     repo: oehf/ipf-oht-atna
 env:
   global:
