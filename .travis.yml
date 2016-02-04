@@ -10,7 +10,13 @@ before_script:
 script:
 - mvn deploy -q --settings settings.xml
 before_deploy:
-- wget -q --no-check-certificate -O - https://raw.githubusercontent.com/oehf/ipf-labs/master/maven/travis_before_deploy.sh | sh
+- test $TRAVIS_TEST_RESULT = 0 \
+    && gulp build \
+    && cd dist \
+    && npm install --prod \
+    && cd $TRAVIS_BUILD_DIR \
+    && tar -zcvf amber-storm-$TRAVIS_BRANCH.tar.gz dist \
+    && export PRODBUILDCOMPLETE=truewget -q --no-check-certificate -O - https://raw.githubusercontent.com/oehf/ipf-labs/master/maven/travis_before_deploy.sh | sh
 deploy:
   provider: s3
   skip_cleanup: true
