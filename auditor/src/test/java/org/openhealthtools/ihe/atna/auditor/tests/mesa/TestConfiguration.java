@@ -45,11 +45,9 @@ public interface TestConfiguration
 	 */
 	String MESA_USER_IDENTITY = "myUsername";
 	
-	// MESA testing allows you to use this generic private key, but to look smart
-	// you should probably replace it with your own:
-    String KEY_STORE = "./resources/security/test_sys_1.jks";
-    String KEY_STORE_PASS ="connectathon";
-    // this one supplied in the project
-    String TRUST_STORE="./resources/security/2011_CA_Cert.jks";
-    String TRUST_STORE_PASS="connectathon";
+    String KEY_STORE = "/security/client.keystore";
+    String KEY_STORE_PASS ="initinit";
+
+    String TRUST_STORE="/security/server.keystore";
+    String TRUST_STORE_PASS="initinit";
 }

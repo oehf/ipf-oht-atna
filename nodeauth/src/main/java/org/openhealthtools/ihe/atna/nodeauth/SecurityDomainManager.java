@@ -93,7 +93,7 @@ public class SecurityDomainManager
 	 * of a explicit domain registered the URI
 	 * <li>Other than DEFAULT any other name is allowed, and is up to the calling application to choose.
 	 * </ul>  
-	 * @param properties
+	 * @param securityDomain
 	 * @return
 	 */
 	public void registerDefaultSecurityDomain(SecurityDomain securityDomain) 
@@ -206,7 +206,7 @@ public class SecurityDomainManager
 			}	
 		}
 		
-		SecurityDomain domain = (SecurityDomain)securityDomains.get(name);
+		SecurityDomain domain = securityDomains.get(name);
 
 		if (domain == null) {		
 			String msg="Security Domain ["+name+"] was set for host "+host+" and port "+ port+
