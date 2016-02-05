@@ -29,7 +29,7 @@ public abstract class AuditorMesaTest extends Assert {
     protected static final AuditorModuleConfig CONFIG = CONTEXT.getConfig();
 
     @Before
-    protected void setUp() throws Exception {
+    public void setUp() throws Exception {
 
         // Do basic log4j configuration
         BasicConfigurator.configure();

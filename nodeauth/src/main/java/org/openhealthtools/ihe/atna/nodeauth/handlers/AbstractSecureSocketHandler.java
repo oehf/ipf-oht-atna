@@ -64,7 +64,7 @@ public abstract class AbstractSecureSocketHandler implements SocketHandler
 	 * @param port Port to connect to
 	 * @param securityDomain Configuration options to use when securing the socket
 	 * @return A socket secured using TLS for a given URI and SecurityDomain
-	 * @throws ExceptionO
+	 * @throws Exception
 	 */
 	protected abstract Socket createSecureSocket(String host, int port, SecurityDomain securityDomain, Socket socketWrapper) throws Exception;
 	

@@ -20,6 +20,8 @@
         <commons-io-version>2.4</commons-io-version>
         <commons-lang3-version>3.3.2</commons-lang3-version>
         <commons-httpclient-version>3.1</commons-httpclient-version>
+        <mina-version>2.0.9</mina-version>
+        <netty-version>4.0.34.Final</netty-version>
         <slf4j-version>1.7.10</slf4j-version>
         <log4j-version>1.2.17</log4j-version>
         <junit-version>4.12</junit-version>
@@ -129,6 +131,18 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>${commons-lang3-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.mina</groupId>
+                <artifactId>mina-core</artifactId>
+                <version>${mina-version}</version>
+                <optional>true</optional>
+            </dependency>
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-all</artifactId>
+                <version>${netty-version}</version>
+                <optional>true</optional>
             </dependency>
             <dependency>
                 <groupId>commons-httpclient</groupId>
