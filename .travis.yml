@@ -5,11 +5,30 @@ addons:
   apt:
     packages:
     - wget
+before_script:
+- wget -q https://raw.githubusercontent.com/oehf/ipf-labs/master/maven/settings.xml --no-check-certificate
 script:
-- mvn clean install -q
-after_success:
-- "./travis_after_success.sh"
+- mvn deploy -q --settings settings.xml
+after_failure:
+# Set environment variable in case tests have failed
+- test $TRAVIS_TEST_RESULT != 0 && export TESTS_FAILED=true
+before_deploy:
+# Zip everything
+- wget -q --no-check-certificate -O - https://raw.githubusercontent.com/oehf/ipf-labs/master/maven/travis_before_deploy.sh | sh
+deploy:
+  provider: s3
+  skip_cleanup: true
+  access_key_id: AKIAIG3NJZOJH6AXNTLQ
+  secret_access_key:
+    secure: iAPFqtfyJAW7nAZ/jAXFH2kran0lKKULlF7fZnfnNPA8uC4QGXerEH340pdfbG4EfiRrY2MFDoEd96JNfUMB+RHuV2Zo5ueFQMFqB2FPMizM8Z2gIWds/bNbelnpiq0VMP80t4+APvu40If+80yUVitOVh+vxmKnJcy1vkYR9Cg=
+  bucket: builds.openehealth.org
+  local-dir: $TRAVIS_BUILD_DIR/s3-upload
+  upload-dir: ipf-oht-atna
+  on:
+    condition: $TESTS_FAILED = true
+    repo: oehf/ipf-oht-atna
 env:
   global:
   - secure: bqUaDw6y8b/m8DksliLq4JdMmgjJKWU7QfHpFVSfKdYNMpmUBib1xpfWDDvM7dDksTTI2RRIEKcuaIGN1+te0DcxOjndvV+lWGDpOOcaE3GjHFnvHfWAcDM7hQ5OdZl4a/M1TlPQiQftf/8RADilQbgipu/aOR2kle1+J3houSA=
   - secure: hd7CXITLDxztzy8dRwXYsDRFKr2o8vQi6idcKuVrpa7faYLFlUqN7IqmWiOu6JF/iTsKfggGTqbHNjwCtwxPKZETKsqwBopAM4pV9XfWfHPGTddoIRSq1e4BVc9XyNLJb2WCwS2U9sxigmPiSieVmuvcCTwJ6plEHeVPyfRNst0=
+
