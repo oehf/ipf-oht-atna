@@ -10,10 +10,10 @@
         <assembly-plugin-version>2.6</assembly-plugin-version>
         <bundle-plugin-version>2.0.1</bundle-plugin-version>
         <compiler-plugin-version>3.5</compiler-plugin-version>
-        <gpg-plugin-version>1.5</gpg-plugin-version>
+        <gpg-plugin-version>1.6</gpg-plugin-version>
         <javadocs-plugin-version>2.10.3</javadocs-plugin-version>
-        <nexus-staging-plugin-version>1.6.3</nexus-staging-plugin-version>
-        <sources-plugin-version>2.2.1</sources-plugin-version>
+        <nexus-staging-plugin-version>1.6.6</nexus-staging-plugin-version>
+        <sources-plugin-version>2.4</sources-plugin-version>
 
         <commons-codec-version>1.10</commons-codec-version>
         <commons-collections-version>3.2.2</commons-collections-version>
