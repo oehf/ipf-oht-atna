@@ -99,7 +99,7 @@ public class IHEAuditor
 	public static IHEAuditor getAuditor()
 	{
 		AuditorModuleContext ctx = AuditorModuleContext.getContext();
-		return (IHEAuditor)ctx.getAuditor(IHEAuditor.class);
+		return ctx.getAuditor(IHEAuditor.class);
 	}
 	
 	/**

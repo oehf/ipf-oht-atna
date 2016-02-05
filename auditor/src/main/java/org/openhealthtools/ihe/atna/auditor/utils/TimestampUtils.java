@@ -12,10 +12,8 @@ package org.openhealthtools.ihe.atna.auditor.utils;
 
 import org.apache.commons.lang3.time.FastDateFormat;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import java.util.TimeZone;
 
 public class TimestampUtils {
 

@@ -157,7 +157,7 @@ public class SecurityDomainManager
 	 */
 	public synchronized SecurityDomain getSecurityDomain(String name) 
 	{
-		return (SecurityDomain)securityDomains.get(name);
+		return securityDomains.get(name);
 	}
 	
 	/**

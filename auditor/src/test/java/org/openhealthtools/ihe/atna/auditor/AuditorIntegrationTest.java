@@ -2,7 +2,6 @@ package org.openhealthtools.ihe.atna.auditor;
 
 
 import io.vertx.core.Vertx;
-import io.vertx.core.VertxOptions;
 import io.vertx.core.impl.VertxFactoryImpl;
 import io.vertx.ext.unit.Async;
 import io.vertx.ext.unit.TestContext;
@@ -10,8 +9,6 @@ import io.vertx.ext.unit.junit.VertxUnitRunner;
 import org.apache.commons.io.IOUtils;
 import org.junit.*;
 import org.junit.runner.RunWith;
-import org.mockito.internal.util.io.IOUtil;
-import org.openhealthtools.ihe.atna.auditor.codes.rfc3881.RFC3881EventCodes;
 import org.openhealthtools.ihe.atna.auditor.context.AuditorModuleConfig;
 import org.openhealthtools.ihe.atna.auditor.context.AuditorModuleContext;
 
@@ -22,7 +19,6 @@ import org.openhealthtools.ihe.atna.nodeauth.context.NodeAuthModuleContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.URI;
 import java.util.Properties;
@@ -177,7 +173,7 @@ public class AuditorIntegrationTest {
             serverSocket = new ServerSocket(0);
             return serverSocket.getLocalPort();
         } catch (Exception e){
-            e.printStackTrace();
+            LOG.error(e.getMessage());
             return -1;
         } finally {
             IOUtils.closeQuietly(serverSocket);
