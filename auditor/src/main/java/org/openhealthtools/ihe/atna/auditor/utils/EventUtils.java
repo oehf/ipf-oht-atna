@@ -10,9 +10,6 @@
  *******************************************************************************/
 package org.openhealthtools.ihe.atna.auditor.utils;
 
-import java.net.InetAddress;
-import java.net.URI;
-import java.net.UnknownHostException;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;

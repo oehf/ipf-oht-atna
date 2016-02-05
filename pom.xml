@@ -7,19 +7,18 @@
     <packaging>pom</packaging>
 
     <properties>
-        <assembly-plugin-version>2.4</assembly-plugin-version>
+        <assembly-plugin-version>2.6</assembly-plugin-version>
         <bundle-plugin-version>2.0.1</bundle-plugin-version>
-        <compiler-plugin-version>3.2</compiler-plugin-version>
-        <download-plugin-version>1.2.0</download-plugin-version>
-        <gpg-plugin-version>1.5</gpg-plugin-version>
-        <javadocs-plugin-version>2.9.1</javadocs-plugin-version>
-        <nexus-staging-plugin-version>1.6.3</nexus-staging-plugin-version>
-        <sources-plugin-version>2.2.1</sources-plugin-version>
+        <compiler-plugin-version>3.5</compiler-plugin-version>
+        <gpg-plugin-version>1.6</gpg-plugin-version>
+        <javadocs-plugin-version>2.10.3</javadocs-plugin-version>
+        <nexus-staging-plugin-version>1.6.6</nexus-staging-plugin-version>
+        <sources-plugin-version>2.4</sources-plugin-version>
 
-        <commons-collections-version>3.2.1</commons-collections-version>
+        <commons-codec-version>1.10</commons-codec-version>
+        <commons-collections-version>3.2.2</commons-collections-version>
         <commons-io-version>2.4</commons-io-version>
-        <commons-lang3-version>3.3.2</commons-lang3-version>
-        <commons-httpclient-version>3.1</commons-httpclient-version>
+        <commons-lang3-version>3.4</commons-lang3-version>
         <mina-version>2.0.9</mina-version>
         <netty-version>4.0.34.Final</netty-version>
         <slf4j-version>1.7.10</slf4j-version>
@@ -113,10 +112,16 @@
         <module>nodeauth</module>
         <module>osgi</module>
         <module>util</module>
+        <module>test</module>
     </modules>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>${commons-codec-version}</version>
+            </dependency>
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
@@ -159,12 +164,6 @@
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-log4j12</artifactId>
                 <version>${slf4j-version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>log4j</groupId>
-                <artifactId>log4j</artifactId>
-                <version>${log4j-version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -243,6 +242,11 @@
                 </includes>
             </resource>
         </resources>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+            </testResource>
+        </testResources>
     </build>
 
     <repositories>
