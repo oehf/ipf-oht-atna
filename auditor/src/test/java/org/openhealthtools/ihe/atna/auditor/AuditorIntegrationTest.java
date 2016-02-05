@@ -110,8 +110,7 @@ public class AuditorIntegrationTest {
     public void testTCPTwoWayTLS(TestContext context) throws Exception {
         Properties properties = initSecurityDomainProperties();
         initSecurityDomain(properties, true);
-        int count = 1000;
-        Async async = context.async(count);
+        Async async = context.async();
         vertx.deployVerticle(createTCPServerTwoWayTLS(port,
                 properties.getProperty(JAVAX_NET_SSL_TRUSTSTORE),
                 properties.getProperty(JAVAX_NET_SSL_TRUSTSTORE_PASSWORD),
@@ -119,10 +118,7 @@ public class AuditorIntegrationTest {
                 properties.getProperty(JAVAX_NET_SSL_TRUSTSTORE_PASSWORD),
                 async),
                 context.<String>asyncAssertSuccess());
-        for (int i = 0; i < count; ++i){
-            auditor.auditActorStartEvent(SUCCESS, MESA_SYSTEM_ID, MESA_USER_IDENTITY);
-            Thread.sleep(1);
-        }
+        auditor.auditActorStartEvent(SUCCESS, MESA_SYSTEM_ID, MESA_USER_IDENTITY);
         async.awaitSuccess(waitTime);
     }
 

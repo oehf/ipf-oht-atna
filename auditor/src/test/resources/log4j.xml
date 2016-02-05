@@ -64,7 +64,7 @@ Examples:  "%r [%t] %-5p %c %x - %m\n"
     </appender>
 
     <root>
-        <level value="WARN"/>
+        <level value="DEBUG"/>
         <appender-ref ref="CONSOLE"/>
     </root>
 
