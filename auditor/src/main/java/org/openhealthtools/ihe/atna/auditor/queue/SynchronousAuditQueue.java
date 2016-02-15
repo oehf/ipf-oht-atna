@@ -15,8 +15,6 @@ import java.net.InetAddress;
 import org.openhealthtools.ihe.atna.auditor.context.AuditorModuleContext;
 import org.openhealthtools.ihe.atna.auditor.events.AuditEventMessage;
 import org.openhealthtools.ihe.atna.auditor.sender.AuditMessageSender;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Implementation of an audit queue that delivers messages to the audit

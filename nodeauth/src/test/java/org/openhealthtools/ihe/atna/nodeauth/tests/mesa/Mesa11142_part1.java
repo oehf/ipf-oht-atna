@@ -12,7 +12,6 @@
 package org.openhealthtools.ihe.atna.nodeauth.tests.mesa;
 
 import org.junit.Ignore;
-import org.junit.Test;
 
 import java.net.Socket;
 

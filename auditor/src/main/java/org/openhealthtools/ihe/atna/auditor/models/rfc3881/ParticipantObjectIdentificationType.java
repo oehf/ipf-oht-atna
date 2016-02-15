@@ -340,7 +340,7 @@ public class ParticipantObjectIdentificationType {
      *     byte[]
      */
     public void setParticipantObjectQuery(byte[] value) {
-        this.participantObjectQuery = ((byte[]) value);
+        this.participantObjectQuery = value;
     }
 
     /**
