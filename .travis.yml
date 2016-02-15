@@ -9,7 +9,7 @@ before_script:
 - wget -q https://raw.githubusercontent.com/oehf/ipf-labs/master/maven/settings.xml --no-check-certificate
 script:
 - mvn deploy -q --settings settings.xml
-after_failure:
+after_script:
 # Zip everything. Or use after_failure instead
 - wget -q --no-check-certificate -O - https://raw.githubusercontent.com/oehf/ipf-labs/master/maven/travis_before_deploy.sh | sh
 addons:
