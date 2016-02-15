@@ -20,7 +20,7 @@ addons:
     secret:
       secure: iAPFqtfyJAW7nAZ/jAXFH2kran0lKKULlF7fZnfnNPA8uC4QGXerEH340pdfbG4EfiRrY2MFDoEd96JNfUMB+RHuV2Zo5ueFQMFqB2FPMizM8Z2gIWds/bNbelnpiq0VMP80t4+APvu40If+80yUVitOVh+vxmKnJcy1vkYR9Cg=
     paths:
-    - $(ls $TRAVIS_BUILD_DIR/s3-upload/)
+    - $(ls s3-upload/*.zip)
     target_paths: "ipf-oht-atna"
     debug: true
 env:
