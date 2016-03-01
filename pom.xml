@@ -243,50 +243,6 @@
         </testResources>
     </build>
 
-    <repositories>
-        <repository>
-            <id>openehealth.releases</id>
-            <name>Open eHealth Maven Repository</name>
-            <url>http://repo.openehealth.org/maven2/releases</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>openehealth.snapshots</id>
-            <name>Open eHealth Maven Repository</name>
-            <url>http://repo.openehealth.org/maven2/snapshots</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>repo1</id>
-            <name>Maven Repository</name>
-            <url>http://repo1.maven.org/maven2</url>
-        </repository>
-    </repositories>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>openehealth.plugins.releases</id>
-            <name>Open eHealth Maven Plugin Repository</name>
-            <url>http://repo.openehealth.org/maven2/releases</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
-
     <profiles>
         <profile>
             <id>release</id>
