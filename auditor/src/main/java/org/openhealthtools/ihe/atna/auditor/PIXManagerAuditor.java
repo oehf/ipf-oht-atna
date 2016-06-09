@@ -16,8 +16,6 @@ import org.openhealthtools.ihe.atna.auditor.codes.rfc3881.RFC3881EventCodes.RFC3
 import org.openhealthtools.ihe.atna.auditor.context.AuditorModuleContext;
 import org.openhealthtools.ihe.atna.auditor.utils.EventUtils;
 
-import java.util.List;
-
 /**
  * Implementation of a PIX Auditor to send audit messages for
  * transactions in the Patient Identifier Cross-referencing profile's

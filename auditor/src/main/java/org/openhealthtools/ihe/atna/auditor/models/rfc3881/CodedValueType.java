@@ -21,6 +21,7 @@ package org.openhealthtools.ihe.atna.auditor.models.rfc3881;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
+import java.io.Serializable;
 
 
 /**
@@ -46,7 +47,7 @@ import org.apache.commons.lang3.StringEscapeUtils;
 //@XmlAccessorType(XmlAccessType.FIELD)
 //@XmlType(name = "CodedValueType")
 
-public class CodedValueType {
+public class CodedValueType implements Serializable {
 
     //@XmlAttribute(required = true)
     protected String code;
