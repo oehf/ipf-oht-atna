@@ -336,29 +336,6 @@ public abstract class IHETransactionEventTypeCodes extends CodedValueType
 		}	
 	}
 
-	/**
-	 * "IHE Transactions","ITI-78","Mobile Patient Demographics Query"
-	 *
-	 */
-	public static final class PDQMQuery extends IHETransactionEventTypeCodes
-	{
-		public PDQMQuery()
-		{
-			super("ITI-78","Mobile Patient Demographics Query");
-		}
-	}
-
-	/**
-	 * "IHE Transactions","ITI-83","Mobile Patient Identifier Cross-reference Query"
-	 *
-	 */
-    public static final class PIXMQuery extends IHETransactionEventTypeCodes
-    {
-        public PIXMQuery()
-        {
-            super("ITI-83","Mobile Patient Identifier Cross-reference Query");
-        }
-    }
 
 }
 
