@@ -66,7 +66,7 @@ public class PatientRecordEvent extends GenericIHEAuditEventMessage
 	 */
 	public void addPatientParticipantObject(String patientId, byte[] messageId, IHETransactionEventTypeCodes transaction)
 	{
-		List<TypeValuePairType> tvp = new LinkedList<TypeValuePairType>();
+		List<TypeValuePairType> tvp = new LinkedList<>();
 		if (messageId != null) {
 			if (transaction.getCode().equalsIgnoreCase("ITI-44")) {
 				// v3 message

@@ -10,7 +10,7 @@ public class UDPListener {
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) throws Exception {
+	public static void main(String... args) throws Exception {
 		DatagramSocket socket = new DatagramSocket(1234); 
 		System.out.println("Beginning UDP listener daemon...");
 		

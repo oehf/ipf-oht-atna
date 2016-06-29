@@ -77,7 +77,7 @@ public class AuditMessage {
     
     public String toString(boolean useSpacing)
     {
-    	StringBuffer sb = new StringBuffer();
+    	StringBuilder sb = new StringBuilder();
     	
     	sb.append("<AuditMessage");
     	sb.append(" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"");
@@ -85,22 +85,19 @@ public class AuditMessage {
     	sb.append(">");
     	sb.append(eventIdentification.toString(useSpacing));
     	if (!EventUtils.isEmptyOrNull(activeParticipant)) {
-    		Iterator<ActiveParticipantType> apIterator = activeParticipant.iterator();
-    		while (apIterator.hasNext()) {
-    			sb.append(apIterator.next().toString(useSpacing));
-    		}
+            for (ActiveParticipantType anActiveParticipant : activeParticipant) {
+                sb.append(anActiveParticipant.toString(useSpacing));
+            }
     	}
     	if (!EventUtils.isEmptyOrNull(auditSourceIdentification)) {
-    		Iterator<AuditSourceIdentificationType> asiIterator = auditSourceIdentification.iterator();
-    		while (asiIterator.hasNext()) {
-    			sb.append(asiIterator.next().toString(useSpacing));
-    		}
+            for (AuditSourceIdentificationType anAuditSourceIdentification : auditSourceIdentification) {
+                sb.append(anAuditSourceIdentification.toString(useSpacing));
+            }
     	}
     	if (!EventUtils.isEmptyOrNull(participantObjectIdentification)) {
-    		Iterator<ParticipantObjectIdentificationType> poiIterator = participantObjectIdentification.iterator();
-    		while (poiIterator.hasNext()) {
-    			sb.append(poiIterator.next().toString(useSpacing));
-    		}
+            for (ParticipantObjectIdentificationType aParticipantObjectIdentification : participantObjectIdentification) {
+                sb.append(aParticipantObjectIdentification.toString(useSpacing));
+            }
     	}
     	
     	
@@ -163,7 +160,7 @@ public class AuditMessage {
      */
     public List<ActiveParticipantType> getActiveParticipant() {
         if (activeParticipant == null) {
-            activeParticipant = new ArrayList<ActiveParticipantType>();
+            activeParticipant = new ArrayList<>();
         }
         return this.activeParticipant;
     }
@@ -192,7 +189,7 @@ public class AuditMessage {
      */
     public List<AuditSourceIdentificationType> getAuditSourceIdentification() {
         if (auditSourceIdentification == null) {
-            auditSourceIdentification = new ArrayList<AuditSourceIdentificationType>();
+            auditSourceIdentification = new ArrayList<>();
         }
         return this.auditSourceIdentification;
     }
@@ -221,7 +218,7 @@ public class AuditMessage {
      */
     public List<ParticipantObjectIdentificationType> getParticipantObjectIdentification() {
         if (participantObjectIdentification == null) {
-            participantObjectIdentification = new ArrayList<ParticipantObjectIdentificationType>();
+            participantObjectIdentification = new ArrayList<>();
         }
         return this.participantObjectIdentification;
     }

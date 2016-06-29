@@ -38,7 +38,7 @@ import org.slf4j.LoggerFactory;
  */
 public class TLSSyslogSenderImpl extends RFC5424SyslogSenderImpl implements AuditMessageSender
 {
-	private static HashMap<String, Socket> socketMap = new HashMap<String, Socket>();
+	private static HashMap<String, Socket> socketMap = new HashMap<>();
 
 	/**
 	 * Logger instance

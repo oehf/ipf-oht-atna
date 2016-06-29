@@ -248,13 +248,12 @@ public class ParticipantObjectIdentificationType {
 //                sb.append("<ParticipantObjectName/>");
 //            }
     		if (!EventUtils.isEmptyOrNull(participantObjectDetail)) {
-        		Iterator<TypeValuePairType> i = participantObjectDetail.iterator();
-        		while (i.hasNext()) {
-        	    	if (useSpacing) {
-        	    		sb.append("\n");
-        	    	}
-        			sb.append(i.next().toString("ParticipantObjectDetail", useSpacing));
-        		}
+                for (TypeValuePairType aParticipantObjectDetail : participantObjectDetail) {
+                    if (useSpacing) {
+                        sb.append("\n");
+                    }
+                    sb.append(aParticipantObjectDetail.toString("ParticipantObjectDetail", useSpacing));
+                }
     		}
 
 //            sb.append("\n<SOPClass UID=\"unknown\" NumberOfInstances=\"0\"/>");
@@ -367,7 +366,7 @@ public class ParticipantObjectIdentificationType {
      */
     public List<TypeValuePairType> getParticipantObjectDetail() {
         if (participantObjectDetail == null) {
-            participantObjectDetail = new ArrayList<TypeValuePairType>();
+            participantObjectDetail = new ArrayList<>();
         }
         return this.participantObjectDetail;
     }

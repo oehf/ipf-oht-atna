@@ -89,7 +89,7 @@ public class SecurityAlertEvent extends GenericAuditEventMessageImpl
 	 */
 	public void addURIParticipantObject(String failedUri, String failureDescription)
 	{
-		List<TypeValuePairType> failureDescriptionValue = new LinkedList<TypeValuePairType>();
+		List<TypeValuePairType> failureDescriptionValue = new LinkedList<>();
 		if (!EventUtils.isEmptyOrNull(failureDescription)) {
 			failureDescriptionValue.add(getTypeValuePair("Alert Description", failureDescription.getBytes()));
 		}

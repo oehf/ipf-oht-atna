@@ -136,13 +136,12 @@ public class ActiveParticipantType {
     		sb.append("/>");
     	} else {
     		sb.append(">");
-    		Iterator<CodedValueType> i = roleIDCode.iterator();
-    		while (i.hasNext()) {
-    	    	if (useSpacing) {
-    	    		sb.append("\n");
-    	    	}
-    			sb.append(i.next().toString("RoleIDCode"));
-    		}
+            for (CodedValueType aRoleIDCode : roleIDCode) {
+                if (useSpacing) {
+                    sb.append("\n");
+                }
+                sb.append(aRoleIDCode.toString("RoleIDCode"));
+            }
         	if (useSpacing) {
         		sb.append("\n");
         	}
@@ -181,7 +180,7 @@ public class ActiveParticipantType {
      */
     public List<CodedValueType> getRoleIDCode() {
         if (roleIDCode == null) {
-            roleIDCode = new ArrayList<CodedValueType>();
+            roleIDCode = new ArrayList<>();
         }
         return this.roleIDCode;
     }

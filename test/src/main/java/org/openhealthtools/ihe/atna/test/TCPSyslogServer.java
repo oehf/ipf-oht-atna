@@ -51,18 +51,13 @@ public class TCPSyslogServer extends AbstractVerticle {
     @Override
     public void start() throws Exception {
         NetServer netServer = vertx.createNetServer(nsOptions);
-        netServer.connectHandler(new Handler<NetSocket>() {
+        netServer.connectHandler(netSocket -> netSocket.handler(new Handler<Buffer>() {
             @Override
-            public void handle(final NetSocket netSocket) {
-                netSocket.handler(new Handler<Buffer>() {
-                    @Override
-                    public void handle(Buffer buffer) {
-                        log.debug("================= Received content on " + port + ":" + async.count() +
-                                " =================== \n" + buffer.toString());
-                        async.countDown();
-                    }
-                });
+            public void handle(Buffer buffer) {
+                log.debug("================= Received content on " + port + ":" + async.count() +
+                        " =================== \n" + buffer.toString());
+                async.countDown();
             }
-        }).listen(port);
+        })).listen(port);
     }
 }

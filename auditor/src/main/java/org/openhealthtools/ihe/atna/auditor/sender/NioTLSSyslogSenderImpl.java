@@ -95,9 +95,7 @@ public abstract class NioTLSSyslogSenderImpl<S> extends RFC5424SyslogSenderImpl 
     protected abstract Destination<S> makeDestination(String host, int port, boolean logging) throws Exception;
 
     protected void finalize() {
-        for (Destination<S> destination : destinations.values()) {
-            destination.shutdown();
-        }
+        destinations.values().forEach(Destination::shutdown);
     }
 
     public interface Destination<S> {

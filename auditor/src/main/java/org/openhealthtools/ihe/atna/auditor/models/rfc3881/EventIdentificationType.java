@@ -116,13 +116,12 @@ public class EventIdentificationType {
     		sb.append(eventID.toString("EventID"));
     	}
     	if (!EventUtils.isEmptyOrNull(eventTypeCode)) {
-    		Iterator<CodedValueType> i = eventTypeCode.iterator();
-    		while (i.hasNext()) {
-    			if (useSpacing) {
-    				sb.append("\n");
-    			}
-    			sb.append(i.next().toString("EventTypeCode"));
-    		}
+            for (CodedValueType anEventTypeCode : eventTypeCode) {
+                if (useSpacing) {
+                    sb.append("\n");
+                }
+                sb.append(anEventTypeCode.toString("EventTypeCode"));
+            }
     	}
 
         if (purposesOfUse != null) {
@@ -193,7 +192,7 @@ public class EventIdentificationType {
      */
     public List<CodedValueType> getEventTypeCode() {
         if (eventTypeCode == null) {
-            eventTypeCode = new ArrayList<CodedValueType>();
+            eventTypeCode = new ArrayList<>();
         }
         return this.eventTypeCode;
     }

@@ -39,7 +39,7 @@ public class SynchronousAuditQueue extends AbstractAuditMessageQueue {
     }
 
     @Override
-    protected void doSend(AuditMessageSender sender, AuditEventMessage[] auditEventMessages) throws Exception {
+    protected void doSend(AuditMessageSender sender, AuditEventMessage... auditEventMessages) throws Exception {
         sender.sendAuditEvent(auditEventMessages);
     }
 

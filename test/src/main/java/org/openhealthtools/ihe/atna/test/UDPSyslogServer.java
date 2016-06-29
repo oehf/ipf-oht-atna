@@ -1,10 +1,7 @@
 package org.openhealthtools.ihe.atna.test;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.AsyncResult;
 import io.vertx.core.AsyncResultHandler;
-import io.vertx.core.Handler;
-import io.vertx.core.datagram.DatagramPacket;
 import io.vertx.core.datagram.DatagramSocket;
 import io.vertx.core.datagram.DatagramSocketOptions;
 import io.vertx.ext.unit.Async;
@@ -37,24 +34,18 @@ public class UDPSyslogServer extends AbstractVerticle {
     @Override
     public void start() {
         final DatagramSocket socket = vertx.createDatagramSocket(dsOptions);
-        socket.listen(udpPort, host, new AsyncResultHandler<DatagramSocket>() {
-            @Override
-            public void handle(final AsyncResult<DatagramSocket> datagramSocketAsyncResult) {
-                if (datagramSocketAsyncResult.succeeded()){
-                    log.info("Listening on UDP port " + udpPort);
+        socket.listen(udpPort, host, (AsyncResultHandler<DatagramSocket>) datagramSocketAsyncResult -> {
+            if (datagramSocketAsyncResult.succeeded()){
+                log.info("Listening on UDP port " + udpPort);
+                async.countDown();
+                socket.handler(packet -> {
+                    String decoded = packet.data().getString(0, packet.data().length());
+                    log.debug("=============== Received content on UDP " + udpPort +
+                             " ================= \n" + decoded);
                     async.countDown();
-                    socket.handler(new Handler<DatagramPacket>() {
-                        @Override
-                        public void handle(DatagramPacket packet) {
-                            String decoded = packet.data().getString(0, packet.data().length());
-                            log.debug("=============== Received content on UDP " + udpPort +
-                                     " ================= \n" + decoded);
-                            async.countDown();
-                        }
-                    });
-                } else {
-                    log.warn("Listen failed on port " + udpPort, datagramSocketAsyncResult.cause());
-                }
+                });
+            } else {
+                log.warn("Listen failed on port " + udpPort, datagramSocketAsyncResult.cause());
             }
         });
     }

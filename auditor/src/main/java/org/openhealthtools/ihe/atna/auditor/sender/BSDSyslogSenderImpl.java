@@ -205,7 +205,7 @@ public class BSDSyslogSenderImpl implements AuditMessageSender
 		}
 		
 		// Format message with transport-specific headers
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		sb.append("<");
 		sb.append(TRANSPORT_DEFAULT_PRIORITY);
 		sb.append(">");

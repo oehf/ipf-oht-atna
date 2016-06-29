@@ -62,7 +62,7 @@ public class QueryEvent extends GenericIHEAuditEventMessage
 	 */
 	public void addQueryParticipantObject(String messageIdentifier, String homeCommunityId, byte[] queryPayload, byte[] objectDetail, IHETransactionEventTypeCodes transaction)
 	{
-		List<TypeValuePairType> tvp = new LinkedList<TypeValuePairType>();
+		List<TypeValuePairType> tvp = new LinkedList<>();
 		if (objectDetail != null) {
 			// this is true ONLY for PIX/PDQ messages
 			if (transaction.getCode().equalsIgnoreCase("ITI-45") || transaction.getCode().equalsIgnoreCase("ITI-46")) {

@@ -162,12 +162,11 @@ public class EventUtils
 		if (isEmptyOrNull(collection)) {
 			return true;
 		}
-		Iterator<?> i = collection.iterator();
-		while (i.hasNext()) {
-			if (!isEmptyOrNull(i.next())) {
-				return false;
-			}
-		}
+        for (Object aCollection : collection) {
+            if (!isEmptyOrNull(aCollection)) {
+                return false;
+            }
+        }
 		return true;
 	}
 	

@@ -77,7 +77,7 @@ public class AsynchronousAuditQueue extends AbstractAuditMessageQueue {
     }
 
     @Override
-    protected void doSend(AuditMessageSender sender, AuditEventMessage[] auditEventMessages) throws Exception {
+    protected void doSend(AuditMessageSender sender, AuditEventMessage... auditEventMessages) throws Exception {
         doSendAuditEvent(runnable(sender, auditEventMessages, null, null));
     }
 
@@ -90,17 +90,14 @@ public class AsynchronousAuditQueue extends AbstractAuditMessageQueue {
     }
 
     private Runnable runnable(final AuditMessageSender sender, final AuditEventMessage[] auditEventMessages, final InetAddress destination, final Integer port) {
-        return new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    if (destination == null || port == null)
-                        sender.sendAuditEvent(auditEventMessages);
-                    else
-                        sender.sendAuditEvent(auditEventMessages, destination, port);
-                } catch (Exception e) {
-                    LOG.warn(String.format("Failed to send ATNA event to destination [%s:%d]", destination, port), e);
-                }
+        return () -> {
+            try {
+                if (destination == null || port == null)
+                    sender.sendAuditEvent(auditEventMessages);
+                else
+                    sender.sendAuditEvent(auditEventMessages, destination, port);
+            } catch (Exception e) {
+                LOG.warn(String.format("Failed to send ATNA event to destination [%s:%d]", destination, port), e);
             }
         };
     }

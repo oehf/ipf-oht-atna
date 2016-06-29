@@ -187,7 +187,7 @@ public class GenericIHEAuditEventMessage extends GenericAuditEventMessageImpl
 	 */
 	public void addDocumentUriParticipantObject(String documentRetrieveUri, String documentUniqueId)
 	{
-		List<TypeValuePairType> tvp = new LinkedList<TypeValuePairType>();
+		List<TypeValuePairType> tvp = new LinkedList<>();
 		if (documentUniqueId != null) {
 			tvp.add(getTypeValuePair("XDSDocumentEntry.uniqueId", documentUniqueId.getBytes()));
 		}
@@ -212,7 +212,7 @@ public class GenericIHEAuditEventMessage extends GenericAuditEventMessageImpl
 	 */
 	public void addDocumentParticipantObject(String documentUniqueId, String repositoryUniqueId, String homeCommunityId)
 	{
-		List<TypeValuePairType> tvp = new LinkedList<TypeValuePairType>();
+		List<TypeValuePairType> tvp = new LinkedList<>();
         //SEK - 10/19/2011 - added check for empty or null, RE: Issue Tracker artifact artf2295 (was Issue 135)
  		if (!EventUtils.isEmptyOrNull(repositoryUniqueId)) {
 			tvp.add(getTypeValuePair("Repository Unique Id", repositoryUniqueId.getBytes()));
@@ -247,7 +247,7 @@ public class GenericIHEAuditEventMessage extends GenericAuditEventMessageImpl
 		if (valueSetVersion == null){
 			valueSetVersion = "";
 		}
-		List<TypeValuePairType> tvp = new LinkedList<TypeValuePairType>();
+		List<TypeValuePairType> tvp = new LinkedList<>();
 		tvp.add(getTypeValuePair("Value Set Version", valueSetVersion.getBytes()));
 		addParticipantObjectIdentification(
 				new RFC3881ParticipantObjectCodes.RFC3881ParticipantObjectIDTypeCodes.ReportNumber(), 

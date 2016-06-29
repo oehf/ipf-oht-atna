@@ -62,7 +62,7 @@ abstract class AbstractAuditMessageQueue implements AuditMessageQueue {
     @Override
     public void sendAuditEvent(AuditEventMessage msg) {
         try {
-            doSend(context.getSender(), new AuditEventMessage[]{msg});
+            doSend(context.getSender(), msg);
         } catch (Exception e) {
             LOG.warn("Error sending audit message", e);
         }
@@ -80,6 +80,6 @@ abstract class AbstractAuditMessageQueue implements AuditMessageQueue {
 
     protected abstract void doSend(AuditMessageSender sender, AuditEventMessage[] auditEventMessages, InetAddress destination, int port) throws Exception;
 
-    protected abstract void doSend(AuditMessageSender sender, AuditEventMessage[] auditEventMessages) throws Exception;
+    protected abstract void doSend(AuditMessageSender sender, AuditEventMessage... auditEventMessages) throws Exception;
 
 }

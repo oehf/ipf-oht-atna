@@ -51,7 +51,7 @@ public class UUID {
 	 * @return the generated uuid
 	 */
 	public static String generate() {
-		StringBuffer uuid = new StringBuffer(32); // 16 bytes, 32 chars in hex
+		StringBuilder uuid = new StringBuilder(32); // 16 bytes, 32 chars in hex
 		uuid.replace(0, 31, "00000000000000000000000000000000");
 		// breakdown is as follows"
 		//    00|01|02|03|04|05|06|07|08|09|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|26|27|28|29|30|31  index
@@ -143,7 +143,7 @@ public class UUID {
 
 		//if (MAC != null) return MAC;
 		
-		if (osName.indexOf("windows") != -1) {
+		if (osName.contains("windows")) {
 			if (MAC == null) {
 				Process proc = null;
 				try {
@@ -153,7 +153,7 @@ public class UUID {
 					String line;
 
 					while ((line = br.readLine()) != null) {
-						if (line.indexOf("Physical Address") != -1) {
+						if (line.contains("Physical Address")) {
 							String split[] = line.toLowerCase().split(":");
 							String rawMAC = split[1];
 							String MACBytes[] = rawMAC.trim().split("-");
@@ -204,17 +204,13 @@ public class UUID {
 			}
 			return MAC;
 
-		} catch (NoSuchAlgorithmException e) {
+		} catch (NoSuchAlgorithmException | DigestException e) {
 
 			// If we get there, then the SHA-1 wasn't available, resort to 
 			// less fancy techniques...
-		} catch (DigestException e) {
-			// If we get there, then the SHA-1 digest gave some error
-			// when doing its thing, resort to 
-			// less fancy techniques...
 		}
 
-		File cwd = new File(".");
+        File cwd = new File(".");
 		String list[] = cwd.list();
 		Runtime rt = Runtime.getRuntime();
 		long[] octet =  new long[6];
@@ -244,7 +240,7 @@ public class UUID {
 	 * UUIDs
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	public static void main(String... args) {
 		int count = 100;
 		System.out.println("Generating " + count + " test URNs ...");
 		long start = System.currentTimeMillis();

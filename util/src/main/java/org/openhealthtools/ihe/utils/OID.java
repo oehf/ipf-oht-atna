@@ -250,7 +250,7 @@ public class OID {
 	private static String format(int i)
 	{
 		i = Math.abs(i);
-		StringBuffer sb = new StringBuffer(3);
+		StringBuilder sb = new StringBuilder(3);
 		if (i < 10) sb.append("0");
 		if (i < 100) sb.append("0");
 		sb.append(i);
@@ -260,7 +260,7 @@ public class OID {
 	}
 
 	
-	public static void main (String argv[])
+	public static void main (String... argv)
 	{
 	
 		System.out.println("         1         2         3         4         5         6   x");

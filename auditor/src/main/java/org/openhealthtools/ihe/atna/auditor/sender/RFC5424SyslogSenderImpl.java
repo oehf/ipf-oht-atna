@@ -97,7 +97,7 @@ public class RFC5424SyslogSenderImpl
 		}
 		
 		// Format message with transport-specific headers
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		
 		// The breakdown of the ABNF definition of the message are included as comments
 		//PRI
