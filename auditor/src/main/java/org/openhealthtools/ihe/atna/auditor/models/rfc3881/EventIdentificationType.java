@@ -23,6 +23,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 
@@ -276,5 +277,23 @@ public class EventIdentificationType {
 
     public void setPurposesOfUse(List<CodedValueType> purposesOfUse) {
         this.purposesOfUse = purposesOfUse;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof EventIdentificationType)) return false;
+        EventIdentificationType that = (EventIdentificationType) o;
+        return Objects.equals(eventID, that.eventID) &&
+                Objects.equals(eventTypeCode, that.eventTypeCode) &&
+                Objects.equals(eventActionCode, that.eventActionCode) &&
+                Objects.equals(eventDateTime, that.eventDateTime) &&
+                Objects.equals(eventOutcomeIndicator, that.eventOutcomeIndicator) &&
+                Objects.equals(purposesOfUse, that.purposesOfUse);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(eventID, eventTypeCode, eventActionCode, eventDateTime, eventOutcomeIndicator, purposesOfUse);
     }
 }

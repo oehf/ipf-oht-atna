@@ -22,6 +22,8 @@ package org.openhealthtools.ihe.atna.auditor.models.rfc3881;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.openhealthtools.ihe.atna.auditor.utils.EventUtils;
 
+import java.util.Arrays;
+import java.util.Objects;
 
 
 /**
@@ -121,4 +123,17 @@ public class TypeValuePairType {
         this.value = EventUtils.encodeBase64(value);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TypeValuePairType)) return false;
+        TypeValuePairType that = (TypeValuePairType) o;
+        return Objects.equals(type, that.type) &&
+                Arrays.equals(value, that.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, value);
+    }
 }

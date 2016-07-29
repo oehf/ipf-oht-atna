@@ -19,11 +19,11 @@
 
 package org.openhealthtools.ihe.atna.auditor.models.rfc3881;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import org.openhealthtools.ihe.atna.auditor.utils.EventUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 
 /**
@@ -249,4 +249,20 @@ public class AuditMessage {
 //
 //    }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AuditMessage)) return false;
+        AuditMessage that = (AuditMessage) o;
+        return Objects.equals(eventIdentification, that.eventIdentification) &&
+                Objects.equals(activeParticipant, that.activeParticipant) &&
+                Objects.equals(auditSourceIdentification, that.auditSourceIdentification) &&
+                Objects.equals(participantObjectIdentification, that.participantObjectIdentification);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(eventIdentification, activeParticipant, auditSourceIdentification, participantObjectIdentification);
+    }
 }

@@ -21,6 +21,8 @@ package org.openhealthtools.ihe.atna.auditor.models.rfc3881;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
+import java.util.Objects;
+
 
 /**
  * <p>Java class for AuditSourceIdentificationType complex type.
@@ -188,4 +190,18 @@ public class AuditSourceIdentificationType {
         this.auditSourceID = value;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AuditSourceIdentificationType)) return false;
+        AuditSourceIdentificationType that = (AuditSourceIdentificationType) o;
+        return Objects.equals(auditSourceTypeCode, that.auditSourceTypeCode) &&
+                Objects.equals(auditEnterpriseSiteID, that.auditEnterpriseSiteID) &&
+                Objects.equals(auditSourceID, that.auditSourceID);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(auditSourceTypeCode, auditEnterpriseSiteID, auditSourceID);
+    }
 }

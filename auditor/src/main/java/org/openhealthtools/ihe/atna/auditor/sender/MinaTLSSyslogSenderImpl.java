@@ -84,7 +84,7 @@ public class MinaTLSSyslogSenderImpl extends NioTLSSyslogSenderImpl<IoSession> {
 
         @Override
         public void shutdown() {
-            if (session.isConnected()) session.close(true);
+            if (session.isConnected()) session.closeNow();
             executor.shutdown();
             try {
                 if (!executor.awaitTermination(10, TimeUnit.SECONDS)) {
@@ -154,7 +154,7 @@ public class MinaTLSSyslogSenderImpl extends NioTLSSyslogSenderImpl<IoSession> {
             public void exceptionCaught(IoSession ioSession, Throwable cause) {
                 LOG.info("Exception on receiving message from address {} using connector {} ", socketAddress, connector, cause);
                 if (ioSession != null) {
-                    ioSession.close(true);
+                    ioSession.closeNow();
                 }
             }
 

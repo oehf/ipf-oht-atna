@@ -277,7 +277,7 @@ public class ParticipantObjectIdentificationType {
      * 
      * @return
      *     possible object is
-     *     {@link ParticipantObjectIdentificationType.ParticipantObjectIDTypeCode }
+     *     {@link ParticipantObjectIdentificationType#participantObjectIDTypeCode }
      *     
      */
     public CodedValueType getParticipantObjectIDTypeCode() {
@@ -289,7 +289,7 @@ public class ParticipantObjectIdentificationType {
      * 
      * @param value
      *     allowed object is
-     *     {@link ParticipantObjectIdentificationType.ParticipantObjectIDTypeCode }
+     *     {@link ParticipantObjectIdentificationType#participantObjectIDTypeCode }
      *     
      */
     public void setParticipantObjectIDTypeCode(CodedValueType value) {

@@ -22,6 +22,7 @@ package org.openhealthtools.ihe.atna.auditor.models.rfc3881;
 import org.apache.commons.lang3.StringEscapeUtils;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 
 /**
@@ -46,7 +47,6 @@ import java.io.Serializable;
  */
 //@XmlAccessorType(XmlAccessType.FIELD)
 //@XmlType(name = "CodedValueType")
-
 public class CodedValueType implements Serializable {
 
     //@XmlAttribute(required = true)
@@ -211,4 +211,19 @@ public class CodedValueType implements Serializable {
         this.originalText = value;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CodedValueType)) return false;
+        CodedValueType that = (CodedValueType) o;
+        return Objects.equals(code, that.code) &&
+                Objects.equals(originalText, that.originalText) &&
+                Objects.equals(codeSystem, that.codeSystem) &&
+                Objects.equals(codeSystemName, that.codeSystemName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(code, originalText, codeSystem, codeSystemName);
+    }
 }

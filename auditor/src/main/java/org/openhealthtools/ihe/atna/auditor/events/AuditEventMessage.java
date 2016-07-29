@@ -10,11 +10,11 @@
  *******************************************************************************/
 package org.openhealthtools.ihe.atna.auditor.events;
 
+import org.openhealthtools.ihe.atna.auditor.models.rfc3881.AuditMessage;
+
 import java.net.InetAddress;
 import java.net.URI;
 import java.util.Date;
-
-import org.openhealthtools.ihe.atna.auditor.models.rfc3881.AuditMessage;
 
 /**
  * Interface representing an auditable event message
@@ -30,22 +30,22 @@ public interface AuditEventMessage
 	 * Gets the model instance of the RFC 3881 audit message payload
 	 * @return Message payload instance
 	 */
-	public AuditMessage getAuditMessage();
+	AuditMessage getAuditMessage();
 	
 	/**
 	 * Gets the date and time that this message was generated
 	 * 
 	 * @return Message generation date and time
 	 */
-	public Date getDateTime();
+	Date getDateTime();
 	
 	/**
 	 * Get a byte-serialized representation of this messsage, 
 	 * for sending over the wire.
-	 * @param indent Whether to use line spacing or identation (if supported)
+	 * @param useSpacing Whether to use line spacing or identation (if supported)
 	 * @return The serialized byte representation of this message
 	 */
-	public byte[] getSerializedMessage(boolean useSpacing);
+	byte[] getSerializedMessage(boolean useSpacing);
 	
 	/**
 	 * Set the destination URI object for this audit message.  
@@ -56,31 +56,31 @@ public interface AuditEventMessage
 	 * @param uri The destination
 	 * @throws Exception
 	 */
-	public void setDestinationUri(URI uri) throws Exception;
+	void setDestinationUri(URI uri) throws Exception;
 	
 	/**
 	 * Gets the destination address for this message
 	 * @return The destination address
 	 */
-	public InetAddress getDestinationAddress();
+	InetAddress getDestinationAddress();
 	
 	/**
 	 * Sets the destination address for this message
 	 * @param destination The destination address
 	 */
-	public void setDestinationAddress(InetAddress destination);
+	void setDestinationAddress(InetAddress destination);
 	
 	/**
 	 * Gets the destination port for this message
 	 * @return The destination port
 	 */
-	public int getDestinationPort();
+	int getDestinationPort();
 	
 	/**
 	 * Sets the destination port for this message
 	 * @param port The destination port
 	 */
-	public void setDestinationPort(int port);
+	void setDestinationPort(int port);
 
 }
 

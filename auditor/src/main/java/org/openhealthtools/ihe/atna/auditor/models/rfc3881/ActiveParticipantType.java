@@ -18,12 +18,12 @@
 
 package org.openhealthtools.ihe.atna.auditor.models.rfc3881;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.openhealthtools.ihe.atna.auditor.utils.EventUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 
 /**
@@ -333,4 +333,22 @@ public class ActiveParticipantType {
         this.networkAccessPointTypeCode = value;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ActiveParticipantType)) return false;
+        ActiveParticipantType that = (ActiveParticipantType) o;
+        return Objects.equals(roleIDCode, that.roleIDCode) &&
+                Objects.equals(userID, that.userID) &&
+                Objects.equals(alternativeUserID, that.alternativeUserID) &&
+                Objects.equals(userName, that.userName) &&
+                Objects.equals(userIsRequestor, that.userIsRequestor) &&
+                Objects.equals(networkAccessPointID, that.networkAccessPointID) &&
+                Objects.equals(networkAccessPointTypeCode, that.networkAccessPointTypeCode);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(roleIDCode, userID, alternativeUserID, userName, userIsRequestor, networkAccessPointID, networkAccessPointTypeCode);
+    }
 }
