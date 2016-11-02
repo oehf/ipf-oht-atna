@@ -38,22 +38,22 @@ import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Implementation of the Node Authentication's SocketHandler 
+ * Implementation of the Node Authentication's SocketHandler
  * to create of sockets secured using Transport Layer
  * Security version 1.  The TLS-enabled Socket Handler constructs
  * sockets using a specified keystore, truststore, and cipher suite
  * via a SecurityDomain.  These settings are used to mututally-authenticate
  * and negotiate the parties involved in the transaction.
- *
+ * <p>
  * This handler implements the IHE ITI-19 Node Authentication transaction.
- *
+ * <p>
  * To access this handler, use NodeAuthModule.getContext().getSocketHandler().
  *
- * @see org.openhealthtools.ihe.atna.nodeauth.SocketHandler
  * @author <a href="mailto:rgd@us.ibm.com">Glenn Deen</a>
  * @author <a href="mailto:rstevens@us.ibm.com">Rick Stevens</a>
  * @author <a href="mailto:srrenly@us.ibm.com">Sondra Renly</a>
  * @author <a href="mailto:mattadav@us.ibm.com">Matthew Davis</a>
+ * @see org.openhealthtools.ihe.atna.nodeauth.SocketHandler
  */
 public class TLSEnabledSocketHandler extends AbstractSecureSocketHandler {
     /**
@@ -63,6 +63,7 @@ public class TLSEnabledSocketHandler extends AbstractSecureSocketHandler {
 
     /**
      * Default constructor for the TLS-enabled Socket Handler
+     *
      * @param context The NodeAuth Module Context to use
      */
     public TLSEnabledSocketHandler(NodeAuthModuleContext context) {
@@ -152,9 +153,9 @@ public class TLSEnabledSocketHandler extends AbstractSecureSocketHandler {
 
         SSLContext ctx = null;
 
-        // Attempt to get an instance of TLS v1
+        // Attempt to get an instance of the first support TLS protocol
         try {
-            ctx = SSLContext.getInstance("TLSv1");
+            ctx = SSLContext.getInstance(securityDomain.getJdkTlsClientProtocols()[0]);
         } catch (NoSuchAlgorithmException e) {
             securityDomain.restoreSystemEnvironment();
             throw e;
@@ -175,7 +176,7 @@ public class TLSEnabledSocketHandler extends AbstractSecureSocketHandler {
 
         if (logger.isDebugEnabled()) {
             String[] supportedSuites = factory.getSupportedCipherSuites();
-            logger.debug("\n\nSupported ciper suites are:");
+            logger.debug("\n\nSupported cipher suites are:");
             for (int i = 0; i < supportedSuites.length; i++) {
                 logger.debug("\t" + supportedSuites[i]);
             }
@@ -205,7 +206,7 @@ public class TLSEnabledSocketHandler extends AbstractSecureSocketHandler {
                 socket.setSoTimeout(CONTEXT.getConfig().getSocketTimeout());
                 socket.setKeepAlive(true);
 
-                socket.setEnabledProtocols(new String[]{"TLSv1"});
+                socket.setEnabledProtocols(securityDomain.getJdkTlsClientProtocols());
                 socket.setEnabledCipherSuites(securityDomain.getCipherSuites());
 
                 if (logger.isDebugEnabled()) {
@@ -312,9 +313,9 @@ public class TLSEnabledSocketHandler extends AbstractSecureSocketHandler {
 
             is = connection.getInputStream();
             if (useTLS) {
-                logger.info("Secure connection succesfully made using TLS to " + uri.toString());
+                logger.info("Secure connection successfully made using TLS to " + uri.toString());
             } else {
-                logger.info("Unsecure connection succesfully made to " + uri.toString());
+                logger.info("Unsecure connection successfully made to " + uri.toString());
             }
         } catch (IOException e) {
             if (useTLS) securityDomain.restoreSystemEnvironment();
@@ -326,7 +327,11 @@ public class TLSEnabledSocketHandler extends AbstractSecureSocketHandler {
     }
 
 
-    /* (non-Javadoc)
+    /*
+     * Note that this method always uses the system environment (specifically https.protocols)
+     * in order to derive the HTTPS parameters. As such {@link SecurityDomain#SET_DOMAIN_ENVIRONMENT} must be
+     * set to true if these parameters are not configured via system properties anyway.
+     *
      * @see org.openhealthtools.ihe.atna.nodeauth.SocketHandler#getInputStream(java.net.URI)
      */
     public InputStream getInputStream(URI uri) throws Exception {

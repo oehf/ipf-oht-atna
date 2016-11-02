@@ -53,12 +53,16 @@ public class SecurityDomain implements Cloneable {
     public static final String JAVAX_NET_SSL_KEYSTORE_PASSWORD = "javax.net.ssl.keyStorePassword";
     public static final String HTTPS_CIPHERSUITES = "https.ciphersuites";
     public static final String HTTPS_PROTOCOLS = "https.protocols";
+    public static final String JDK_TLS_CLIENT_PROTOCOLS = "jdk.tls.client.protocols";
+
+    public static final String SET_DOMAIN_ENVIRONMENT = "org.openhealthtools.ihe.atna.nodeauth.SetDomainEnvironment";
 
     private static final String[] ENVNAMES = {
             JAVAX_NET_DEBUG,
             JAVAX_NET_SSL_KEYSTORE, JAVAX_NET_SSL_KEYSTORE_PASSWORD,
             JAVAX_NET_SSL_TRUSTSTORE, JAVAX_NET_SSL_TRUSTSTORE_PASSWORD,
-            HTTPS_CIPHERSUITES, HTTPS_PROTOCOLS
+            HTTPS_CIPHERSUITES, HTTPS_PROTOCOLS,
+            JDK_TLS_CLIENT_PROTOCOLS
     };
 
 
@@ -79,15 +83,20 @@ public class SecurityDomain implements Cloneable {
     public static String TLS_RSA_WITH_NULL_SHA = "SSL_RSA_WITH_NULL_SHA";
 
     /**
-     * Default CIPHER SUITE which will be used unless overriddent:
-     * "TLS_RSA_WITH_NULL_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+     * Default CIPHER SUITE which will be used unless overridden:
+     * "TLS_RSA_WITH_AES_128_CBC_SHA"
      */
-    public static String DEFAULT_HTTPS_CIPHERSUITES = TLS_RSA_WITH_NULL_SHA + "," + TLS_RSA_WITH_AES_128_CBC_SHA;
+    public static String DEFAULT_HTTPS_CIPHERSUITES = TLS_RSA_WITH_AES_128_CBC_SHA;
 
     /**
-     * Default https.protocols value unless specified otherwise: "TLSv1"
+     * Default https.protocols value unless specified otherwise: "TLSv1.2,TLSv1.1,TLSv1"
      */
-    public static String DEFAULT_HTTPS_PROTOCOLS = "TLSv1";
+    public static String DEFAULT_HTTPS_PROTOCOLS = "TLSv1.2,TLSv1.1,TLSv1";
+
+    /**
+     * Default https.protocols value unless specified otherwise: "TLSv1.2,TLSv1.1,TLSv1"
+     */
+    public static String DEFAULT_JDK_TLS_CLIENT_PROTOCOLS = "TLSv1.2,TLSv1.1,TLSv1";
 
     /**
      * Name of the default security domain
@@ -95,33 +104,14 @@ public class SecurityDomain implements Cloneable {
     public static String DEFAULT_SECURITY_DOMAIN = "_DEFAULT_";
 
     /**
-     *
+     * Name of the Security Domain
      */
     private String name;
 
-    /**
-     *
-     */
     KeyManagerFactory keyManagerFactory = null;
-
-    /**
-     *
-     */
     KeyStore keyStore = null;
-
-    /**
-     *
-     */
     TrustManagerFactory trustManagerFactory = null;
-
-    /**
-     *
-     */
     KeyStore trustStore = null;
-
-    /**
-     *
-     */
     private KeyManager[] keyManagers;
 
     /**
@@ -144,24 +134,9 @@ public class SecurityDomain implements Cloneable {
      */
     Properties systemProperties = null;
 
-    /**
-     *
-     */
     private boolean domainSpoofCheck = false;
-
-    /**
-     *
-     */
     private String preferredKeyAlias;
-
-    /**
-     *
-     */
     protected boolean keystoreInitialized = false;
-
-    /**
-     *
-     */
     protected boolean truststoreInitialized = false;
 
     /**
@@ -175,7 +150,7 @@ public class SecurityDomain implements Cloneable {
     }
 
     /**
-     * Properites file requires the following properties to be set<br>
+     * Properties file requires the following properties to be set<br>
      * Key Store:<br>
      * javax.net.ssl.keyStore=XXX<br>
      * javax.net.ssl.keyStorePassword=XXX  (if not present, defaults to "")<br>
@@ -220,13 +195,16 @@ public class SecurityDomain implements Cloneable {
      * @throws SecurityDomainException
      */
     public void setProperties(Properties properties) throws SecurityDomainException {
-        domainProperties = cloneProperites(properties);
+        domainProperties = cloneProperties(properties);
         // unless overridding in the properties, use the IHE required TLS ciphers
         if (domainProperties.getProperty(HTTPS_CIPHERSUITES) == null) {
             domainProperties.setProperty(HTTPS_CIPHERSUITES, DEFAULT_HTTPS_CIPHERSUITES);
         }
         if (domainProperties.getProperty(HTTPS_PROTOCOLS) == null) {
             domainProperties.setProperty(HTTPS_PROTOCOLS, DEFAULT_HTTPS_PROTOCOLS);
+        }
+        if (domainProperties.getProperty(JDK_TLS_CLIENT_PROTOCOLS) == null) {
+            domainProperties.setProperty(JDK_TLS_CLIENT_PROTOCOLS, DEFAULT_JDK_TLS_CLIENT_PROTOCOLS);
         }
         initStores();
         if (logger.isDebugEnabled())
@@ -239,28 +217,31 @@ public class SecurityDomain implements Cloneable {
      * <br>Also see {@link #restoreSystemEnvironment()}
      */
     public void setDomainEnvironment() {
-        if (logger.isDebugEnabled()) logger.debug("Setting System environment properties to Security Domain values");
         systemProperties = System.getProperties();
-        for (int i = 0; i < ENVNAMES.length; i++) {
-            setOrClearSystemProperties(ENVNAMES[i], domainProperties);
+        if (System.getProperty(SET_DOMAIN_ENVIRONMENT) != null) {
+            logger.debug("Setting System environment properties to Security Domain values");
+            for (int i = 0; i < ENVNAMES.length; i++) {
+                setOrClearSystemProperties(ENVNAMES[i], domainProperties);
+            }
         }
     }
 
     /**
-     * Restores the System environmnet to what it was before
+     * Restores the System environment to what it was before
      * <br>Also see {@link #setDomainEnvironment()}
      */
     public void restoreSystemEnvironment() {
         if (systemProperties == null)
             throw new NullPointerException("Must call SecurityDomain.setDomainEnvironment() first to record existing System environment");
-        if (logger.isDebugEnabled())
+        if (System.getProperty(SET_DOMAIN_ENVIRONMENT) != null) {
             logger.debug("Swapping back to original System environment properties values");
-        for (int i = 0; i < ENVNAMES.length; i++) {
-            setOrClearSystemProperties(ENVNAMES[i], systemProperties);
+            for (int i = 0; i < ENVNAMES.length; i++) {
+                setOrClearSystemProperties(ENVNAMES[i], systemProperties);
+            }
         }
     }
 
-    private Properties cloneProperites(Properties source) {
+    private Properties cloneProperties(Properties source) {
         Properties clone = new Properties();
         String v;
         for (int i = 0; i < ENVNAMES.length; i++) {
@@ -541,6 +522,12 @@ public class SecurityDomain implements Cloneable {
         String suitestring = domainProperties.getProperty(HTTPS_CIPHERSUITES);
         String[] suites = suitestring.split(",");
         return suites;
+    }
+
+    public String[] getJdkTlsClientProtocols() {
+        String protocolString = domainProperties.getProperty(JDK_TLS_CLIENT_PROTOCOLS);
+        String[] protocols = protocolString.split(",");
+        return protocols;
     }
 
     public String getPreferredKeyAlias() {

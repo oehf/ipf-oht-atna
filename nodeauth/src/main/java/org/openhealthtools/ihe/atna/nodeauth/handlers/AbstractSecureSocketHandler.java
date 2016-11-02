@@ -150,7 +150,8 @@ public abstract class AbstractSecureSocketHandler implements SocketHandler
 	/**
      * Create non-secure socket for a given URI.
      * 
-     * @param URI uri to connect to
+     * @param host host to connect to
+     * @param port port to connect to
      * @return socket
 	 * @throws SocketException
 	 * @throws UnknownHostException
