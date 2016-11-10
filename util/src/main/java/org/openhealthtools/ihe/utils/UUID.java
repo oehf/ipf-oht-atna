@@ -28,9 +28,13 @@ import java.util.GregorianCalendar;
  * under non Windows platforms, but given the number of bits of random data  used 
  * to generate the fake MAC addresses for non Windows machines, it is very unlikely
  * any collosions will every occur in practice. 
- *   
+ *
+ * Important note: this class is not thread-safe
+ *
  * @author Glenn Deen
  * @since IHII Phase 1
+ *
+ * @deprecated use {@link java.util.UUID#randomUUID()}
  */
 public class UUID {
 
