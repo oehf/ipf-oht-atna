@@ -23,6 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.URI;
+import java.util.Properties;
 
 /**
  * Helper configuration bean that initializes the underlying ATNA facilities when
@@ -37,10 +38,16 @@ public class AuditorTLSConfig {
 
     private String securityDomainName = DEFAULT_SECURITY_DOMAIN_NAME;
     private AuditorModuleConfig auditorModuleConfig;
+    private Properties auditProperties;
 
     public AuditorTLSConfig(AuditorModuleConfig auditorModuleConfig) {
+        this(auditorModuleConfig, System.getProperties());
+    }
+
+    public AuditorTLSConfig(AuditorModuleConfig auditorModuleConfig, Properties auditProperties) {
         super();
         this.auditorModuleConfig = auditorModuleConfig;
+        this.auditProperties = auditProperties;
     }
 
     public void setSecurityDomainName(String securityDomainName) {
@@ -51,7 +58,7 @@ public class AuditorTLSConfig {
         String transport = auditorModuleConfig.getAuditRepositoryTransport();
         if ("TLS".equals(transport)) {
             LOG.info("ATNA uses {}, setting up Security Domain", transport);
-            SecurityDomain securityDomain = new SecurityDomain(securityDomainName, System.getProperties());
+            SecurityDomain securityDomain = new SecurityDomain(securityDomainName, auditProperties);
             NodeAuthModuleContext nodeContext = NodeAuthModuleContext.getContext();
             SecurityDomainManager securityDomainManager = nodeContext.getSecurityDomainManager();
             securityDomainManager.registerSecurityDomain(securityDomain);
