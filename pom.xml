@@ -48,7 +48,7 @@
             <timezone>+1</timezone>
         </developer>
         <developer>
-            <id>rnd</id>
+            <id>unixoid</id>
             <name>Dmytro Rud</name>
             <email>dmytro.rud@gmail.com</email>
             <organization>InterComponentWare AG</organization>
@@ -59,7 +59,7 @@
             <timezone>+1</timezone>
         </developer>
         <developer>
-            <id>boris</id>
+            <id>stanojevic-boris</id>
             <name>Boris Stanojevic</name>
             <email>stanojevic.boris@gmail.com</email>
             <organization>InterComponentWare AG</organization>
