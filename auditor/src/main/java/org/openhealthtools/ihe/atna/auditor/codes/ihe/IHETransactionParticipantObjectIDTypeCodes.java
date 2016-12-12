@@ -47,8 +47,19 @@ public abstract class IHETransactionParticipantObjectIDTypeCodes extends CodedVa
 		{
 			super("urn:uuid:a54d6aa5-d40d-43f9-88c5-b4633d873bdd", "submission set classificationNode", "IHE XDS Metadata");
 		}	
-	}	
-	
+	}
+
+	public static class StableXdsDocumentEntry extends IHETransactionParticipantObjectIDTypeCodes {
+		public StableXdsDocumentEntry() {
+			super("urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1", "document entry classificationNode", "IHE XDS Metadata");
+		}
+	}
+
+	public static class OnDemandXdsDocumentEntry extends IHETransactionParticipantObjectIDTypeCodes {
+		public OnDemandXdsDocumentEntry() {
+			super("urn:uuid:34268e47-fdf5-41a6-ba33-82133c465248", "on-demand document entry classificationNode", "IHE XDS Metadata");
+		}
+	}
 
 }
 
