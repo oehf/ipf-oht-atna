@@ -260,5 +260,18 @@ public class GenericIHEAuditEventMessage extends GenericAuditEventMessageImpl
 				null, 
 				null);
 	}
-	
+
+	public void addDocumentEntryObject(IHETransactionParticipantObjectIDTypeCodes documentEntryType, String documentEntryUuid) {
+		addParticipantObjectIdentification(
+				documentEntryType,
+				null,
+				null,
+				null,
+				documentEntryUuid,
+				RFC3881ParticipantObjectTypeCodes.SYSTEM,
+				RFC3881ParticipantObjectTypeRoleCodes.REPORT,
+				null,
+				null);
+	}
+
 }
