@@ -141,13 +141,11 @@
                 <groupId>org.apache.mina</groupId>
                 <artifactId>mina-core</artifactId>
                 <version>${mina-version}</version>
-                <optional>true</optional>
             </dependency>
             <dependency>
                 <groupId>io.netty</groupId>
                 <artifactId>netty-all</artifactId>
                 <version>${netty-version}</version>
-                <optional>true</optional>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
