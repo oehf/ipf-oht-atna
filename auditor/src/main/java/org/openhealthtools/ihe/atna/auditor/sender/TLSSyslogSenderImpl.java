@@ -11,17 +11,18 @@
  *******************************************************************************/
 package org.openhealthtools.ihe.atna.auditor.sender;
 
-import java.io.OutputStream;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.net.SocketException;
-import java.util.HashMap;
-
 import org.openhealthtools.ihe.atna.auditor.events.AuditEventMessage;
 import org.openhealthtools.ihe.atna.auditor.utils.EventUtils;
 import org.openhealthtools.ihe.atna.nodeauth.context.NodeAuthModuleContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.OutputStream;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.SocketException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Simple client implementation of RFC 5425 TLS syslog transport
@@ -38,7 +39,7 @@ import org.slf4j.LoggerFactory;
  */
 public class TLSSyslogSenderImpl extends RFC5424SyslogSenderImpl implements AuditMessageSender
 {
-	private static HashMap<String, Socket> socketMap = new HashMap<>();
+	private static Map<String, Socket> socketMap = new HashMap<>();
 
 	/**
 	 * Logger instance
@@ -95,7 +96,7 @@ public class TLSSyslogSenderImpl extends RFC5424SyslogSenderImpl implements Audi
 		       out.flush();
     	   } catch(SocketException e) {
     		   try {
-	    		   LOGGER.error("Caught exception trying to audit to TLS socket, throwing away socket (closed socket?).  Will create a new socket to retry this log message.", e);
+	    		   LOGGER.info("Failed to connect with existing TLS socket.  Will create a new connection and retry.");
 	    		   String key = socket.getInetAddress().getHostName() + ":" + socket.getPort();
 	    		   synchronized (socketMap) {
 	    			   socketMap.remove(key);
