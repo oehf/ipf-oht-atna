@@ -12,7 +12,7 @@
         <compiler-plugin-version>3.5.1</compiler-plugin-version>
         <gpg-plugin-version>1.6</gpg-plugin-version>
         <javadocs-plugin-version>2.10.4</javadocs-plugin-version>
-        <nexus-staging-plugin-version>1.6.7</nexus-staging-plugin-version>
+        <nexus-staging-plugin-version>1.6.3</nexus-staging-plugin-version>
         <release-plugin-version>2.5.3</release-plugin-version>
         <sources-plugin-version>3.0.1</sources-plugin-version>
         <commons-codec-version>1.10</commons-codec-version>
