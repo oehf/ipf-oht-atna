@@ -18,6 +18,7 @@ import java.util.List;
 
 import org.openhealthtools.ihe.atna.auditor.codes.rfc3881.RFC3881AuditSourceTypeCodes;
 import org.openhealthtools.ihe.atna.auditor.codes.rfc3881.RFC3881ActiveParticipantCodes.RFC3881NetworkAccessPointTypeCodes;
+import org.openhealthtools.ihe.atna.auditor.codes.rfc3881.RFC3881AuditSourceTypes;
 import org.openhealthtools.ihe.atna.auditor.codes.rfc3881.RFC3881EventCodes.RFC3881EventActionCodes;
 import org.openhealthtools.ihe.atna.auditor.codes.rfc3881.RFC3881EventCodes.RFC3881EventOutcomeCodes;
 import org.openhealthtools.ihe.atna.auditor.codes.rfc3881.RFC3881ParticipantObjectCodes.RFC3881ParticipantObjectDataLifeCycleCodes;
@@ -289,6 +290,8 @@ public abstract class AbstractAuditEventMessageImpl implements AuditEventMessage
      * @param enterpriseSiteID The Audit Enterprise Site ID
      * @param typeCodes The Audit Source Type Codes
      * @return The Audit Source Identification block created
+     *
+     * @deprecated use {@link #addAuditSourceIdentification(String, String, RFC3881AuditSourceTypes...)}
      */
     protected AuditSourceIdentificationType addAuditSourceIdentification(String sourceID,
                                                                          String enterpriseSiteID,
@@ -297,6 +300,22 @@ public abstract class AbstractAuditEventMessageImpl implements AuditEventMessage
 
         if (!EventUtils.isEmptyOrNull(typeCodes, true)) {
             sourceBlock.setAuditSourceTypeCode(typeCodes[0]);
+        }
+        sourceBlock.setAuditSourceID(sourceID);
+        sourceBlock.setAuditEnterpriseSiteID(enterpriseSiteID);
+
+        getAuditMessage().getAuditSourceIdentification().add(sourceBlock);
+
+        return sourceBlock;
+    }
+
+    protected AuditSourceIdentificationType addAuditSourceIdentification(String sourceID,
+                                                                         String enterpriseSiteID,
+                                                                         RFC3881AuditSourceTypes... typeCodes) {
+        AuditSourceIdentificationType sourceBlock = new AuditSourceIdentificationType();
+
+        if (!EventUtils.isEmptyOrNull(typeCodes, true)) {
+            sourceBlock.getAuditSourceType().addAll(Arrays.asList(typeCodes));
         }
         sourceBlock.setAuditSourceID(sourceID);
         sourceBlock.setAuditEnterpriseSiteID(enterpriseSiteID);

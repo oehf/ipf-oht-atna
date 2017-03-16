@@ -11,6 +11,7 @@
 package org.openhealthtools.ihe.atna.auditor.events;
 
 import org.openhealthtools.ihe.atna.auditor.codes.rfc3881.RFC3881AuditSourceTypeCodes;
+import org.openhealthtools.ihe.atna.auditor.codes.rfc3881.RFC3881AuditSourceTypes;
 import org.openhealthtools.ihe.atna.auditor.codes.rfc3881.RFC3881EventCodes.RFC3881EventActionCodes;
 import org.openhealthtools.ihe.atna.auditor.codes.rfc3881.RFC3881EventCodes.RFC3881EventOutcomeCodes;
 import org.openhealthtools.ihe.atna.auditor.models.rfc3881.CodedValueType;
@@ -53,7 +54,7 @@ public class GenericAuditEventMessageImpl extends AbstractAuditEventMessageImpl
 	 */
 	public void setAuditSourceId(String sourceId)
 	{
-		setAuditSourceId(sourceId, null, null);
+		setAuditSourceId(sourceId, null, (RFC3881AuditSourceTypes[])null);
 	}
 	
 	/**
@@ -64,7 +65,7 @@ public class GenericAuditEventMessageImpl extends AbstractAuditEventMessageImpl
 	 */
 	public void setAuditSourceId(String sourceId, String enterpriseSiteId)
 	{
-		setAuditSourceId(sourceId, enterpriseSiteId, null);
+		setAuditSourceId(sourceId, enterpriseSiteId, (RFC3881AuditSourceTypes[])null);
 	}
 	
 	/**
@@ -73,11 +74,24 @@ public class GenericAuditEventMessageImpl extends AbstractAuditEventMessageImpl
 	 * @param sourceId The Audit Source ID to use
 	 * @param enterpriseSiteId The Audit Enterprise Site ID to use
 	 * @param typeCodes The RFC 3881 Audit Source Type codes to use
+	 *
+	 * @deprecated use {@link #setAuditSourceId(String, String, RFC3881AuditSourceTypes[])}
 	 */
 	public void setAuditSourceId(String sourceId, String enterpriseSiteId, RFC3881AuditSourceTypeCodes[] typeCodes)
 	{
 		addAuditSourceIdentification(sourceId, enterpriseSiteId, typeCodes);
 	}
-	
+
+	/**
+	 * Sets a Audit Source Identification block for a given Audit Source ID,
+	 * Audit Source Enterprise Site ID, and a list of audit source type codes
+	 * @param sourceId The Audit Source ID to use
+	 * @param enterpriseSiteId The Audit Enterprise Site ID to use
+	 * @param typeCodes The RFC 3881 Audit Source Type codes to use
+	 */
+	public void setAuditSourceId(String sourceId, String enterpriseSiteId, RFC3881AuditSourceTypes[] typeCodes)
+	{
+		addAuditSourceIdentification(sourceId, enterpriseSiteId, typeCodes);
+	}
 
 }

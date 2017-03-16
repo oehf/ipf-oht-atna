@@ -20,7 +20,13 @@
 package org.openhealthtools.ihe.atna.auditor.models.rfc3881;
 
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.openhealthtools.ihe.atna.auditor.codes.rfc3881.RFC3881AuditSourceTypeCodes;
+import org.openhealthtools.ihe.atna.auditor.codes.rfc3881.RFC3881AuditSourceTypes;
+import org.openhealthtools.ihe.atna.auditor.utils.EventUtils;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -72,7 +78,7 @@ import java.util.Objects;
 public class AuditSourceIdentificationType {
 
     //@XmlElement(name = "AuditSourceTypeCode")
-    protected CodedValueType auditSourceTypeCode;
+    protected List<AuditSourceType> auditSourceTypeCode;
     //@XmlAttribute(name = "AuditEnterpriseSiteID")
     protected String auditEnterpriseSiteID;
     //@XmlAttribute(name = "AuditSourceID", required = true)
@@ -85,32 +91,15 @@ public class AuditSourceIdentificationType {
     		sb.append("\n");
     	}
     	sb.append("<AuditSourceIdentification");
-        if (auditSourceTypeCode == null) {
-            sb.append(" code=\"9\"");       // use "other" as the default event source type
-        } else {
-            sb.append(" code=\"")
-              .append(StringEscapeUtils.escapeXml10(auditSourceTypeCode.getCode()))
-              .append('"');
-            if (auditSourceTypeCode.getCodeSystemName() != null) {
-                sb.append(" codeSystemName=\"")
-                  .append(StringEscapeUtils.escapeXml10(auditSourceTypeCode.getCodeSystemName()))
-                  .append('"');
-            }
-            if (auditSourceTypeCode.getOriginalText() != null) {
-                sb.append(" originalText=\"")
-                  .append(StringEscapeUtils.escapeXml10(auditSourceTypeCode.getOriginalText()))
-                  .append('"');
-            }
+
+        //AuditEnterpriseSiteID
+        if (auditEnterpriseSiteID != null) {
+            sb.append(" AuditEnterpriseSiteID=\"");
+            sb.append(StringEscapeUtils.escapeXml10(auditEnterpriseSiteID));
+            sb.append("\"");
         }
 
-    	//AuditEnterpriseSiteID
-    	if (auditEnterpriseSiteID != null) {
-	    	sb.append(" AuditEnterpriseSiteID=\"");
-	    	sb.append(StringEscapeUtils.escapeXml10(auditEnterpriseSiteID));
-	    	sb.append("\"");
-    	}
-
-    	//AuditSourceID
+        //AuditSourceID
         sb.append(" AuditSourceID=\"");
         if ((auditSourceID != null) && ! auditSourceID.isEmpty()) {
             sb.append(StringEscapeUtils.escapeXml10(auditSourceID));
@@ -118,8 +107,26 @@ public class AuditSourceIdentificationType {
             sb.append("unknown");
         }
         sb.append("\"");
+        sb.append(">");
 
-        sb.append("/>");
+        if (useSpacing) {
+            sb.append("\n");
+        }
+
+        if (auditSourceTypeCode == null) {
+            auditSourceTypeCode = Collections.singletonList(new RFC3881AuditSourceTypes.Other());
+        }
+
+        for (AuditSourceType auditSourceType: auditSourceTypeCode) {
+            sb.append(auditSourceType.toString());
+            if (useSpacing) {
+                sb.append("\n");
+            }
+        }
+        sb.append("</AuditSourceIdentification>");
+        if (useSpacing) {
+            sb.append("\n");
+        }
     	return sb.toString();
     }
     
@@ -130,16 +137,38 @@ public class AuditSourceIdentificationType {
 
     /**
      * Gets the value of the auditSourceTypeCode property.
+     * @deprecated use {@link #getAuditSourceType()}
      */
     public CodedValueType getAuditSourceTypeCode() {
+        if (EventUtils.isEmptyOrNull(auditSourceTypeCode)) {
+            return null;
+        }
+        AuditSourceType auditSourceType = auditSourceTypeCode.get(0);
+        CodedValueType codedValueType = new CodedValueType();
+        codedValueType.setCode(auditSourceType.getCode());
+        codedValueType.setCodeSystem(auditSourceType.getCodeSystem());
+        codedValueType.setCodeSystemName(auditSourceType.getCodeSystemName());
+        codedValueType.setOriginalText(auditSourceType.getOriginalText());
+        return codedValueType;
+    }
+
+    public List<AuditSourceType> getAuditSourceType() {
+        if (auditSourceTypeCode == null) {
+            auditSourceTypeCode = new ArrayList<>();
+        }
         return this.auditSourceTypeCode;
     }
 
     /**
      * Sets the value of the auditSourceTypeCode property.
+     * @deprecated use {@link #getAuditSourceType() and add to the list}
      */
     public void setAuditSourceTypeCode(CodedValueType auditSourceTypeCode) {
-        this.auditSourceTypeCode = auditSourceTypeCode;
+        AuditSourceType auditSourceType = new AuditSourceType();
+        auditSourceType.setCode(auditSourceTypeCode.getCode());
+        auditSourceType.setCodeSystem(auditSourceTypeCode.getCodeSystem());
+        auditSourceType.setCodeSystemName(auditSourceTypeCode.getCodeSystemName());
+        auditSourceType.setOriginalText(auditSourceTypeCode.getOriginalText());
     }
 
     /**
