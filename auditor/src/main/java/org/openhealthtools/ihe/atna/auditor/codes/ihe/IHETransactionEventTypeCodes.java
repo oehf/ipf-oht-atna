@@ -58,7 +58,7 @@ public abstract class IHETransactionEventTypeCodes extends CodedValueType
 	{
 		public PatientIdentityFeedV3()
 		{
-			super("ITI-44","Patient Identity Feed HL7 V3");
+			super("ITI-44","Patient Identity Feed");
 		}	
 	}	
 	
@@ -76,7 +76,7 @@ public abstract class IHETransactionEventTypeCodes extends CodedValueType
 	}
 	
 	/**
-	 * "IHE Transactions","ITI-9","PIX Query"
+	 * "IHE Transactions","ITI-45","PIX Query"
 	 * 
 	 * @since OHT IHE 0.3.0
 	 */
@@ -84,7 +84,7 @@ public abstract class IHETransactionEventTypeCodes extends CodedValueType
 	{
 		public PIXQueryV3()
 		{
-			super("ITI-45","PIXV3 Query");
+			super("ITI-45","PIX Query");
 		}	
 	}
 	
@@ -102,7 +102,7 @@ public abstract class IHETransactionEventTypeCodes extends CodedValueType
 	}	
 	
 	/**
-	 * "IHE Transactions","ITI-10","PIX Update Notification"
+	 * "IHE Transactions","ITI-46","PIX Update Notification"
 	 * 
 	 * @since OHT IHE 0.3.0
 	 */
@@ -110,7 +110,7 @@ public abstract class IHETransactionEventTypeCodes extends CodedValueType
 	{
 		public PIXUpdateNotificationV3()
 		{
-			super("ITI-46","PIXV3 Update Notification");
+			super("ITI-46","PIX Update Notification");
 		}	
 	}	
 	
@@ -128,7 +128,7 @@ public abstract class IHETransactionEventTypeCodes extends CodedValueType
 	}
 	
 	/**
-	 * "IHE Transactions","ITI-21","PDQ Query"
+	 * "IHE Transactions","ITI-47","PDQ Query"
 	 * 
 	 * @since OHT IHE 0.3.0
 	 */
@@ -136,7 +136,7 @@ public abstract class IHETransactionEventTypeCodes extends CodedValueType
 	{
 		public PatientDemographicsQueryV3()
 		{
-			super("ITI-47","Patient Demographics Query HL7 V3");
+			super("ITI-47","Patient Demographics Query");
 		}	
 	}
 	
