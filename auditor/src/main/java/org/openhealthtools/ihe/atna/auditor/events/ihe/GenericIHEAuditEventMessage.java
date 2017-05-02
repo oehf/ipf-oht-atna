@@ -261,13 +261,13 @@ public class GenericIHEAuditEventMessage extends GenericAuditEventMessageImpl
 				null);
 	}
 
-	public void addDocumentEntryObject(IHETransactionParticipantObjectIDTypeCodes documentEntryType, String documentEntryUuid) {
+	public void addRemovedRegistryObject(IHETransactionParticipantObjectIDTypeCodes registryObjectType, String registryObjectUuid) {
 		addParticipantObjectIdentification(
-				documentEntryType,
+				registryObjectType,
 				null,
 				null,
 				null,
-				documentEntryUuid,
+				registryObjectUuid,
 				RFC3881ParticipantObjectTypeCodes.SYSTEM,
 				RFC3881ParticipantObjectTypeRoleCodes.REPORT,
 				null,
