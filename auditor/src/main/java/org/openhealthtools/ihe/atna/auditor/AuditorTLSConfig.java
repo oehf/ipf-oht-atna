@@ -66,7 +66,7 @@ public class AuditorTLSConfig {
                     + auditorModuleConfig.getAuditRepositoryHost() + ":"
                     + auditorModuleConfig.getAuditRepositoryPort());
             securityDomainManager.registerURItoSecurityDomain(uri, securityDomainName);
-            LOG.info("Registered {} for domain ", uri, securityDomainName);
+            LOG.info("Registered {} for domain {}", uri, securityDomainName);
         } else {
             LOG.info("ATNA uses {}, no need to setup Security Domain", transport);
         }
