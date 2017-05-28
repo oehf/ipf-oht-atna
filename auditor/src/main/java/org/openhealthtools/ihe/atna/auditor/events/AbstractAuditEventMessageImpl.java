@@ -12,6 +12,7 @@ package org.openhealthtools.ihe.atna.auditor.events;
 
 import java.net.InetAddress;
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -339,7 +340,7 @@ public abstract class AbstractAuditEventMessageImpl implements AuditEventMessage
      * @param objectSensitivity The Participant Object sensitivity
      * @return The Participant Object Identification block created
      */
-    protected ParticipantObjectIdentificationType addParticipantObjectIdentification(CodedValueType objectIDTypeCode,
+    public ParticipantObjectIdentificationType addParticipantObjectIdentification(CodedValueType objectIDTypeCode,
                                                                                      String objectName, byte[] objectQuery, List<TypeValuePairType> objectDetail,
                                                                                      String objectID,
                                                                                      RFC3881ParticipantObjectTypeCodes objectTypeCode,
@@ -425,5 +426,16 @@ public abstract class AbstractAuditEventMessageImpl implements AuditEventMessage
         // the TVP itself base64 encodes now, no need for this
         tvp.setValue(value);
         return tvp;
+    }
+
+    /**
+     * Create and set a Type Value Pair instance for a given type and value
+     *
+     * @param type The type to set
+     * @param value The value to set
+     * @return The Type Value Pair instance
+     */
+    public TypeValuePairType getTypeValuePair(String type, String value) {
+        return getTypeValuePair(type, value.getBytes(StandardCharsets.UTF_8));
     }
 }

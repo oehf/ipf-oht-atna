@@ -76,7 +76,7 @@ public class QueryEvent extends GenericIHEAuditEventMessage
 			}
 		}
 		// need to check null or "" because it is known to be passed as "" sometimes
-        boolean isXdsQuery = transaction.getCode().equals("ITI-18") || transaction.getCode().equals("ITI-38") || transaction.getCode().equals("ITI-63");
+		boolean isXdsQuery = transaction.getCode().equals("ITI-18") || transaction.getCode().equals("ITI-38") || transaction.getCode().equals("ITI-51") || transaction.getCode().equals("ITI-63");
 		if (isXdsQuery && messageIdentifier != null && !messageIdentifier.equals("")){
 			// this is true ONLY for Stored Query messages
 			// set to the system's default charset because that's what we used to getBytes()
