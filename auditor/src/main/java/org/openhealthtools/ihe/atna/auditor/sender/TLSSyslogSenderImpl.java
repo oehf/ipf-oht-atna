@@ -97,7 +97,7 @@ public class TLSSyslogSenderImpl extends RFC5424SyslogSenderImpl implements Audi
     	   } catch(SocketException e) {
     		   try {
 	    		   LOGGER.info("Failed to connect with existing TLS socket.  Will create a new connection and retry.");
-	    		   String key = socket.getInetAddress().getHostName() + ":" + socket.getPort();
+	    		   String key = socket.getInetAddress().getHostAddress() + ":" + socket.getPort();
 	    		   synchronized (socketMap) {
 	    			   socketMap.remove(key);
 		    		   Socket newSocket = this.getTLSSocket(socket.getInetAddress(), socket.getPort());
