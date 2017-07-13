@@ -1,7 +1,6 @@
 package org.openhealthtools.ihe.atna.test;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.AsyncResultHandler;
 import io.vertx.core.datagram.DatagramSocket;
 import io.vertx.core.datagram.DatagramSocketOptions;
 import io.vertx.ext.unit.Async;
@@ -34,7 +33,7 @@ public class UDPSyslogServer extends AbstractVerticle {
     @Override
     public void start() {
         final DatagramSocket socket = vertx.createDatagramSocket(dsOptions);
-        socket.listen(udpPort, host, (AsyncResultHandler<DatagramSocket>) datagramSocketAsyncResult -> {
+        socket.listen(udpPort, host, datagramSocketAsyncResult -> {
             if (datagramSocketAsyncResult.succeeded()){
                 log.info("Listening on UDP port " + udpPort);
                 async.countDown();
