@@ -39,7 +39,7 @@ public class AuditorIntegrationTest {
     private Vertx vertx;
     private int port;
     private final String host = "localhost";
-    private final long waitTime = 1000L;
+    private final long waitTime = 5000L;
 
     private Properties p;
 
@@ -66,7 +66,7 @@ public class AuditorIntegrationTest {
     public void tearDown(TestContext context) {
         System.setProperties(p);
         SecurityContextFactory.cleanupSecurityContext();
-        vertx.close(context.<Void>asyncAssertSuccess());
+        vertx.close(context.asyncAssertSuccess());
     }
 
     @Test
@@ -85,7 +85,7 @@ public class AuditorIntegrationTest {
         Properties properties = initSecurityDomainProperties();
         initSecurityDomain(properties, false);
         Async async = context.async();
-        vertx.deployVerticle(createTCPServer(port, async), context.<String>asyncAssertSuccess());
+        vertx.deployVerticle(createTCPServer(port, async), context.asyncAssertSuccess());
         auditor.auditActorStartEvent(SUCCESS, MESA_SYSTEM_ID, MESA_USER_IDENTITY);
         async.awaitSuccess(waitTime);
     }
@@ -97,7 +97,7 @@ public class AuditorIntegrationTest {
         Async async = context.async();
         vertx.deployVerticle(createTCPServerOneWayTLS(port, properties.getProperty(JAVAX_NET_SSL_TRUSTSTORE),
                              properties.getProperty(JAVAX_NET_SSL_TRUSTSTORE_PASSWORD), async),
-                             context.<String>asyncAssertSuccess());
+                             context.asyncAssertSuccess());
         auditor.auditActorStartEvent(SUCCESS, MESA_SYSTEM_ID, MESA_USER_IDENTITY);
         async.awaitSuccess(waitTime);
     }
@@ -113,7 +113,7 @@ public class AuditorIntegrationTest {
                 properties.getProperty(JAVAX_NET_SSL_TRUSTSTORE),
                 properties.getProperty(JAVAX_NET_SSL_TRUSTSTORE_PASSWORD),
                 async),
-                context.<String>asyncAssertSuccess());
+                context.asyncAssertSuccess());
         auditor.auditActorStartEvent(SUCCESS, MESA_SYSTEM_ID, MESA_USER_IDENTITY);
         async.awaitSuccess(waitTime);
     }
@@ -134,7 +134,7 @@ public class AuditorIntegrationTest {
                 properties.getProperty(JAVAX_NET_SSL_TRUSTSTORE),
                 properties.getProperty(JAVAX_NET_SSL_TRUSTSTORE_PASSWORD),
                 async),
-                context.<String>asyncAssertSuccess());
+                context.asyncAssertSuccess());
         auditor.auditActorStartEvent(SUCCESS, MESA_SYSTEM_ID, MESA_USER_IDENTITY);
         try {
             async.awaitSuccess(waitTime);
@@ -152,6 +152,7 @@ public class AuditorIntegrationTest {
         props.put(JAVAX_NET_SSL_KEYSTORE, this.getClass().getResource(KEY_STORE).getPath());
         props.put(JAVAX_NET_SSL_TRUSTSTORE_PASSWORD, TRUST_STORE_PASS);
         props.put(JAVAX_NET_SSL_TRUSTSTORE, this.getClass().getResource(TRUST_STORE).getPath());
+        props.put(JDK_TLS_CLIENT_PROTOCOLS, "TLSv1.2");
         return props;
     }
 
