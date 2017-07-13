@@ -39,7 +39,7 @@ public class AuditorIntegrationTest {
     private Vertx vertx;
     private int port;
     private final String host = "localhost";
-    private final long waitTime = 5000L;
+    private final long waitTime = 30000L;
 
     private Properties p;
 
