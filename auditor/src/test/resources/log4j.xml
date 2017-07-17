@@ -67,8 +67,12 @@ Examples:  "%r [%t] %-5p %c %x - %m\n"
         <level value="DEBUG"/>
     </logger>
 
+    <logger name="io.vertx.core">
+        <level value="DEBUG"/>
+    </logger>
+
     <root>
-        <level value="INFO"/>
+        <level value="DEBUG"/>
         <appender-ref ref="CONSOLE"/>
     </root>
 
