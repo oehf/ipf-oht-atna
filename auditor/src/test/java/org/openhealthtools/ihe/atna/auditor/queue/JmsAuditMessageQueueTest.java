@@ -19,6 +19,7 @@ import org.apache.activemq.broker.BrokerService;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.activemq.pool.PooledConnectionFactory;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openhealthtools.ihe.atna.auditor.IHEAuditor;
 import org.openhealthtools.ihe.atna.auditor.codes.rfc3881.RFC3881EventCodes;
@@ -29,6 +30,7 @@ import java.util.Locale;
 /**
  * @author Dmytro Rud
  */
+@Ignore
 public class JmsAuditMessageQueueTest {
 
     private static final String JMS_BROKER_URL = "tcp://localhost:61616";
@@ -50,6 +52,10 @@ public class JmsAuditMessageQueueTest {
         jmsBroker.setPersistent(false);
         jmsBroker.deleteAllMessages();
         jmsBroker.start();
+    }
+
+    public static void afterClass() throws Exception {
+//        jmsBroker.stop();
     }
 
     @Test
