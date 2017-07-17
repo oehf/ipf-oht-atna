@@ -70,6 +70,7 @@ public class AuditorIntegrationTest {
     }
 
     @Test
+    @Ignore
     public void testUDP(TestContext context) throws Exception {
         CONFIG.setAuditRepositoryTransport("UDP");
         Async async = context.async(2);
@@ -81,6 +82,7 @@ public class AuditorIntegrationTest {
     }
 
     @Test
+    @Ignore
     public void testTCPNoTLS(TestContext context) throws Exception {
         Properties properties = initSecurityDomainProperties();
         initSecurityDomain(properties, false);
@@ -91,6 +93,7 @@ public class AuditorIntegrationTest {
     }
 
     @Test
+    @Ignore
     public void testTCPOneWayTLS(TestContext context) throws Exception {
         Properties properties = initSecurityDomainProperties();
         initSecurityDomain(properties, true);
@@ -119,6 +122,7 @@ public class AuditorIntegrationTest {
     }
 
     @Test
+    @Ignore
     public void testTCPTwoWayTLSWrongClientCert(TestContext context) throws Exception {
         Properties properties = initSecurityDomainProperties();
         properties.setProperty(JAVAX_NET_SSL_KEYSTORE,
