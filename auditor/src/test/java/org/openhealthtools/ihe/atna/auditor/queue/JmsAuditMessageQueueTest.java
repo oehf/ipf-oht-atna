@@ -15,22 +15,20 @@
  */
 package org.openhealthtools.ihe.atna.auditor.queue;
 
-import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.broker.BrokerService;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.activemq.pool.PooledConnectionFactory;
 import org.junit.After;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openhealthtools.ihe.atna.auditor.IHEAuditor;
 import org.openhealthtools.ihe.atna.auditor.codes.rfc3881.RFC3881EventCodes;
 import org.openhealthtools.ihe.atna.auditor.context.AuditorModuleContext;
-import org.openhealthtools.ihe.atna.test.JmsAtnaMessageConsumer;
 
-import javax.jms.*;
 import java.util.Locale;
 import java.util.concurrent.CountDownLatch;
+
+import static org.openhealthtools.ihe.atna.test.SyslogServerFactory.createJMSConsumer;
 
 /**
  * @author Dmytro Rud
@@ -60,10 +58,6 @@ public class JmsAuditMessageQueueTest {
         jmsBroker.start();
     }
 
-    public static void afterClass() throws Exception {
-        jmsBroker.stop();
-    }
-
     @After
     public void tearDown(){
         if (atnaQueue != null) {
@@ -74,7 +68,7 @@ public class JmsAuditMessageQueueTest {
     @Test
     public void testActiveMQ() throws Exception {
         CountDownLatch latch = new CountDownLatch(1);
-        thread(new JmsAtnaMessageConsumer(latch, JMS_BROKER_URL, JMS_QUEUE_NAME), false);
+        createJMSConsumer(JMS_BROKER_URL, JMS_QUEUE_NAME, latch, false);
 
         PooledConnectionFactory jmsConnectionFactory = new PooledConnectionFactory(JMS_BROKER_URL);
         ActiveMQQueue jmsQueue = new ActiveMQQueue(JMS_QUEUE_NAME);
@@ -85,12 +79,6 @@ public class JmsAuditMessageQueueTest {
         IHEAuditor.getAuditor().auditActorStartEvent(RFC3881EventCodes.RFC3881EventOutcomeCodes.SUCCESS, "actorName", "actorStarter");
 
         latch.await();
-    }
-
-    public static void thread(Runnable runnable, boolean daemon) {
-        Thread brokerThread = new Thread(runnable);
-        brokerThread.setDaemon(daemon);
-        brokerThread.start();
     }
 
 }
