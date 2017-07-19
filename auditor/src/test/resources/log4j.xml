@@ -71,8 +71,12 @@ Examples:  "%r [%t] %-5p %c %x - %m\n"
         <level value="DEBUG"/>
     </logger>
 
+    <logger name="org.apache.activemq">
+        <level value="INFO"/>
+    </logger>
+
     <root>
-        <level value="DEBUG"/>
+        <level value="INFO"/>
         <appender-ref ref="CONSOLE"/>
     </root>
 
