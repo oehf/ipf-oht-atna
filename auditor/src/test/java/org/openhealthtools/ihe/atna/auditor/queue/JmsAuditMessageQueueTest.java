@@ -24,11 +24,20 @@ import org.junit.Test;
 import org.openhealthtools.ihe.atna.auditor.IHEAuditor;
 import org.openhealthtools.ihe.atna.auditor.codes.rfc3881.RFC3881EventCodes;
 import org.openhealthtools.ihe.atna.auditor.context.AuditorModuleContext;
+import org.openhealthtools.ihe.atna.test.JmsAtnaMessageConsumer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import javax.jms.ConnectionFactory;
 import java.util.Locale;
+import java.util.Random;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.stream.IntStream;
 
 import static org.junit.Assert.assertEquals;
+import static org.openhealthtools.ihe.atna.auditor.codes.rfc3881.RFC3881EventCodes.RFC3881EventOutcomeCodes.SUCCESS;
 import static org.openhealthtools.ihe.atna.test.SyslogServerFactory.createJMSConsumer;
 
 /**
@@ -42,6 +51,8 @@ public class JmsAuditMessageQueueTest {
     private static BrokerService jmsBroker;
 
     private JmsAuditMessageQueue atnaQueue;
+
+    private Logger LOG = LoggerFactory.getLogger(JmsAuditMessageQueueTest.class);
 
     @BeforeClass
     public static void beforeClass() throws Exception {
@@ -76,10 +87,44 @@ public class JmsAuditMessageQueueTest {
         atnaQueue = new JmsAuditMessageQueue(jmsConnectionFactory, jmsQueue, false);
         AuditorModuleContext.getContext().setQueue(atnaQueue);
 
-        IHEAuditor.getAuditor().auditActorStartEvent(RFC3881EventCodes.RFC3881EventOutcomeCodes.SUCCESS, "actorName", "actorStarter");
+        IHEAuditor.getAuditor().auditActorStartEvent(SUCCESS, "actorName", "actorStarter");
 
         latch.await();
         assertEquals(0, latch.getCount());
+    }
+
+    @Test
+    public void testMultiActiveMQ() throws Exception {
+        CountDownLatch latch = new CountDownLatch(latchCount());
+        LOG.info("Latch count: " + latch.getCount());
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
+        IntStream.range(0, (int)latch.getCount())
+            .forEach(i ->
+                executorService.submit(new JmsAtnaMessageConsumer(latch, JMS_BROKER_URL, JMS_QUEUE_NAME))
+            );
+
+        ConnectionFactory jmsConnectionFactory = new PooledConnectionFactory(JMS_BROKER_URL);
+        ActiveMQQueue jmsQueue = new ActiveMQQueue(JMS_QUEUE_NAME);
+        atnaQueue = new JmsAuditMessageQueue(jmsConnectionFactory, jmsQueue, false);
+        AuditorModuleContext.getContext().setQueue(atnaQueue);
+
+        IntStream.range(0, (int)latch.getCount())
+            .forEach(i ->
+                IHEAuditor.getAuditor().auditActorStartEvent(SUCCESS, "actorName" + i, "actorStarter" + i)
+            );
+
+        latch.await();
+        assertEquals(0, latch.getCount());
+        LOG.info("Latch count: " + latch.getCount());
+        LOG.info("Shutting down Executor service");
+        executorService.shutdown();
+    }
+
+    private static int latchCount(){
+        Random r = new Random();
+        int low = 10;
+        int high = 100;
+        return r.nextInt(high-low) + low;
     }
 
 }

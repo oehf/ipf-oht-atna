@@ -41,11 +41,11 @@ public class JmsAtnaMessageConsumer implements Runnable, ExceptionListener {
                 byte[] bytes = new byte[(int)bytesMessage.getBodyLength()];
                 bytesMessage.readBytes(bytes);
                 String text = new String(bytes);
-                LOG.info("JMS Consumer Received: " + text);
+                LOG.info("JMS Consumer Received BytesMessage: " + text);
             } else if (message instanceof TextMessage){
                 TextMessage textMessage = (TextMessage) message;
                 String text = textMessage.getText();
-                LOG.info("JMS Consumer Received: " + text);
+                LOG.info("JMS Consumer Received TextMessage: " + text);
             } else {
                 LOG.info("JMS Consumer Received: " + message);
             }
@@ -54,11 +54,11 @@ public class JmsAtnaMessageConsumer implements Runnable, ExceptionListener {
             session.close();
             connection.close();
         } catch (Exception e) {
-            System.out.println("Caught: " + e);
+            LOG.error("Exception caught: " + e);
         }
     }
 
     public synchronized void onException(JMSException ex) {
-        System.out.println("JMS Exception occured.  Shutting down client.");
+        LOG.error("JMS Exception occured. Shutting down client.");
     }
 }
