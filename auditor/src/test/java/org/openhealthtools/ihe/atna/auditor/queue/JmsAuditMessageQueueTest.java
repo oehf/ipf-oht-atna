@@ -28,6 +28,7 @@ import org.openhealthtools.ihe.atna.auditor.context.AuditorModuleContext;
 import java.util.Locale;
 import java.util.concurrent.CountDownLatch;
 
+import static org.junit.Assert.assertEquals;
 import static org.openhealthtools.ihe.atna.test.SyslogServerFactory.createJMSConsumer;
 
 /**
@@ -73,12 +74,12 @@ public class JmsAuditMessageQueueTest {
         PooledConnectionFactory jmsConnectionFactory = new PooledConnectionFactory(JMS_BROKER_URL);
         ActiveMQQueue jmsQueue = new ActiveMQQueue(JMS_QUEUE_NAME);
         atnaQueue = new JmsAuditMessageQueue(jmsConnectionFactory, jmsQueue, false);
-
         AuditorModuleContext.getContext().setQueue(atnaQueue);
 
         IHEAuditor.getAuditor().auditActorStartEvent(RFC3881EventCodes.RFC3881EventOutcomeCodes.SUCCESS, "actorName", "actorStarter");
 
         latch.await();
+        assertEquals(0, latch.getCount());
     }
 
 }
