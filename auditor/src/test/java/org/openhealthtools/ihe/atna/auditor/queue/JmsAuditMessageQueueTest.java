@@ -100,7 +100,7 @@ public class JmsAuditMessageQueueTest {
         ExecutorService executorService = Executors.newFixedThreadPool(2);
         IntStream.range(0, (int)latch.getCount())
             .forEach(i ->
-                executorService.submit(new JmsAtnaMessageConsumer(latch, JMS_BROKER_URL, JMS_QUEUE_NAME))
+                executorService.execute(new JmsAtnaMessageConsumer(latch, JMS_BROKER_URL, JMS_QUEUE_NAME))
             );
 
         ConnectionFactory jmsConnectionFactory = new PooledConnectionFactory(JMS_BROKER_URL);
