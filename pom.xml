@@ -8,9 +8,8 @@
 
     <properties>
         <!-- plugins -->
-        <assembly-plugin-version>2.6</assembly-plugin-version>
         <bundle-plugin-version>2.0.1</bundle-plugin-version>
-        <compiler-plugin-version>3.5.1</compiler-plugin-version>
+        <compiler-plugin-version>3.6.1</compiler-plugin-version>
         <gpg-plugin-version>1.6</gpg-plugin-version>
         <javadocs-plugin-version>2.10.4</javadocs-plugin-version>
         <nexus-staging-plugin-version>1.6.3</nexus-staging-plugin-version>
@@ -196,10 +195,6 @@
     <build>
         <pluginManagement>
             <plugins>
-                <plugin>
-                    <artifactId>maven-assembly-plugin</artifactId>
-                    <version>${assembly-plugin-version}</version>
-                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
