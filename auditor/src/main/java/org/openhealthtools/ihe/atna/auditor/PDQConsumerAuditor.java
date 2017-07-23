@@ -75,7 +75,7 @@ public class PDQConsumerAuditor extends PIXAuditor
 				receivingFacility, receivingApp, null, EventUtils.getAddressForUrl(pixManagerUri, false), 
 				getHumanRequestor(), 
 				hl7MessageControlId, hl7QueryParameters, 
-				patientIds, null);
+				patientIds, null, null);
 	}
 	
 	/**
@@ -91,12 +91,16 @@ public class PDQConsumerAuditor extends PIXAuditor
 	 * @param hl7MessageId The HL7 message.id
 	 * @param hl7QueryParameters The HL7 query parameters
 	 * @param patientIds List of patient IDs that were seen in this transaction
+	 * @param purposesOfUse purpose of use codes (may be taken from XUA token)
+	 * @param userRoles roles of the human user (may be taken from XUA token)
 	 */
 	public void auditPDQQueryV3Event(RFC3881EventOutcomeCodes eventOutcome, 
 			String pixManagerUri, String receivingFacility, String receivingApp, 
 			String sendingFacility, String sendingApp,
 			String hl7MessageId, String hl7QueryParameters, 
-			String[] patientIds, List<CodedValueType> purposesOfUse)
+			String[] patientIds,
+			List<CodedValueType> purposesOfUse,
+			List<CodedValueType> userRoles)
 	{
 		if (!isAuditorEnabled()) {
 			return;
@@ -107,7 +111,7 @@ public class PDQConsumerAuditor extends PIXAuditor
 				receivingFacility, receivingApp, null, EventUtils.getAddressForUrl(pixManagerUri, false), 
 				getHumanRequestor(), 
 				hl7MessageId, hl7QueryParameters, 
-				patientIds, purposesOfUse);
+				patientIds, purposesOfUse, userRoles);
 	}
 	
 	/**
@@ -139,7 +143,7 @@ public class PDQConsumerAuditor extends PIXAuditor
 				receivingFacility, receivingApp, null, EventUtils.getAddressForUrl(pixManagerUri, false), 
 				getHumanRequestor(), 
 				hl7MessageControlId, hl7QueryParameters, 
-				patientIds, null);
+				patientIds, null, null);
 	}
 
 }

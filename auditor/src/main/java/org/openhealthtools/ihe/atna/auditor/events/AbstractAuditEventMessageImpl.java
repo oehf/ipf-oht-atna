@@ -264,7 +264,7 @@ public abstract class AbstractAuditEventMessageImpl implements AuditEventMessage
      * @return The Active Participant block created
      */
     protected ActiveParticipantType addActiveParticipant(String userID, String altUserID, String userName,
-                                                         Boolean userIsRequestor, CodedValueType[] roleIdCodes, String networkAccessPointID, RFC3881NetworkAccessPointTypeCodes networkAccessPointTypeCode) {
+                                                         Boolean userIsRequestor, List<CodedValueType> roleIdCodes, String networkAccessPointID, RFC3881NetworkAccessPointTypeCodes networkAccessPointTypeCode) {
         ActiveParticipantType activeParticipantBlock = new ActiveParticipantType();
 
         activeParticipantBlock.setUserID(userID);
@@ -272,7 +272,7 @@ public abstract class AbstractAuditEventMessageImpl implements AuditEventMessage
         activeParticipantBlock.setUserName(userName);
         activeParticipantBlock.setUserIsRequestor(userIsRequestor);
         if (!EventUtils.isEmptyOrNull(roleIdCodes, true)) {
-            activeParticipantBlock.getRoleIDCode().addAll(Arrays.asList(roleIdCodes));
+            activeParticipantBlock.getRoleIDCode().addAll(roleIdCodes);
         }
         activeParticipantBlock.setNetworkAccessPointID(networkAccessPointID);
         if (!EventUtils.isEmptyOrNull(networkAccessPointTypeCode)) {
@@ -385,7 +385,7 @@ public abstract class AbstractAuditEventMessageImpl implements AuditEventMessage
      * @return The Active Participant block created
      */
     protected ActiveParticipantType addActiveParticipant(String userID, String altUserID, String userName,
-                                                         Boolean userIsRequestor, CodedValueType[] roleIdCodes, String networkAccessPointID) {
+                                                         Boolean userIsRequestor, List<CodedValueType> roleIdCodes, String networkAccessPointID) {
         // Does lookup to see if using IP Address or hostname in Network Access Point ID
         return addActiveParticipant(
                 userID, altUserID, userName, userIsRequestor,

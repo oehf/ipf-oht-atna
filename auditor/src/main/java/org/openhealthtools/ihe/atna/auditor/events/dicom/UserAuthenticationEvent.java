@@ -18,6 +18,8 @@ import org.openhealthtools.ihe.atna.auditor.codes.rfc3881.RFC3881EventCodes.RFC3
 import org.openhealthtools.ihe.atna.auditor.events.GenericAuditEventMessageImpl;
 import org.openhealthtools.ihe.atna.auditor.models.rfc3881.CodedValueType;
 
+import java.util.Collections;
+
 /**
  * Audit Event representing a DICOM 95 User Authentication event (DCM 110114)
  * 
@@ -76,7 +78,7 @@ public class UserAuthenticationEvent extends GenericAuditEventMessageImpl
 				altUserId, 
 				userName, 
 				true,
-				new CodedValueType[] {new DICOMActiveParticipantRoleIdCodes.Application()}, 
+				Collections.singletonList(new DICOMActiveParticipantRoleIdCodes.Application()),
 				networkId);
 	}
 

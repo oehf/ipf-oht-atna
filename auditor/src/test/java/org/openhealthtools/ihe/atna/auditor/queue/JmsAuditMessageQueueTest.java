@@ -22,7 +22,6 @@ import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openhealthtools.ihe.atna.auditor.IHEAuditor;
-import org.openhealthtools.ihe.atna.auditor.codes.rfc3881.RFC3881EventCodes;
 import org.openhealthtools.ihe.atna.auditor.context.AuditorModuleContext;
 import org.openhealthtools.ihe.atna.test.JmsAtnaMessageConsumer;
 import org.slf4j.Logger;

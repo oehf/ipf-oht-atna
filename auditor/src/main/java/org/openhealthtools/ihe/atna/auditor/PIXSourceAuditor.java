@@ -74,7 +74,7 @@ public class PIXSourceAuditor extends PIXAuditor
 				receivingFacility, receivingApp, null, EventUtils.getAddressForUrl(pixManagerUri, false), 
 				getHumanRequestor(), 
 				hl7MessageControlId, 
-				new String[] {patientId}, null);
+				new String[] {patientId}, null, null);
 	}
 	
 	/**
@@ -89,13 +89,16 @@ public class PIXSourceAuditor extends PIXAuditor
 	 * @param sendingApp The HL7 sending application
 	 * @param hl7MessageId The HL7 message.id
 	 * @param patientId The patient ID that was affected by this event
+	 * @param purposesOfUse purpose of use codes (may be taken from XUA token)
+	 * @param userRoles roles of the human user (may be taken from XUA token)
 	 */
 	public void auditCreatePatientRecordV3Event(RFC3881EventOutcomeCodes eventOutcome,
 			String pixManagerUri, String receivingFacility, String receivingApp, 
 			String sendingFacility, String sendingApp, 
 			String hl7MessageId, 
 			String patientId,
-            List<CodedValueType> purposesOfUse)
+            List<CodedValueType> purposesOfUse,
+			List<CodedValueType> userRoles)
 	{
 		if (!isAuditorEnabled()) {
 			return;
@@ -106,7 +109,7 @@ public class PIXSourceAuditor extends PIXAuditor
 				receivingFacility, receivingApp, null, EventUtils.getAddressForUrl(pixManagerUri, false), 
 				getHumanRequestor(), 
 				hl7MessageId,
-				new String[] {patientId}, purposesOfUse);
+				new String[] {patientId}, purposesOfUse, userRoles);
 	}
 	
 	/**
@@ -137,7 +140,7 @@ public class PIXSourceAuditor extends PIXAuditor
 				receivingFacility, receivingApp, null, EventUtils.getAddressForUrl(pixManagerUri, false), 
 				getHumanRequestor(), 
 				hl7MessageControlId, 
-				new String[] {patientId}, null);
+				new String[] {patientId}, null, null);
 	}
 	
 	/**
@@ -152,13 +155,16 @@ public class PIXSourceAuditor extends PIXAuditor
 	 * @param sendingApp The HL7 sending application
 	 * @param hl7MessageId The HL7 message.id
 	 * @param patientId The patient ID that was affected by this event
+	 * @param purposesOfUse purpose of use codes (may be taken from XUA token)
+	 * @param userRoles roles of the human user (may be taken from XUA token)
 	 */
 	public void auditDeletePatientRecordV3Event(RFC3881EventOutcomeCodes eventOutcome,
 			String pixManagerUri, String receivingFacility, String receivingApp, 
 			String sendingFacility, String sendingApp, 
 			String hl7MessageId, 
 			String patientId,
-            List<CodedValueType> purposesOfUse)
+            List<CodedValueType> purposesOfUse,
+			List<CodedValueType> userRoles)
 	{	
 		if (!isAuditorEnabled()) {
 			return;
@@ -169,7 +175,7 @@ public class PIXSourceAuditor extends PIXAuditor
 				receivingFacility, receivingApp, null, EventUtils.getAddressForUrl(pixManagerUri, false), 
 				getHumanRequestor(), 
 				hl7MessageId, 
-				new String[] {patientId}, purposesOfUse);
+				new String[] {patientId}, purposesOfUse, userRoles);
 	}
 	
 	/**
@@ -200,7 +206,7 @@ public class PIXSourceAuditor extends PIXAuditor
 				receivingFacility, receivingApp, null, EventUtils.getAddressForUrl(pixManagerUri, false), 
 				getHumanRequestor(), 
 				hl7MessageControlId, 
-				new String[] {patientId}, null);
+				new String[] {patientId}, null, null);
 	}	
 	
 	/**
@@ -215,13 +221,16 @@ public class PIXSourceAuditor extends PIXAuditor
 	 * @param sendingApp The HL7 sending application
 	 * @param hl7MessageId The HL7 message.id
 	 * @param patientId The patient ID that was affected by this event
+	 * @param purposesOfUse purpose of use codes (may be taken from XUA token)
+	 * @param userRoles roles of the human user (may be taken from XUA token)
 	 */
 	public void auditUpdatePatientRecordV3Event(RFC3881EventOutcomeCodes eventOutcome,
 			String pixManagerUri, String receivingFacility, String receivingApp, 
 			String sendingFacility, String sendingApp, 
 			String hl7MessageId, 
 			String patientId,
-            List<CodedValueType> purposesOfUse)
+            List<CodedValueType> purposesOfUse,
+			List<CodedValueType> userRoles)
 	{
 		if (!isAuditorEnabled()) {
 			return;
@@ -232,6 +241,6 @@ public class PIXSourceAuditor extends PIXAuditor
 				receivingFacility, receivingApp, null, EventUtils.getAddressForUrl(pixManagerUri, false), 
 				getHumanRequestor(), 
 				hl7MessageId, 
-				new String[] {patientId}, purposesOfUse);
+				new String[] {patientId}, purposesOfUse, userRoles);
 	}
 }

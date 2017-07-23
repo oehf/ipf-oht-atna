@@ -17,6 +17,8 @@ import org.openhealthtools.ihe.atna.auditor.codes.rfc3881.RFC3881EventCodes;
 import org.openhealthtools.ihe.atna.auditor.codes.rfc3881.RFC3881EventCodes.RFC3881EventOutcomeCodes;
 import org.openhealthtools.ihe.atna.auditor.events.GenericAuditEventMessageImpl;
 
+import java.util.Collections;
+
 
 /**
  * Audit Event representing a DICOM 95 Application Activity event (DCM 110100)
@@ -55,8 +57,8 @@ public class ApplicationActivityEvent extends GenericAuditEventMessageImpl
 				userId, 
 				altUserId, 
 				userName, 
-				false, 
-				new DICOMActiveParticipantRoleIdCodes[] {new DICOMActiveParticipantRoleIdCodes.Application()}, 
+				false,
+				Collections.singletonList(new DICOMActiveParticipantRoleIdCodes.Application()),
 				networkId);
 	}
 	
@@ -74,8 +76,8 @@ public class ApplicationActivityEvent extends GenericAuditEventMessageImpl
 				userId, 
 				altUserId, 
 				userName, 
-				true, 
-				new DICOMActiveParticipantRoleIdCodes[] {new DICOMActiveParticipantRoleIdCodes.ApplicationLauncher()}, 
+				true,
+				Collections.singletonList(new DICOMActiveParticipantRoleIdCodes.ApplicationLauncher()),
 				networkId);
 	}	
 

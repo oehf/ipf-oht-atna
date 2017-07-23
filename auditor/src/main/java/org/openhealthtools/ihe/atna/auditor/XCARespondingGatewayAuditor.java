@@ -61,6 +61,8 @@ public class XCARespondingGatewayAuditor extends XDSAuditor
 	 * @param adhocQueryRequestPayload The payload of the adhoc query request element
 	 * @param homeCommunityId The home community id of the transaction (if present)
 	 * @param patientId The patient ID queried (if query pertained to a patient id)
+	 * @param purposesOfUse purpose of use codes (may be taken from XUA token)
+	 * @param userRoles roles of the human user (may be taken from XUA token)
 	 */
 	public void auditCrossGatewayQueryEvent(
 			RFC3881EventOutcomeCodes eventOutcome,
@@ -68,7 +70,8 @@ public class XCARespondingGatewayAuditor extends XDSAuditor
 			String respondingGatewayEndpointUri, 
 			String storedQueryUUID, String adhocQueryRequestPayload, String homeCommunityId,
 			String patientId,
-            List<CodedValueType> purposesOfUse)
+            List<CodedValueType> purposesOfUse,
+			List<CodedValueType> userRoles)
 	{
 		if (!isAuditorEnabled()) {
 			return;
@@ -80,7 +83,7 @@ public class XCARespondingGatewayAuditor extends XDSAuditor
 				initiatingGatewayUserName, initiatingGatewayUserName, false,
 				respondingGatewayEndpointUri, getSystemAltUserId(), 
 				storedQueryUUID, adhocQueryRequestPayload, homeCommunityId, 
-				patientId, purposesOfUse);
+				patientId, purposesOfUse, userRoles);
 	}
 	
 	/**
@@ -94,6 +97,8 @@ public class XCARespondingGatewayAuditor extends XDSAuditor
 	 * @param documentUniqueIds The list of Document Entry UniqueId(s) for the document(s) retrieved
 	 * @param repositoryUniqueIds The list of XDS.b Repository Unique Ids involved in this transaction (aligned with Document Unique Ids array)
 	 * @param homeCommunityIds The list of home community ids used in the transaction
+	 * @param purposesOfUse purpose of use codes (may be taken from XUA token)
+	 * @param userRoles roles of the human user (may be taken from XUA token)
 	 */
 	public void auditCrossGatewayRetrieveEvent(
 			RFC3881EventOutcomeCodes eventOutcome,
@@ -101,7 +106,8 @@ public class XCARespondingGatewayAuditor extends XDSAuditor
 			String respondingGatewayEndpointUri,
             String initiatingGatewayUserName,
 			String[] documentUniqueIds, String[] repositoryUniqueIds, String homeCommunityIds[],
-            List<CodedValueType> purposesOfUse)
+            List<CodedValueType> purposesOfUse,
+			List<CodedValueType> userRoles)
 	{
 		if (!isAuditorEnabled()) {
 			return;
@@ -111,7 +117,7 @@ public class XCARespondingGatewayAuditor extends XDSAuditor
 		exportEvent.addSourceActiveParticipant(respondingGatewayEndpointUri, getSystemAltUserId(), null, EventUtils.getAddressForUrl(respondingGatewayEndpointUri, false), false);
 
 		if(!EventUtils.isEmptyOrNull(initiatingGatewayUserName)) {
-            exportEvent.addHumanRequestorActiveParticipant(initiatingGatewayUserName, null, initiatingGatewayUserName, null);
+            exportEvent.addHumanRequestorActiveParticipant(initiatingGatewayUserName, null, initiatingGatewayUserName, userRoles);
         }
 
 		exportEvent.addDestinationActiveParticipant(initiatingGatewayUserId, null, null, initiatingGatewayIpAddress, true);
@@ -132,19 +138,21 @@ public class XCARespondingGatewayAuditor extends XDSAuditor
 	 * @param repositoryUniqueIds The XDS.b RepositoryUniqueId value for the repository
 	 * @param documentUniqueIds The list of Document Entry UniqueId(s) for the document(s) retrieved
 	 * @param homeCommunityIds The list of home community ids used in the transaction
-	 */	
+	 * @param purposesOfUse purpose of use codes (may be taken from XUA token)
+	 * @param userRoles roles of the human user (may be taken from XUA token)
+	 */
 	public void auditRetrieveDocumentSetEvent(RFC3881EventOutcomeCodes eventOutcome, 
 			String repositoryEndpointUri,
             String userName,
 			String[] documentUniqueIds, String[] repositoryUniqueIds, String homeCommunityIds[],
-            List<CodedValueType> purposesOfUse)
+            List<CodedValueType> purposesOfUse, List<CodedValueType> userRoles)
 	{
 		if (!isAuditorEnabled()) {
 			return;
 		}
 		XDSConsumerAuditor.getAuditor().auditRetrieveDocumentSetEvent(eventOutcome, repositoryEndpointUri,
                 userName,
-                documentUniqueIds,  repositoryUniqueIds, homeCommunityIds, null, purposesOfUse);
+                documentUniqueIds,  repositoryUniqueIds, homeCommunityIds, null, purposesOfUse, userRoles);
 	}
 	
 	/**
@@ -156,6 +164,8 @@ public class XCARespondingGatewayAuditor extends XDSAuditor
 	 * @param adhocQueryRequestPayload The payload of the adhoc query request element
 	 * @param homeCommunityId The home community id of the transaction (if present)
 	 * @param patientId The patient ID queried (if query pertained to a patient id)
+	 * @param purposesOfUse purpose of use codes (may be taken from XUA token)
+	 * @param userRoles roles of the human user (may be taken from XUA token)
 	 */
 	public void auditRegistryStoredQueryEvent(
 			RFC3881EventOutcomeCodes eventOutcome,
@@ -163,14 +173,15 @@ public class XCARespondingGatewayAuditor extends XDSAuditor
             String consumerUserName,
 			String storedQueryUUID, String adhocQueryRequestPayload, String homeCommunityId,
 			String patientId,
-            List<CodedValueType> purposesOfUse)
+            List<CodedValueType> purposesOfUse,
+			List<CodedValueType> userRoles)
 	{
 		if (!isAuditorEnabled()) {
 			return;
 		}
 		XDSConsumerAuditor.getAuditor().auditRegistryStoredQueryEvent(eventOutcome, registryEndpointUri,
                 consumerUserName, storedQueryUUID, adhocQueryRequestPayload,
-                homeCommunityId, patientId, purposesOfUse);
+                homeCommunityId, patientId, purposesOfUse, userRoles);
 	}
 
 }

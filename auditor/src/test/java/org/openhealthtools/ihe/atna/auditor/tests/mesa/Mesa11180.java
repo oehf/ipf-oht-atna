@@ -80,7 +80,7 @@ public class Mesa11180 extends AuditorMesaTest {
         codedValue.setCode("purposeOfUse");
         purposesOfUse.add(codedValue);
         consumerAuditor.auditRegistryStoredQueryEvent(RFC3881EventOutcomeCodes.SUCCESS, "http://xds-ibm.lgs.com:9080/IBMXDSRegistry/registry", "urn:uuid:1234", "<request><blah/></request>", "1.1.1.1", "1234^^^&1.2.3.4&ISO",
-                "4711", purposesOfUse);
+                "4711", purposesOfUse, null);
     }
 
 }

@@ -11,6 +11,7 @@
 package org.openhealthtools.ihe.atna.auditor;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.openhealthtools.ihe.atna.auditor.codes.ihe.IHETransactionEventTypeCodes;
@@ -74,7 +75,7 @@ public class XDSConsumerAuditor extends XDSAuditor
 				consumerUserName, consumerUserName, true,
 				registryEndpointUri, null,
 				"", adhocQueryRequestPayload, "", 
-				patientId, null);
+				patientId, null, null);
 
 	}
 
@@ -88,6 +89,8 @@ public class XDSConsumerAuditor extends XDSAuditor
 	 * @param adhocQueryRequestPayload The payload of the adhoc query request element
 	 * @param homeCommunityId The home community id of the transaction (if present)
 	 * @param patientId The patient ID queried (if query pertained to a patient id)
+	 * @param purposesOfUse purpose of use codes (may be taken from XUA token)
+	 * @param userRoles roles of the human user (may be taken from XUA token)
 	 */
 	public void auditRegistryStoredQueryEvent(
 			RFC3881EventOutcomeCodes eventOutcome,
@@ -95,7 +98,8 @@ public class XDSConsumerAuditor extends XDSAuditor
             String consumerUserName,
 			String storedQueryUUID, String adhocQueryRequestPayload, String homeCommunityId,
 			String patientId,
-            List<CodedValueType> purposesOfUse)
+            List<CodedValueType> purposesOfUse,
+			List<CodedValueType> userRoles)
 	{
 		if (!isAuditorEnabled()) {
 			return;
@@ -114,7 +118,7 @@ public class XDSConsumerAuditor extends XDSAuditor
 				consumerUserName, consumerUserName, false,
 				registryEndpointUri, null,
 				storedQueryUUID, adhocQueryRequestPayload, homeCommunityId, 
-				patientId, purposesOfUse);
+				patientId, purposesOfUse, userRoles);
 	}
 
 
@@ -140,7 +144,7 @@ public class XDSConsumerAuditor extends XDSAuditor
 		importEvent.addSourceActiveParticipant(repositoryRetrieveUri, null, null, EventUtils.getAddressForUrl(repositoryRetrieveUri, false), false);
 		importEvent.addDestinationActiveParticipant(getSystemUserId(), getSystemAltUserId(), getSystemUserName(), getSystemNetworkId(), true);
 		if (!EventUtils.isEmptyOrNull(userName)) {
-			importEvent.addHumanRequestorActiveParticipant(userName, null, userName, null);
+			importEvent.addHumanRequestorActiveParticipant(userName, null, userName, (List<CodedValueType>) null);
 		}
 		if (!EventUtils.isEmptyOrNull(patientId)) {
 			importEvent.addPatientParticipantObject(patientId);
@@ -160,13 +164,16 @@ public class XDSConsumerAuditor extends XDSAuditor
 	 * @param repositoryUniqueId The XDS.b RepositoryUniqueId value for the repository
 	 * @param homeCommunityId The XCA Home Community Id used in the transaction
 	 * @param patientId The patient ID the document(s) relate to (if known)
-	 */	
+	 * @param purposesOfUse purpose of use codes (may be taken from XUA token)
+	 * @param userRoles roles of the human user (may be taken from XUA token)
+	 */
 	public void auditRetrieveDocumentSetEvent(RFC3881EventOutcomeCodes eventOutcome, 
 			String repositoryEndpointUri,
             String userName,
 			String[] documentUniqueIds, String repositoryUniqueId, String homeCommunityId, 
 			String patientId,
-            List<CodedValueType> purposesOfUse)
+            List<CodedValueType> purposesOfUse,
+			List<CodedValueType> userRoles)
 	{
 		if (!isAuditorEnabled()) {
 			return;
@@ -183,7 +190,7 @@ public class XDSConsumerAuditor extends XDSAuditor
 		
 		auditRetrieveDocumentSetEvent(eventOutcome, repositoryEndpointUri,
                 userName,
-                documentUniqueIds, repositoryUniqueIds, homeCommunityIds, patientId, purposesOfUse);
+                documentUniqueIds, repositoryUniqueIds, homeCommunityIds, patientId, purposesOfUse, userRoles);
 	}
 	
 
@@ -197,13 +204,16 @@ public class XDSConsumerAuditor extends XDSAuditor
 	 * @param repositoryUniqueIds The list of XDS.b Repository Unique Ids involved in this transaction (aligned with Document Unique Ids array)
 	 * @param homeCommunityIds The list of XCA Home Community Ids involved in this transaction (aligned with Document Unique Ids array)
 	 * @param patientId The patient ID the document(s) relate to (if known)
+	 * @param purposesOfUse purpose of use codes (may be taken from XUA token)
+	 * @param userRoles roles of the human user (may be taken from XUA token)
 	 */
 	public void auditRetrieveDocumentSetEvent(RFC3881EventOutcomeCodes eventOutcome, 
 			String repositoryEndpointUri,
             String userName,
 			String[] documentUniqueIds, String[] repositoryUniqueIds, String[] homeCommunityIds, 
 			String patientId,
-            List<CodedValueType> purposesOfUse)
+		    List<CodedValueType> purposesOfUse,
+            List<CodedValueType> userRoles)
 	{
 		if (!isAuditorEnabled()) {
 			return;
@@ -217,7 +227,7 @@ public class XDSConsumerAuditor extends XDSAuditor
 		String replyToUri = "http://www.w3.org/2005/08/addressing/anonymous";
 		importEvent.addDestinationActiveParticipant(replyToUri, getSystemAltUserId(), getSystemUserName(), getSystemNetworkId(), true);
 		if (!EventUtils.isEmptyOrNull(userName)) {
-			importEvent.addHumanRequestorActiveParticipant(userName, null, userName, null);
+			importEvent.addHumanRequestorActiveParticipant(userName, null, userName, userRoles);
 		}
 		if (!EventUtils.isEmptyOrNull(patientId)) {
 			importEvent.addPatientParticipantObject(patientId);

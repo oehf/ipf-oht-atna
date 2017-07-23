@@ -49,6 +49,8 @@ public abstract class PIXAuditor extends IHEAuditor
 	 * @param hl7MessageId The HL7 Message ID (v2 from the MSH segment field 10, v3 from message.Id)
 	 * @param hl7QueryParameters The HL7 Query Parameters from the QPD segment
 	 * @param patientIds List of patient IDs that were seen in this transaction
+	 * @param purposesOfUse purpose of use codes (may be taken from XUA token)
+	 * @param userRoles roles of the human user (may be taken from XUA token)
 	 */
 	protected void auditQueryEvent(boolean systemIsSource,
 			IHETransactionEventTypeCodes transaction, RFC3881EventOutcomeCodes eventOutcome, 
@@ -57,7 +59,8 @@ public abstract class PIXAuditor extends IHEAuditor
 			String humanRequestor,
 			String hl7MessageId, String hl7QueryParameters, 
 			String[] patientIds,
-            List<CodedValueType> purposesOfUse)
+            List<CodedValueType> purposesOfUse,
+		    List<CodedValueType> userRoles)
 	{
 		// Create query event
 		QueryEvent queryEvent = new QueryEvent(systemIsSource, eventOutcome, transaction, purposesOfUse);
@@ -66,7 +69,7 @@ public abstract class PIXAuditor extends IHEAuditor
 		queryEvent.addSourceActiveParticipant(EventUtils.concatHL7FacilityApplication(sourceFacility,sourceApp), sourceAltUserId, null, sourceNetworkId, true);
 		// Set the human requestor active participant
 		if (!EventUtils.isEmptyOrNull(humanRequestor)) {
-			queryEvent.addHumanRequestorActiveParticipant(humanRequestor, null, null, null);
+			queryEvent.addHumanRequestorActiveParticipant(humanRequestor, null, null, userRoles);
 		}
 		// Set the destination active participant
 		queryEvent.addDestinationActiveParticipant(EventUtils.concatHL7FacilityApplication(destinationFacility,destinationApp), destinationAltUserId, null, destinationNetworkId, false);
@@ -111,6 +114,8 @@ public abstract class PIXAuditor extends IHEAuditor
 	 * @param humanRequestor Identity of the human that initiated the transaction (if known)
 	 * @param hl7MessageId The HL7 Message ID (v2 from the MSH segment field 10, v3 from message.Id)
 	 * @param patientIds List of patient IDs that were seen in this transaction
+	 * @param purposesOfUse purpose of use codes (may be taken from XUA token)
+	 * @param userRoles roles of the human user (may be taken from XUA token)
 	 */
 	protected void auditPatientRecordEvent(boolean systemIsSource,
 			IHETransactionEventTypeCodes transaction, RFC3881EventOutcomeCodes eventOutcome, RFC3881EventActionCodes eventActionCode,
@@ -119,7 +124,8 @@ public abstract class PIXAuditor extends IHEAuditor
 			String humanRequestor,
 			String hl7MessageId, 
 			String patientIds[],
-            List<CodedValueType> purposesOfUse)
+ 		    List<CodedValueType> purposesOfUse,
+			List<CodedValueType> userRoles)
 	{
 		// Create Patient Record event
 		PatientRecordEvent patientEvent = new PatientRecordEvent(systemIsSource, eventOutcome, eventActionCode, transaction, purposesOfUse);
@@ -128,7 +134,7 @@ public abstract class PIXAuditor extends IHEAuditor
 		patientEvent.addSourceActiveParticipant(EventUtils.concatHL7FacilityApplication(sourceFacility,sourceApp), sourceAltUserId, null, sourceNetworkId, true);
 		// Set the human requestor active participant
 		if (!EventUtils.isEmptyOrNull(humanRequestor)) {
-			patientEvent.addHumanRequestorActiveParticipant(humanRequestor, null, null, null);
+			patientEvent.addHumanRequestorActiveParticipant(humanRequestor, null, null, userRoles);
 		}
 		// Set the destination active participant
 		patientEvent.addDestinationActiveParticipant(EventUtils.concatHL7FacilityApplication(destinationFacility,destinationApp), destinationAltUserId, null, destinationNetworkId, false);

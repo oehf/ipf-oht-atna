@@ -74,7 +74,7 @@ public class PIXManagerAuditor extends PIXAuditor
 				receivingFacility, receivingApp, getSystemAltUserId(), EventUtils.getAddressForUrl(pixManagerUri, false), 
 				null, 
 				hl7MessageControlId, 
-				new String[] {patientId}, null);
+				new String[] {patientId}, null, null);
 	}
 
 	/**
@@ -106,7 +106,7 @@ public class PIXManagerAuditor extends PIXAuditor
 				receivingFacility, receivingApp, getSystemAltUserId(), EventUtils.getAddressForUrl(pixManagerUri, false), 
 				null, 
 				hl7MessageControlId, 
-				new String[] {patientId}, null);
+				new String[] {patientId}, null, null);
 	}
 	
 	/**
@@ -137,7 +137,7 @@ public class PIXManagerAuditor extends PIXAuditor
 				receivingFacility, receivingApp, getSystemAltUserId(), EventUtils.getAddressForUrl(pixManagerUri, false), 
 				null, 
 				hl7MessageControlId, 
-				new String[] {patientId}, null);
+				new String[] {patientId}, null, null);
 	}
 
 	/**
@@ -170,7 +170,7 @@ public class PIXManagerAuditor extends PIXAuditor
 				receivingFacility, receivingApp, getSystemAltUserId(), EventUtils.getAddressForUrl(pixManagerUri, false), 
 				null, 
 				hl7MessageControlId, hl7QueryParameters, 
-				patientIds, null);
+				patientIds, null, null);
 	}
 	
 	/**
@@ -203,7 +203,7 @@ public class PIXManagerAuditor extends PIXAuditor
 				receivingFacility, receivingApp, getSystemAltUserId(), EventUtils.getAddressForUrl(pixManagerUri, false), 
 				null, 
 				hl7MessageControlId, hl7QueryParameters, 
-				patientIds, null);
+				patientIds, null, null);
 	}
 
 	/**
@@ -235,7 +235,7 @@ public class PIXManagerAuditor extends PIXAuditor
 				receivingFacility, receivingApp, getSystemAltUserId(), EventUtils.getAddressForUrl(pixManagerUri, false), 
 				null, 
 				hl7MessageControlId, hl7QueryParameters, 
-				patientIds, null);
+				patientIds, null, null);
 	}
 
 	/**
@@ -268,6 +268,6 @@ public class PIXManagerAuditor extends PIXAuditor
 				receivingFacility, receivingApp, null, EventUtils.getAddressForUrl(consumerEndpointUri, false), 
 				null, 
 				hl7MessageControlId, 
-				patientIds, null);
+				patientIds, null, null);
 	}
 }

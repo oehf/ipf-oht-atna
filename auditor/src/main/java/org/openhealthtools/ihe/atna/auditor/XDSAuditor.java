@@ -49,6 +49,8 @@ public abstract class XDSAuditor extends IHEAuditor
 	 * @param adhocQueryRequestPayload The payload of the adhoc query request element
 	 * @param homeCommunityId The home community id of the transaction (if present)
 	 * @param patientId The patient ID queried (if query pertained to a patient id)
+	 * @param purposesOfUse purpose of use codes (may be taken from XUA token)
+	 * @param userRoles roles of the human user (may be taken from XUA token)
 	 */
 	protected void auditQueryEvent(
 			boolean systemIsSource, // System Type
@@ -60,8 +62,8 @@ public abstract class XDSAuditor extends IHEAuditor
             boolean humanAfterDestination,
 			String registryEndpointUri, String registryAltUserId, // Destination Participant
 			String storedQueryUUID, String adhocQueryRequestPayload, String homeCommunityId,  // Payload Object Participant
-			String patientId,
-            List<CodedValueType> purposesOfUse)  // Patient Object Participant
+			String patientId,			// Patient Object Participant
+			List<CodedValueType> purposesOfUse, List<CodedValueType> userRoles)
 	{
 		QueryEvent queryEvent = new QueryEvent(systemIsSource, eventOutcome, transaction, purposesOfUse);
 		queryEvent.setAuditSourceId(auditSourceId, auditSourceEnterpriseSiteId);
@@ -72,7 +74,7 @@ public abstract class XDSAuditor extends IHEAuditor
         }
 
         if(!EventUtils.isEmptyOrNull(humanRequestorName)) {
-            queryEvent.addHumanRequestorActiveParticipant(humanRequestorName, null, humanRequestorName, null);
+            queryEvent.addHumanRequestorActiveParticipant(humanRequestorName, null, humanRequestorName, userRoles);
         }
 
         if (! humanAfterDestination) {

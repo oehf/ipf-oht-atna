@@ -72,7 +72,7 @@ public class XDSRegistryAuditor extends XDSAuditor
 		auditRegisterEvent(new IHETransactionEventTypeCodes.RegisterDocumentSet(), eventOutcome,
                 repositoryUserId, repositoryIpAddress,
                 userName,
-                registryEndpointUri, submissionSetUniqueId, patientId, null);
+                registryEndpointUri, submissionSetUniqueId, patientId, null, null);
 	}
 
 	/**
@@ -103,7 +103,7 @@ public class XDSRegistryAuditor extends XDSAuditor
 				consumerUserName, consumerUserName, true,
 				registryEndpointUri, getSystemAltUserId(), 
 				"", adhocQueryRequestPayload, "", 
-				patientId, null);
+				patientId, null, null);
 	}
 
 	/**
@@ -118,13 +118,15 @@ public class XDSRegistryAuditor extends XDSAuditor
 	 * @param adhocQueryRequestPayload The payload of the adhoc query request element
 	 * @param homeCommunityId The home community id of the transaction (if present)
 	 * @param patientId The patient ID queried (if query pertained to a patient id)
+	 * @param purposesOfUse purpose of use codes (may be taken from XUA token)
+	 * @param userRoles roles of the human user (may be taken from XUA token)
 	 */
 	public void auditRegistryStoredQueryEvent(
 			RFC3881EventOutcomeCodes eventOutcome,
 			String consumerUserId, String consumerUserName, String consumerIpAddress,
 			String registryEndpointUri, 
 			String storedQueryUUID, String adhocQueryRequestPayload, String homeCommunityId,
-			String patientId, List<CodedValueType> purposesOfUse)
+			String patientId, List<CodedValueType> purposesOfUse, List<CodedValueType> userRoles)
 	{
 		if (!isAuditorEnabled()) {
 			return;
@@ -136,7 +138,7 @@ public class XDSRegistryAuditor extends XDSAuditor
 				consumerUserName, consumerUserName, false,
 				registryEndpointUri, getSystemAltUserId(), 
 				storedQueryUUID, adhocQueryRequestPayload, homeCommunityId, 
-				patientId, purposesOfUse);
+				patientId, purposesOfUse, userRoles);
 	}
 
     @Deprecated
@@ -149,7 +151,7 @@ public class XDSRegistryAuditor extends XDSAuditor
     {
         auditRegistryStoredQueryEvent(eventOutcome, consumerUserId, consumerUserName,
                 consumerIpAddress, registryEndpointUri, storedQueryUUID, adhocQueryRequestPayload,
-                homeCommunityId, patientId, null);
+                homeCommunityId, patientId, null, null);
     }
 
 	/**
@@ -161,6 +163,8 @@ public class XDSRegistryAuditor extends XDSAuditor
 	 * @param registryEndpointUri The URI of this registry's endpoint that received the transaction
 	 * @param submissionSetUniqueId The UniqueID of the Submission Set registered
 	 * @param patientId The Patient Id that this submission pertains to
+	 * @param purposesOfUse purpose of use codes (may be taken from XUA token)
+	 * @param userRoles roles of the human user (may be taken from XUA token)
 	 */
 	public void auditRegisterDocumentSetBEvent(
 			RFC3881EventOutcomeCodes eventOutcome, 
@@ -169,7 +173,8 @@ public class XDSRegistryAuditor extends XDSAuditor
 			String registryEndpointUri,
 			String submissionSetUniqueId, 
 			String patientId,
-            List<CodedValueType> purposesOfUse)
+            List<CodedValueType> purposesOfUse,
+			List<CodedValueType> userRoles)
 	{
 		if (!isAuditorEnabled()) {
 			return;
@@ -177,7 +182,7 @@ public class XDSRegistryAuditor extends XDSAuditor
 		auditRegisterEvent(new IHETransactionEventTypeCodes.RegisterDocumentSetB(),
                 eventOutcome, repositoryUserId, repositoryIpAddress,
                 userName,
-                registryEndpointUri, submissionSetUniqueId, patientId, purposesOfUse);
+                registryEndpointUri, submissionSetUniqueId, patientId, purposesOfUse, userRoles);
 	}
 
     @Deprecated
@@ -190,7 +195,7 @@ public class XDSRegistryAuditor extends XDSAuditor
             String patientId)
     {
         auditRegisterDocumentSetBEvent(eventOutcome, repositoryUserId, repositoryIpAddress,
-                userName, registryEndpointUri, submissionSetUniqueId, patientId, null);
+                userName, registryEndpointUri, submissionSetUniqueId, patientId, null, null);
     }
 
 	/**
@@ -204,6 +209,8 @@ public class XDSRegistryAuditor extends XDSAuditor
 	 * @param registryEndpointUri The URI of this registry's endpoint that received the transaction
 	 * @param submissionSetUniqueId The UniqueID of the Submission Set provided
 	 * @param patientId The Patient Id that this submission pertains to
+	 * @param purposesOfUse purpose of use codes (may be taken from XUA token)
+	 * @param userRoles roles of the human user (may be taken from XUA token)
 	 */
 	protected void auditRegisterEvent(
 			IHETransactionEventTypeCodes transaction, RFC3881EventOutcomeCodes eventOutcome, 
@@ -212,13 +219,14 @@ public class XDSRegistryAuditor extends XDSAuditor
 			String registryEndpointUri,
 			String submissionSetUniqueId, 
 			String patientId,
-            List<CodedValueType> purposesOfUse)
+            List<CodedValueType> purposesOfUse,
+			List<CodedValueType> userRoles)
 	{
 		ImportEvent importEvent = new ImportEvent(false, eventOutcome, transaction, purposesOfUse);
 		importEvent.setAuditSourceId(getAuditSourceId(), getAuditEnterpriseSiteId());
 		importEvent.addSourceActiveParticipant(repositoryUserId, null, null, repositoryIpAddress, true);
         if (! EventUtils.isEmptyOrNull(userName)) {
-            importEvent.addHumanRequestorActiveParticipant(userName, null, userName, null);
+            importEvent.addHumanRequestorActiveParticipant(userName, null, userName, userRoles);
         }
 		importEvent.addDestinationActiveParticipant(registryEndpointUri, getSystemAltUserId(), null, EventUtils.getAddressForUrl(registryEndpointUri, false), false);
 		if (!EventUtils.isEmptyOrNull(patientId)) {
@@ -239,6 +247,6 @@ public class XDSRegistryAuditor extends XDSAuditor
             String patientId)
     {
         auditRegisterEvent(transaction, eventOutcome, repositoryUserId, repositoryIpAddress, userName,
-                registryEndpointUri, submissionSetUniqueId, patientId, null);
+                registryEndpointUri, submissionSetUniqueId, patientId, null, null);
     }
 }

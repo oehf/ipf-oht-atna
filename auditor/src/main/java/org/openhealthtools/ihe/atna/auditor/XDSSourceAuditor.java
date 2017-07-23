@@ -66,7 +66,7 @@ public class XDSSourceAuditor extends XDSAuditor
 		auditProvideAndRegisterEvent( new IHETransactionEventTypeCodes.ProvideAndRegisterDocumentSet(),
                 eventOutcome, repositoryEndpointUri,
                 userName,
-                submissionSetUniqueId, patientId, null);
+                submissionSetUniqueId, patientId, null, null);
 	}
 	
 	/**
@@ -76,13 +76,16 @@ public class XDSSourceAuditor extends XDSAuditor
 	 * @param repositoryEndpointUri The endpoint of the repository in this transaction
 	 * @param submissionSetUniqueId The UniqueID of the Submission Set provided
 	 * @param patientId The Patient Id that this submission pertains to
+	 * @param purposesOfUse purpose of use codes (may be taken from XUA token)
+	 * @param userRoles roles of the human user (may be taken from XUA token)
 	 */
 	public void auditProvideAndRegisterDocumentSetBEvent(RFC3881EventOutcomeCodes eventOutcome, 
 			String repositoryEndpointUri,
             String userName,
 			String submissionSetUniqueId, 
 			String patientId,
-            List<CodedValueType> purposesOfUse)
+            List<CodedValueType> purposesOfUse,
+		    List<CodedValueType> userRoles)
 	{	
 		if (!isAuditorEnabled()) {
 			return;
@@ -90,7 +93,7 @@ public class XDSSourceAuditor extends XDSAuditor
 		auditProvideAndRegisterEvent( new IHETransactionEventTypeCodes.ProvideAndRegisterDocumentSetB(),
                 eventOutcome, repositoryEndpointUri,
                 userName,
-                submissionSetUniqueId, patientId, purposesOfUse);
+                submissionSetUniqueId, patientId, purposesOfUse, userRoles);
 	}
 	
 	/**
@@ -101,6 +104,8 @@ public class XDSSourceAuditor extends XDSAuditor
 	 * @param repositoryEndpointUri The endpoint of the repository in this transaction
 	 * @param submissionSetUniqueId The UniqueID of the Submission Set provided
 	 * @param patientId The Patient Id that this submission pertains to
+	 * @param purposesOfUse purpose of use codes (may be taken from XUA token)
+	 * @param userRoles roles of the human user (may be taken from XUA token)
 	 */
 	protected void auditProvideAndRegisterEvent(
 			IHETransactionEventTypeCodes transaction, RFC3881EventOutcomeCodes eventOutcome, 
@@ -108,7 +113,8 @@ public class XDSSourceAuditor extends XDSAuditor
             String userName,
 			String submissionSetUniqueId, 
 			String patientId,
-            List<CodedValueType> purposesOfUse)
+            List<CodedValueType> purposesOfUse,
+			List<CodedValueType> userRoles)
 	{
 		ExportEvent exportEvent = new ExportEvent(true, eventOutcome, transaction, purposesOfUse);
 		exportEvent.setAuditSourceId(getAuditSourceId(), getAuditEnterpriseSiteId());
@@ -121,7 +127,7 @@ public class XDSSourceAuditor extends XDSAuditor
 		
 		exportEvent.addSourceActiveParticipant(replyToUri, getSystemAltUserId(), getSystemUserName(), getSystemNetworkId(), true);
 		if (!EventUtils.isEmptyOrNull(userName)) {
-			exportEvent.addHumanRequestorActiveParticipant(userName, null, userName, null);
+			exportEvent.addHumanRequestorActiveParticipant(userName, null, userName, userRoles);
 		}
 		exportEvent.addDestinationActiveParticipant(repositoryEndpointUri, null, null, EventUtils.getAddressForUrl(repositoryEndpointUri, false), false);
 		if (!EventUtils.isEmptyOrNull(patientId)) {
