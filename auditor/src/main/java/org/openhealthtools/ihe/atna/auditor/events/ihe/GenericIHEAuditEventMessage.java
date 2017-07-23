@@ -290,7 +290,7 @@ public class GenericIHEAuditEventMessage extends GenericAuditEventMessageImpl
 				registryObjectUuid,
 				RFC3881ParticipantObjectTypeCodes.SYSTEM,
 				RFC3881ParticipantObjectTypeRoleCodes.REPORT,
-				null,
+				RFC3881ParticipantObjectCodes.RFC3881ParticipantObjectDataLifeCycleCodes.PERMANENT_ERASURE,
 				null);
 	}
 
