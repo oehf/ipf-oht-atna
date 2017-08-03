@@ -16,10 +16,9 @@ import org.openhealthtools.ihe.atna.auditor.codes.dicom.DICOMEventTypeCodes;
 import org.openhealthtools.ihe.atna.auditor.codes.rfc3881.RFC3881EventCodes;
 import org.openhealthtools.ihe.atna.auditor.codes.rfc3881.RFC3881EventCodes.RFC3881EventOutcomeCodes;
 import org.openhealthtools.ihe.atna.auditor.events.GenericAuditEventMessageImpl;
-import org.openhealthtools.ihe.atna.auditor.models.rfc3881.CodedValueType;
 
+import java.util.Date;
 import java.util.Collections;
-
 /**
  * Audit Event representing a DICOM 95 User Authentication event (DCM 110114)
  * 
@@ -31,18 +30,36 @@ public class UserAuthenticationEvent extends GenericAuditEventMessageImpl
 	 * Creates a User Authentication Event for a given event type (e.g. Login, Logout)
 	 * @param outcome The event outcome indicator
 	 * @param type The type of event
+	 * @param eventDateTime timestamp of the event
+	 */
+	public UserAuthenticationEvent(RFC3881EventOutcomeCodes outcome, DICOMEventTypeCodes type, Date eventDateTime)
+	{
+		super(
+				outcome,
+				RFC3881EventCodes.RFC3881EventActionCodes.EXECUTE,
+				new DICOMEventIdCodes.UserAuthentication(),
+				new DICOMEventTypeCodes[] {type},
+				eventDateTime,
+				null
+		);
+	}
+
+	/**
+	 * Creates a User Authentication Event for a given event type (e.g. Login, Logout)
+	 * @param outcome The event outcome indicator
+	 * @param type The type of event
 	 */
 	public UserAuthenticationEvent(RFC3881EventOutcomeCodes outcome, DICOMEventTypeCodes type)
 	{
 		super(
-				outcome, 
+				outcome,
 				RFC3881EventCodes.RFC3881EventActionCodes.EXECUTE,
 				new DICOMEventIdCodes.UserAuthentication(),
 				new DICOMEventTypeCodes[] {type},
-                null
+				null
 		);
 	}
-	
+
 	/**
 	 * Adds an Active Participant representing the user requesting the authentication
 	 * 

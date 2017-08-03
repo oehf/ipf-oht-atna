@@ -62,7 +62,7 @@ public abstract class AbstractAuditEventMessageImpl implements AuditEventMessage
     /**
      * Date and time the event was generated
      */
-    private final Date eventDateTime = new Date();
+    private final Date eventDateTime;
 
     /**
      * Message destination address
@@ -83,7 +83,8 @@ public abstract class AbstractAuditEventMessageImpl implements AuditEventMessage
     /**
      * Constructor for creating an Audit Event Message
      */
-    protected AbstractAuditEventMessageImpl() {
+    protected AbstractAuditEventMessageImpl(Date timestamp) {
+        eventDateTime = timestamp;
         auditMessage = new AuditMessage();
     }
 
