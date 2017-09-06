@@ -50,7 +50,7 @@ public class AuditSourceType implements Serializable {
     	StringBuilder sb = new StringBuilder();
     	sb.append("<AuditSourceTypeCode");
     	//code
-    	sb.append(" code=\"");
+    	sb.append(" csd-code=\"");
     	sb.append(code);
     	sb.append("\"");
 
