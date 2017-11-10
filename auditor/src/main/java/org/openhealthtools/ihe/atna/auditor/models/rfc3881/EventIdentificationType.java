@@ -21,7 +21,6 @@ package org.openhealthtools.ihe.atna.auditor.models.rfc3881;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 

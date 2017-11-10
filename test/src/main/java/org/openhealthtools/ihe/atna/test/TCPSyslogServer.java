@@ -1,8 +1,6 @@
 package org.openhealthtools.ihe.atna.test;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Handler;
-import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.ClientAuth;
 import io.vertx.core.net.*;
 import io.vertx.ext.unit.Async;

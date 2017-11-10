@@ -11,7 +11,6 @@
 package org.openhealthtools.ihe.atna.auditor;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import org.openhealthtools.ihe.atna.auditor.codes.ihe.IHETransactionEventTypeCodes;

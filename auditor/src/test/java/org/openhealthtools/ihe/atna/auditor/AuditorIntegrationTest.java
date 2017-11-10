@@ -146,7 +146,7 @@ public class AuditorIntegrationTest {
         async.complete();
     }
 
-    private Properties initSecurityDomainProperties() throws Exception {
+    private Properties initSecurityDomainProperties() {
         Properties props = new Properties();
         props.put(JAVAX_NET_SSL_KEYSTORE_PASSWORD, KEY_STORE_PASS);
         props.put(JAVAX_NET_SSL_KEYSTORE, this.getClass().getResource(KEY_STORE).getPath());

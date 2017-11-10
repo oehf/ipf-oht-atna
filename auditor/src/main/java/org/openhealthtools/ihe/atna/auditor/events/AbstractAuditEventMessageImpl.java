@@ -106,7 +106,7 @@ public abstract class AbstractAuditEventMessageImpl implements AuditEventMessage
     /* (non-Javadoc)
      * @see org.openhealthtools.ihe.atna.auditor.events.AuditEventMessage#setDestinationUri(java.net.URI)
      */
-    public void setDestinationUri(URI uri) throws Exception {
+    public void setDestinationUri(URI uri) {
         if (EventUtils.isEmptyOrNull(uri)) {
             LOGGER.error("The destination URI cannot be null");
             throw new IllegalArgumentException("The destination URI cannot be null");

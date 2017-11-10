@@ -54,7 +54,7 @@ public class NettyTLSSyslogSenderImpl extends NioTLSSyslogSenderImpl<Channel> {
         private EventLoopGroup workerGroup;
         private Channel channel;
 
-        public NettyDestination(String host, int port, final boolean withLogging) throws Exception {
+        public NettyDestination(String host, int port, final boolean withLogging) {
 
             workerGroup = new NioEventLoopGroup(5);
 

@@ -114,7 +114,7 @@ public class SecurityDomainManager
 	 * @throws URISyntaxException 
 	 * @throws {@link IllegalArgumentException If the specified domain doesn't exist, or if the URI is null
 	 */
-	public void registerURItoSecurityDomain(URI uri, String name) throws NoSecurityDomainException, URISyntaxException
+	public void registerURItoSecurityDomain(URI uri, String name) throws URISyntaxException
 	{
 		if (uri == null) throw new IllegalArgumentException("URI parameter cannot be null");
 		if (! securityDomains.containsKey(name) ) throw new IllegalArgumentException("Security domain "+name+" is not a configured security domain.");

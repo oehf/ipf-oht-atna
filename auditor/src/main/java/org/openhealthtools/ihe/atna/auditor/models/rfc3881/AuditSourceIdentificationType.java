@@ -20,7 +20,6 @@
 package org.openhealthtools.ihe.atna.auditor.models.rfc3881;
 
 import org.apache.commons.lang3.StringEscapeUtils;
-import org.openhealthtools.ihe.atna.auditor.codes.rfc3881.RFC3881AuditSourceTypeCodes;
 import org.openhealthtools.ihe.atna.auditor.codes.rfc3881.RFC3881AuditSourceTypes;
 import org.openhealthtools.ihe.atna.auditor.utils.EventUtils;
 
