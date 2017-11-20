@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.openehealth.ipf.oht.atna</groupId>
     <artifactId>ipf-oht-atna</artifactId>
-    <version>3.6.0</version>
+    <version>3.7-SNAPSHOT</version>
     <name>OpenHealthTools(OHT) ATNA</name>
     <packaging>pom</packaging>
 
@@ -108,7 +108,7 @@
         <connection>scm:git:git@github.com:oehf/ipf-oht-atna.git</connection>
         <developerConnection>scm:git:git@github.com:oehf/ipf-oht-atna.git</developerConnection>
         <url>scm:git:git@github.com:oehf/ipf-oht-atna.git</url>
-      <tag>ipf-oht-atna-3.6.0</tag>
+      <tag>HEAD</tag>
   </scm>
 
     <modules>
