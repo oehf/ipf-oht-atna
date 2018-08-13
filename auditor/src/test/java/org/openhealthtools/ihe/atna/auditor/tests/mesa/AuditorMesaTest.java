@@ -12,7 +12,6 @@
  */
 package org.openhealthtools.ihe.atna.auditor.tests.mesa;
 
-import org.apache.log4j.BasicConfigurator;
 import org.junit.Assert;
 import org.junit.Before;
 import org.openhealthtools.ihe.atna.auditor.context.AuditorModuleConfig;
@@ -30,9 +29,6 @@ public abstract class AuditorMesaTest extends Assert {
 
     @Before
     public void setUp() throws Exception {
-
-        // Do basic log4j configuration
-        BasicConfigurator.configure();
 
         File keystoreFile = new File(getClass().getResource(TestConfiguration.KEY_STORE).toURI());
         File truststoreFile = new File(getClass().getResource(TestConfiguration.TRUST_STORE).toURI());

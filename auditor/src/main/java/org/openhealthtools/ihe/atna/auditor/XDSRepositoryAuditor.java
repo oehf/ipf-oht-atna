@@ -76,7 +76,7 @@ public class XDSRepositoryAuditor extends XDSAuditor
 		auditProvideAndRegisterEvent(new IHETransactionEventTypeCodes.ProvideAndRegisterDocumentSet(),
                 eventOutcome, sourceUserId, sourceIpAddress,
                 userName,
-                repositoryEndpointUri, submissionSetUniqueId, patientId, null);
+                repositoryEndpointUri, submissionSetUniqueId, patientId, null, null);
 	}
 	
 	/**
@@ -88,6 +88,8 @@ public class XDSRepositoryAuditor extends XDSAuditor
 	 * @param repositoryEndpointUri The URI of this repository's endpoint that received the transaction
 	 * @param submissionSetUniqueId  The UniqueID of the Submission Set provided
 	 * @param patientId The Patient Id that this submission pertains to
+	 * @param purposesOfUse purpose of use codes (may be taken from XUA token)
+	 * @param userRoles roles of the human user (may be taken from XUA token)
 	 */
 	public void auditProvideAndRegisterDocumentSetBEvent(
 			RFC3881EventOutcomeCodes eventOutcome,
@@ -96,7 +98,8 @@ public class XDSRepositoryAuditor extends XDSAuditor
 			String repositoryEndpointUri,
 			String submissionSetUniqueId,
 			String patientId,
-            List<CodedValueType> purposesOfUse)
+            List<CodedValueType> purposesOfUse,
+			List<CodedValueType> userRoles)
 	{
 		if (!isAuditorEnabled()) {
 			return;
@@ -104,7 +107,7 @@ public class XDSRepositoryAuditor extends XDSAuditor
 		auditProvideAndRegisterEvent( new IHETransactionEventTypeCodes.ProvideAndRegisterDocumentSetB(),
                 eventOutcome, sourceUserId, sourceIpAddress,
                 userName,
-                repositoryEndpointUri, submissionSetUniqueId, patientId, purposesOfUse);
+                repositoryEndpointUri, submissionSetUniqueId, patientId, purposesOfUse, userRoles);
 	}
 
     @Deprecated
@@ -117,7 +120,7 @@ public class XDSRepositoryAuditor extends XDSAuditor
             String patientId)
     {
         auditProvideAndRegisterDocumentSetBEvent(eventOutcome, sourceUserId, sourceIpAddress,
-                userName, repositoryEndpointUri, submissionSetUniqueId, patientId, null);
+                userName, repositoryEndpointUri, submissionSetUniqueId, patientId, null, null);
     }
 
 	/**
@@ -140,7 +143,7 @@ public class XDSRepositoryAuditor extends XDSAuditor
 		}
 		auditRegisterEvent(new IHETransactionEventTypeCodes.RegisterDocumentSet(), eventOutcome,
                 repositoryUserId, userName,
-                registryEndpointUri, submissionSetUniqueId, patientId, null);
+                registryEndpointUri, submissionSetUniqueId, patientId, null, null);
 	}
 
 	/**
@@ -150,6 +153,8 @@ public class XDSRepositoryAuditor extends XDSAuditor
 	 * @param registryEndpointUri The endpoint of the registry in this transaction
 	 * @param submissionSetUniqueId The UniqueID of the Submission Set registered
 	 * @param patientId The Patient Id that this submission pertains to
+	 * @param purposesOfUse purpose of use codes (may be taken from XUA token)
+	 * @param userRoles roles of the human user (may be taken from XUA token)
 	 */
 	public void auditRegisterDocumentSetBEvent(
 			RFC3881EventOutcomeCodes eventOutcome, 
@@ -157,14 +162,15 @@ public class XDSRepositoryAuditor extends XDSAuditor
             String userName,
 			String registryEndpointUri,
 			String submissionSetUniqueId, String patientId,
-            List<CodedValueType> purposesOfUse)
+            List<CodedValueType> purposesOfUse,
+			List<CodedValueType> userRoles)
 	{
 		if (!isAuditorEnabled()) {
 			return;
 		}
 		auditRegisterEvent(new IHETransactionEventTypeCodes.RegisterDocumentSetB(), eventOutcome, repositoryUserId,
                 userName,
-                registryEndpointUri, submissionSetUniqueId, patientId, purposesOfUse);
+                registryEndpointUri, submissionSetUniqueId, patientId, purposesOfUse, userRoles);
 	}
 
     @Deprecated
@@ -176,7 +182,7 @@ public class XDSRepositoryAuditor extends XDSAuditor
             String submissionSetUniqueId, String patientId)
     {
         auditRegisterDocumentSetBEvent(eventOutcome, repositoryUserId, userName, registryEndpointUri,
-                submissionSetUniqueId, patientId, null);
+                submissionSetUniqueId, patientId, null, null);
     }
 
 	/**
@@ -200,7 +206,7 @@ public class XDSRepositoryAuditor extends XDSAuditor
 		exportEvent.setAuditSourceId(getAuditSourceId(), getAuditEnterpriseSiteId());
 		exportEvent.addSourceActiveParticipant(repositoryRetrieveUri, getSystemAltUserId(), null, EventUtils.getAddressForUrl(repositoryRetrieveUri, false), false);
         if (!EventUtils.isEmptyOrNull(userName)) {
-            exportEvent.addHumanRequestorActiveParticipant(userName, null, userName, null);
+            exportEvent.addHumanRequestorActiveParticipant(userName, null, userName, (List<CodedValueType>) null);
         }
 		exportEvent.addDestinationActiveParticipant(consumerIpAddress, null, null, consumerIpAddress, true);
 		//exportEvent.addPatientParticipantObject(patientId);
@@ -220,13 +226,15 @@ public class XDSRepositoryAuditor extends XDSAuditor
 	 * @param documentUniqueIds The list of Document Entry UniqueId(s) for the document(s) retrieved
 	 * @param repositoryUniqueId The XDS.b Repository Unique Id value for this repository
 	 * @param homeCommunityId The XCA Home Community Id used in the transaction
+	 * @param purposesOfUse purpose of use codes (may be taken from XUA token)
+	 * @param userRoles roles of the human user (may be taken from XUA token)
 	 */
 	public void auditRetrieveDocumentSetEvent(
 			RFC3881EventOutcomeCodes eventOutcome,
 			String consumerUserId, String consumerUserName, String consumerIpAddress,
 			String repositoryEndpointUri,
 			String[] documentUniqueIds, String repositoryUniqueId,  String homeCommunityId,
-            List<CodedValueType> purposesOfUse)
+            List<CodedValueType> purposesOfUse, List<CodedValueType> userRoles)
 	{
 		if (!isAuditorEnabled()) {
 			return;
@@ -239,7 +247,7 @@ public class XDSRepositoryAuditor extends XDSAuditor
 		}
 		
 		auditRetrieveDocumentSetEvent(eventOutcome, consumerUserId, consumerUserName, consumerIpAddress,
-                repositoryEndpointUri, documentUniqueIds, repositoryUniqueIds, homeCommunityId, purposesOfUse);
+                repositoryEndpointUri, documentUniqueIds, repositoryUniqueIds, homeCommunityId, purposesOfUse, userRoles);
 	}
 
     @Deprecated
@@ -250,7 +258,7 @@ public class XDSRepositoryAuditor extends XDSAuditor
             String[] documentUniqueIds, String repositoryUniqueId,  String homeCommunityId)
     {
         auditRetrieveDocumentSetEvent(eventOutcome, consumerUserId, consumerUserName, consumerIpAddress,
-                repositoryEndpointUri, documentUniqueIds, repositoryUniqueId, homeCommunityId, null);
+                repositoryEndpointUri, documentUniqueIds, repositoryUniqueId, homeCommunityId, null, null);
     }
 
     /**
@@ -265,13 +273,15 @@ public class XDSRepositoryAuditor extends XDSAuditor
 	 * @param documentUniqueIds The list of Document Entry UniqueId(s) for the document(s) retrieved
 	 * @param repositoryUniqueIds The list of XDS.b Repository Unique Ids involved in this transaction (aligned with Document Unique Ids array)
 	 * @param homeCommunityId The XCA Home Community Id used in the transaction
+	 * @param purposesOfUse purpose of use codes (may be taken from XUA token)
+	 * @param userRoles roles of the human user (may be taken from XUA token)
 	 */
 	public void auditRetrieveDocumentSetEvent(
 			RFC3881EventOutcomeCodes eventOutcome,
 			String consumerUserId, String consumerUserName, String consumerIpAddress,
 			String repositoryEndpointUri,
 			String[] documentUniqueIds, String[] repositoryUniqueIds, String homeCommunityId,
-            List<CodedValueType> purposesOfUse)
+			List<CodedValueType> purposesOfUse, List<CodedValueType> userRoles)
 	{
 		if (!isAuditorEnabled()) {
 			return;
@@ -284,7 +294,7 @@ public class XDSRepositoryAuditor extends XDSAuditor
 		}
 		
 		auditRetrieveDocumentSetEvent(eventOutcome, consumerUserId, consumerUserName, consumerIpAddress,
-                repositoryEndpointUri, documentUniqueIds, repositoryUniqueIds, homeCommunityIds, purposesOfUse);
+                repositoryEndpointUri, documentUniqueIds, repositoryUniqueIds, homeCommunityIds, purposesOfUse, userRoles);
 	}
 
     @Deprecated
@@ -295,7 +305,7 @@ public class XDSRepositoryAuditor extends XDSAuditor
             String[] documentUniqueIds, String[] repositoryUniqueIds, String homeCommunityId)
     {
         auditRetrieveDocumentSetEvent(eventOutcome, consumerUserId, consumerUserName, consumerIpAddress,
-                repositoryEndpointUri, documentUniqueIds, repositoryUniqueIds, homeCommunityId, null);
+                repositoryEndpointUri, documentUniqueIds, repositoryUniqueIds, homeCommunityId, null, null);
     }
 
 	/**
@@ -310,13 +320,16 @@ public class XDSRepositoryAuditor extends XDSAuditor
 	 * @param documentUniqueIds The list of Document Entry UniqueId(s) for the document(s) retrieved
 	 * @param repositoryUniqueIds The list of XDS.b Repository Unique Ids involved in this transaction (aligned with Document Unique Ids array)
 	 * @param homeCommunityIds The list of XCA Home Community Ids involved in this transaction (aligned with Document Unique Ids array)
+	 * @param purposesOfUse purpose of use codes (may be taken from XUA token)
+	 * @param userRoles roles of the human user (may be taken from XUA token)
 	 */
 	public void auditRetrieveDocumentSetEvent(
 			RFC3881EventOutcomeCodes eventOutcome,
 			String consumerUserId, String consumerUserName, String consumerIpAddress,
 			String repositoryEndpointUri,
 			String[] documentUniqueIds, String[] repositoryUniqueIds, String[] homeCommunityIds,
-            List<CodedValueType> purposesOfUse)
+            List<CodedValueType> purposesOfUse,
+			List<CodedValueType> userRoles)
 	{
 		if (!isAuditorEnabled()) {
 			return;
@@ -326,7 +339,7 @@ public class XDSRepositoryAuditor extends XDSAuditor
 		exportEvent.addSourceActiveParticipant(repositoryEndpointUri, getSystemAltUserId(), null, EventUtils.getAddressForUrl(repositoryEndpointUri, false), false);
 		exportEvent.addDestinationActiveParticipant(consumerUserId, null, consumerUserName, consumerIpAddress, true);
         if (! EventUtils.isEmptyOrNull(consumerUserName)) {
-            exportEvent.addHumanRequestorActiveParticipant(consumerUserName, null, consumerUserName, null);
+            exportEvent.addHumanRequestorActiveParticipant(consumerUserName, null, consumerUserName, userRoles);
         }
 
 		//exportEvent.addPatientParticipantObject(patientId);
@@ -346,7 +359,7 @@ public class XDSRepositoryAuditor extends XDSAuditor
             String[] documentUniqueIds, String[] repositoryUniqueIds, String[] homeCommunityIds)
     {
         auditRetrieveDocumentSetEvent(eventOutcome, consumerUserId, consumerUserName, consumerIpAddress,
-                repositoryEndpointUri, documentUniqueIds, repositoryUniqueIds, homeCommunityIds, null);
+                repositoryEndpointUri, documentUniqueIds, repositoryUniqueIds, homeCommunityIds, null, null);
     }
 
     /**
@@ -359,6 +372,8 @@ public class XDSRepositoryAuditor extends XDSAuditor
 	 * @param repositoryEndpointUri The Web service endpoint URI for this document repository
 	 * @param submissionSetUniqueId The UniqueID of the Submission Set registered
 	 * @param patientId The Patient Id that this submission pertains to
+	 * @param purposesOfUse purpose of use codes (may be taken from XUA token)
+	 * @param userRoles roles of the human user (may be taken from XUA token)
 	 */
 	protected void auditProvideAndRegisterEvent (
 			IHETransactionEventTypeCodes transaction, 
@@ -368,13 +383,14 @@ public class XDSRepositoryAuditor extends XDSAuditor
 			String repositoryEndpointUri,
 			String submissionSetUniqueId,
 			String patientId,
-            List<CodedValueType> purposesOfUse)
+            List<CodedValueType> purposesOfUse,
+			List<CodedValueType> userRoles)
 	{
 		ImportEvent importEvent = new ImportEvent(false, eventOutcome, transaction, purposesOfUse);
 		importEvent.setAuditSourceId(getAuditSourceId(), getAuditEnterpriseSiteId());
 		importEvent.addSourceActiveParticipant(sourceUserId, null, null, sourceIpAddress, true);
         if (!EventUtils.isEmptyOrNull(userName)) {
-            importEvent.addHumanRequestorActiveParticipant(userName, null, userName, null);
+            importEvent.addHumanRequestorActiveParticipant(userName, null, userName, userRoles);
         }
 		importEvent.addDestinationActiveParticipant(repositoryEndpointUri, getSystemAltUserId(), null, EventUtils.getAddressForUrl(repositoryEndpointUri, false), false);
 		if (!EventUtils.isEmptyOrNull(patientId)) {
@@ -396,7 +412,7 @@ public class XDSRepositoryAuditor extends XDSAuditor
             String patientId)
     {
         auditProvideAndRegisterEvent(transaction, eventOutcome, sourceUserId, sourceIpAddress, userName,
-                repositoryEndpointUri, submissionSetUniqueId, patientId, null);
+                repositoryEndpointUri, submissionSetUniqueId, patientId, null, null);
     }
 
 	/**
@@ -408,6 +424,8 @@ public class XDSRepositoryAuditor extends XDSAuditor
 	 * @param registryEndpointUri  The Web service endpoint URI for the document registry
 	 * @param submissionSetUniqueId The UniqueID of the Submission Set registered
 	 * @param patientId The Patient Id that this submission pertains to
+	 * @param purposesOfUse purpose of use codes (may be taken from XUA token)
+	 * @param userRoles roles of the human user (may be taken from XUA token)
 	 */
 	protected void auditRegisterEvent(
 			IHETransactionEventTypeCodes transaction,
@@ -416,13 +434,14 @@ public class XDSRepositoryAuditor extends XDSAuditor
             String userName,
 			String registryEndpointUri,
 			String submissionSetUniqueId, String patientId,
-            List<CodedValueType> purposesOfUse)
+            List<CodedValueType> purposesOfUse,
+			List<CodedValueType> userRoles)
 	{
 		ExportEvent exportEvent = new ExportEvent(true, eventOutcome, transaction, purposesOfUse);
 		exportEvent.setAuditSourceId(getAuditSourceId(), getAuditEnterpriseSiteId());
 		exportEvent.addSourceActiveParticipant(repositoryUserId, getSystemAltUserId(), null, getSystemNetworkId(), true);
         if (!EventUtils.isEmptyOrNull(userName)) {
-            exportEvent.addHumanRequestorActiveParticipant(userName, null, userName, null);
+            exportEvent.addHumanRequestorActiveParticipant(userName, null, userName, userRoles);
         }
 		exportEvent.addDestinationActiveParticipant(registryEndpointUri, null, null, EventUtils.getAddressForUrl(registryEndpointUri, false), false);
 		if (!EventUtils.isEmptyOrNull(patientId)) {
@@ -442,7 +461,7 @@ public class XDSRepositoryAuditor extends XDSAuditor
             String submissionSetUniqueId, String patientId)
     {
         auditRegisterEvent(transaction, eventOutcome, repositoryUserId, userName, registryEndpointUri,
-                submissionSetUniqueId, patientId, null);
+                submissionSetUniqueId, patientId, null, null);
     }
 
 }

@@ -16,6 +16,7 @@ import org.openhealthtools.ihe.atna.auditor.codes.rfc3881.RFC3881EventCodes.RFC3
 import org.openhealthtools.ihe.atna.auditor.codes.rfc3881.RFC3881EventCodes.RFC3881EventOutcomeCodes;
 import org.openhealthtools.ihe.atna.auditor.models.rfc3881.CodedValueType;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,15 +32,25 @@ import java.util.List;
 public class GenericAuditEventMessageImpl extends AbstractAuditEventMessageImpl
 {
 
-    public GenericAuditEventMessageImpl( RFC3881EventOutcomeCodes outcome,
-                                         RFC3881EventActionCodes action,
-                                         CodedValueType id, CodedValueType[] type,
-                                         List<CodedValueType> purposesOfUse)
-    {
-        setEventIdentification(outcome,action,id,type, purposesOfUse);
-    }
+	public GenericAuditEventMessageImpl( RFC3881EventOutcomeCodes outcome,
+										 RFC3881EventActionCodes action,
+										 CodedValueType id, CodedValueType[] type,
+										 Date eventDateTime,
+										 List<CodedValueType> purposesOfUse)
+	{
+		super(eventDateTime);
+		setEventIdentification(outcome,action,id,type, purposesOfUse);
+	}
 
-    @Deprecated
+	public GenericAuditEventMessageImpl( RFC3881EventOutcomeCodes outcome,
+										 RFC3881EventActionCodes action,
+										 CodedValueType id, CodedValueType[] type,
+										 List<CodedValueType> purposesOfUse)
+	{
+		this(outcome,action,id,type, new Date(), purposesOfUse);
+	}
+
+	@Deprecated
     public GenericAuditEventMessageImpl( RFC3881EventOutcomeCodes outcome,
                                          RFC3881EventActionCodes action,
                                          CodedValueType id, CodedValueType[] type)

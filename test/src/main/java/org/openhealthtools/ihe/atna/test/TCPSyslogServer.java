@@ -1,8 +1,6 @@
 package org.openhealthtools.ihe.atna.test;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Handler;
-import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.ClientAuth;
 import io.vertx.core.net.*;
 import io.vertx.ext.unit.Async;
@@ -27,6 +25,7 @@ public class TCPSyslogServer extends AbstractVerticle {
         this.async = async;
         nsOptions = new NetServerOptions()
                 .setReuseAddress(true)
+                .setHost("localhost")
                 .setSsl(false);
     }
 
@@ -38,6 +37,7 @@ public class TCPSyslogServer extends AbstractVerticle {
         this.async = async;
         nsOptions = new NetServerOptions()
                 .setReuseAddress(true)
+                .setHost("localhost")
                 .setClientAuth(ClientAuth.valueOf(clientAuth))
                 .setTrustStoreOptions(trustStorePath != null? new JksOptions().
                         setPath(trustStorePath).
@@ -51,13 +51,10 @@ public class TCPSyslogServer extends AbstractVerticle {
     @Override
     public void start() throws Exception {
         NetServer netServer = vertx.createNetServer(nsOptions);
-        netServer.connectHandler(netSocket -> netSocket.handler(new Handler<Buffer>() {
-            @Override
-            public void handle(Buffer buffer) {
-                log.debug("================= Received content on " + port + ":" + async.count() +
-                        " =================== \n" + buffer.toString());
-                async.countDown();
-            }
+        netServer.connectHandler(netSocket -> netSocket.handler(buffer -> {
+            log.debug("================= Received content on " + port + ":" + async.count() +
+                    " =================== \n" + buffer.toString());
+            async.countDown();
         })).listen(port);
     }
 }

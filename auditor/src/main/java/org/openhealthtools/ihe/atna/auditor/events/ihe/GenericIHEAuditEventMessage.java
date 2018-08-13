@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.openhealthtools.ihe.atna.auditor.events.ihe;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -98,8 +99,8 @@ public class GenericIHEAuditEventMessage extends GenericAuditEventMessageImpl
 				userId, 
 				altUserId, 
 				userName, 
-				isRequestor, 
-				new DICOMActiveParticipantRoleIdCodes[] {new DICOMActiveParticipantRoleIdCodes.Source()}, 
+				isRequestor,
+				Collections.singletonList(new DICOMActiveParticipantRoleIdCodes.Source()),
 				networkId);
 	}
 	
@@ -118,28 +119,47 @@ public class GenericIHEAuditEventMessage extends GenericAuditEventMessageImpl
 				altUserId, 
 				userName, 
 				isRequestor, 
-				new DICOMActiveParticipantRoleIdCodes[] {new DICOMActiveParticipantRoleIdCodes.Destination()}, 
+				Collections.singletonList(new DICOMActiveParticipantRoleIdCodes.Destination()),
 				networkId);
 	}
-	
+
 	/**
 	 * Adds an Active Participant block representing the human requestor participant 
 	 * @param userId The Active Participant's User ID
 	 * @param altUserId The Active Participant's Alternate UserID
 	 * @param userName The Active Participant's UserName
+	 * @param roles The participant's roles
+	 */
+	public void addHumanRequestorActiveParticipant(String userId, String altUserId, String userName, List<CodedValueType> roles)
+	{
+		addActiveParticipant(
+				userId,
+				altUserId,
+				userName,
+				true,
+				roles,
+				null);
+	}
+
+	/**
+	 * Adds an Active Participant block representing the human requestor participant
+	 * @param userId The Active Participant's User ID
+	 * @param altUserId The Active Participant's Alternate UserID
+	 * @param userName The Active Participant's UserName
 	 * @param role The participant's role
 	 */
+	@Deprecated
 	public void addHumanRequestorActiveParticipant(String userId, String altUserId, String userName, CodedValueType role)
 	{
 		addActiveParticipant(
-				userId, 
-				altUserId, 
-				userName, 
+				userId,
+				altUserId,
+				userName,
 				true,
-				new CodedValueType[] {role}, 
+				Collections.singletonList(role),
 				null);
 	}
-	
+
 	/**
 	 * Adds a Participant Object Identification block that representing a patient 
 	 * involved in the event
@@ -270,7 +290,7 @@ public class GenericIHEAuditEventMessage extends GenericAuditEventMessageImpl
 				registryObjectUuid,
 				RFC3881ParticipantObjectTypeCodes.SYSTEM,
 				RFC3881ParticipantObjectTypeRoleCodes.REPORT,
-				null,
+				RFC3881ParticipantObjectCodes.RFC3881ParticipantObjectDataLifeCycleCodes.PERMANENT_ERASURE,
 				null);
 	}
 

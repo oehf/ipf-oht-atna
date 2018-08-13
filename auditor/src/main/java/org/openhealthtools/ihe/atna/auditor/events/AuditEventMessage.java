@@ -56,7 +56,7 @@ public interface AuditEventMessage
 	 * @param uri The destination
 	 * @throws Exception
 	 */
-	void setDestinationUri(URI uri) throws Exception;
+	void setDestinationUri(URI uri);
 	
 	/**
 	 * Gets the destination address for this message

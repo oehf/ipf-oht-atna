@@ -3,6 +3,8 @@ package org.openhealthtools.ihe.atna.test;
 import io.vertx.core.Verticle;
 import io.vertx.ext.unit.Async;
 
+import java.util.concurrent.CountDownLatch;
+
 /**
  *
  */
@@ -25,6 +27,13 @@ public final class SyslogServerFactory {
                                                     String keystorePath, String keystorePassword, Async async){
         return new TCPSyslogServer(port, "REQUIRED", truststorePath, truststorePassword,
                                    keystorePath, keystorePassword, async);
+    }
+
+    public static void createJMSConsumer(String brokerUrl, String queueName, CountDownLatch latch, boolean daemon){
+        Runnable runnable = new JmsAtnaMessageConsumer(latch, brokerUrl, queueName);
+        Thread brokerThread = new Thread(runnable);
+        brokerThread.setDaemon(daemon);
+        brokerThread.start();
     }
 
 }

@@ -70,7 +70,7 @@ public class PAMSourceAuditor extends PIXAuditor
 				receivingFacility, receivingApp, null, EventUtils.getAddressForUrl(pixManagerUri, false), 
 				getHumanRequestor(), 
 				hl7MessageControlId, 
-				new String[] {patientId}, null);
+				new String[] {patientId}, null, null);
 	}
 
 	/**
@@ -101,7 +101,7 @@ public class PAMSourceAuditor extends PIXAuditor
 				receivingFacility, receivingApp, null, EventUtils.getAddressForUrl(pixManagerUri, false), 
 				getHumanRequestor(), 
 				hl7MessageControlId, 
-				new String[] {patientId}, null);
+				new String[] {patientId}, null, null);
 	}
 	
 	/**
@@ -132,6 +132,6 @@ public class PAMSourceAuditor extends PIXAuditor
 				receivingFacility, receivingApp, null, EventUtils.getAddressForUrl(pixManagerUri, false), 
 				getHumanRequestor(), 
 				hl7MessageControlId, 
-				new String[] {patientId}, null);
+				new String[] {patientId}, null, null);
 	}
 }

@@ -53,12 +53,15 @@ public class SVSConsumerAuditor extends IHEAuditor
 	 * @param valueSetUniqueId unique id (OID) of the returned value set
 	 * @param valueSetName name associated with the unique id (OID) of the returned value set
 	 * @param valueSetVersion version of the returned value set
+	 * @param purposesOfUse purpose of use codes (may be taken from XUA token)
+	 * @param userRoles roles of the human user (may be taken from XUA token)
 	 */
 	public void auditRetrieveValueSetEvent(RFC3881EventOutcomeCodes eventOutcome, 
 			String repositoryEndpointUri, 
 			String valueSetUniqueId, String valueSetName, 
 			String valueSetVersion,
-            List<CodedValueType> purposesOfUse)
+            List<CodedValueType> purposesOfUse,
+			List<CodedValueType> userRoles)
 	{
 		if (!isAuditorEnabled()) {
 			return;
@@ -68,7 +71,7 @@ public class SVSConsumerAuditor extends IHEAuditor
 		importEvent.addSourceActiveParticipant(EventUtils.getAddressForUrl(repositoryEndpointUri, false), null, null, EventUtils.getAddressForUrl(repositoryEndpointUri, false), false);
 		importEvent.addDestinationActiveParticipant(getSystemUserId(), getSystemAltUserId(), getSystemUserName(), getSystemNetworkId(), true);
 		if (!EventUtils.isEmptyOrNull(getHumanRequestor())) {
-			importEvent.addHumanRequestorActiveParticipant(getHumanRequestor(), null, null, null);
+			importEvent.addHumanRequestorActiveParticipant(getHumanRequestor(), null, null, userRoles);
 		}
 		importEvent.addValueSetParticipantObject(valueSetUniqueId, valueSetName, valueSetVersion);
 		audit(importEvent);

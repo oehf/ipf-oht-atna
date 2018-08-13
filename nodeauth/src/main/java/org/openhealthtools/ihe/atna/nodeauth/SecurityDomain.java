@@ -277,7 +277,7 @@ public class SecurityDomain implements Cloneable {
      * @throws CertificateException
      * @throws IOException
      */
-    protected void initTrustStore(InputStream truststoreInputStream, char[] truststorePassword) throws SecurityDomainException, NoSuchAlgorithmException, CertificateException, IOException {
+    protected void initTrustStore(InputStream truststoreInputStream, char[] truststorePassword) throws SecurityDomainException, NoSuchAlgorithmException, CertificateException {
         if (null == truststoreInputStream) {
             truststoreInitialized = true;
             logger.warn("Truststore input stream is null.  Using JVM default trust store.");
@@ -323,7 +323,7 @@ public class SecurityDomain implements Cloneable {
      * @throws UnrecoverableKeyException
      * @throws IOException
      */
-    protected void initKeyStore(InputStream keystoreInputStream, char[] keystorePassword) throws SecurityDomainException, NoSuchAlgorithmException, CertificateException, UnrecoverableKeyException, IOException {
+    protected void initKeyStore(InputStream keystoreInputStream, char[] keystorePassword) throws SecurityDomainException, NoSuchAlgorithmException, CertificateException, UnrecoverableKeyException {
         for (int typeIndex = 0; typeIndex < SECURITY_STORE_FORMATS.length; typeIndex++) {
             String storeType = SECURITY_STORE_FORMATS[typeIndex];
             try {

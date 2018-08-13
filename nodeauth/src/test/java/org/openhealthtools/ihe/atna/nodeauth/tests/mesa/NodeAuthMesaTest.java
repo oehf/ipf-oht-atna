@@ -13,7 +13,6 @@
 
 package org.openhealthtools.ihe.atna.nodeauth.tests.mesa;
 
-import org.apache.log4j.BasicConfigurator;
 import org.junit.Before;
 import org.openhealthtools.ihe.atna.nodeauth.SecurityDomain;
 import org.openhealthtools.ihe.atna.nodeauth.context.NodeAuthModuleContext;
@@ -34,8 +33,6 @@ public abstract class NodeAuthMesaTest {
 
     @Before
     public void setUp() throws Exception {
-        // Setup the basic log4j handler
-        BasicConfigurator.configure();
 
         // Set the security domain information
         Properties props = new Properties();

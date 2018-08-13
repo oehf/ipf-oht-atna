@@ -62,7 +62,7 @@ public abstract class AbstractAuditEventMessageImpl implements AuditEventMessage
     /**
      * Date and time the event was generated
      */
-    private final Date eventDateTime = new Date();
+    private final Date eventDateTime;
 
     /**
      * Message destination address
@@ -83,7 +83,8 @@ public abstract class AbstractAuditEventMessageImpl implements AuditEventMessage
     /**
      * Constructor for creating an Audit Event Message
      */
-    protected AbstractAuditEventMessageImpl() {
+    protected AbstractAuditEventMessageImpl(Date timestamp) {
+        eventDateTime = timestamp;
         auditMessage = new AuditMessage();
     }
 
@@ -105,7 +106,7 @@ public abstract class AbstractAuditEventMessageImpl implements AuditEventMessage
     /* (non-Javadoc)
      * @see org.openhealthtools.ihe.atna.auditor.events.AuditEventMessage#setDestinationUri(java.net.URI)
      */
-    public void setDestinationUri(URI uri) throws Exception {
+    public void setDestinationUri(URI uri) {
         if (EventUtils.isEmptyOrNull(uri)) {
             LOGGER.error("The destination URI cannot be null");
             throw new IllegalArgumentException("The destination URI cannot be null");
@@ -264,7 +265,7 @@ public abstract class AbstractAuditEventMessageImpl implements AuditEventMessage
      * @return The Active Participant block created
      */
     protected ActiveParticipantType addActiveParticipant(String userID, String altUserID, String userName,
-                                                         Boolean userIsRequestor, CodedValueType[] roleIdCodes, String networkAccessPointID, RFC3881NetworkAccessPointTypeCodes networkAccessPointTypeCode) {
+                                                         Boolean userIsRequestor, List<CodedValueType> roleIdCodes, String networkAccessPointID, RFC3881NetworkAccessPointTypeCodes networkAccessPointTypeCode) {
         ActiveParticipantType activeParticipantBlock = new ActiveParticipantType();
 
         activeParticipantBlock.setUserID(userID);
@@ -272,7 +273,7 @@ public abstract class AbstractAuditEventMessageImpl implements AuditEventMessage
         activeParticipantBlock.setUserName(userName);
         activeParticipantBlock.setUserIsRequestor(userIsRequestor);
         if (!EventUtils.isEmptyOrNull(roleIdCodes, true)) {
-            activeParticipantBlock.getRoleIDCode().addAll(Arrays.asList(roleIdCodes));
+            activeParticipantBlock.getRoleIDCode().addAll(roleIdCodes);
         }
         activeParticipantBlock.setNetworkAccessPointID(networkAccessPointID);
         if (!EventUtils.isEmptyOrNull(networkAccessPointTypeCode)) {
@@ -385,7 +386,7 @@ public abstract class AbstractAuditEventMessageImpl implements AuditEventMessage
      * @return The Active Participant block created
      */
     protected ActiveParticipantType addActiveParticipant(String userID, String altUserID, String userName,
-                                                         Boolean userIsRequestor, CodedValueType[] roleIdCodes, String networkAccessPointID) {
+                                                         Boolean userIsRequestor, List<CodedValueType> roleIdCodes, String networkAccessPointID) {
         // Does lookup to see if using IP Address or hostname in Network Access Point ID
         return addActiveParticipant(
                 userID, altUserID, userName, userIsRequestor,

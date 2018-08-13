@@ -80,7 +80,7 @@ public class AuditMessage {
     	StringBuilder sb = new StringBuilder();
     	
     	sb.append("<AuditMessage");
-    	sb.append(" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"");
+    	// sb.append(" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"");
     	// sb.append(" xsi:noNamespaceSchemaLocation=\"healthcare-security-audit.xsd\"");
     	sb.append(">");
     	sb.append(eventIdentification.toString(useSpacing));
